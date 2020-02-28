@@ -1,0 +1,80 @@
+---
+layout: post
+title:  "test3"
+date:   2020-02-23 20:55:18 -0500
+tags: test1 test2
+---
+
+```python
+import pandas as pd
+
+df1 = [ 'i like to shop at store a.' , 'he likes to shop at the store b.', 'she is happy to shop at store c.', 'we want to shop at the store d.']
+df2 = [ 'store a', 'store b', 'store c', 'store d' ]
+df3 = [ 'like to', 'likes to shop', 'at store' ]
+
+myDataSet = list(zip(df1,df2))
+df = pd.DataFrame(data = myDataSet, columns=['df1', 'df2'])
+
+def in_statements(val):
+    for statement in df3:
+        if statement in val:
+            color = 'yellow'
+            break
+        else:
+            color = 'black'
+    return 'background-color: %s' % color
+
+df = df.style.applymap(in_statements)
+
+df
+```
+
+
+
+
+<style  type="text/css" >
+    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row0_col0 {
+            background-color:  yellow;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row0_col1 {
+            background-color:  black;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row1_col0 {
+            background-color:  yellow;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row1_col1 {
+            background-color:  black;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row2_col0 {
+            background-color:  yellow;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row2_col1 {
+            background-color:  black;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row3_col0 {
+            background-color:  black;
+        }    #T_68ded368_5a63_11ea_a62b_60f81dcb3b76row3_col1 {
+            background-color:  black;
+        }</style><table id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >df1</th>        <th class="col_heading level0 col1" >df2</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row0_col0" class="data row0 col0" >i like to shop at store a.</td>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row0_col1" class="data row0 col1" >store a</td>
+            </tr>
+            <tr>
+                        <th id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row1_col0" class="data row1 col0" >he likes to shop at the store b.</td>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row1_col1" class="data row1 col1" >store b</td>
+            </tr>
+            <tr>
+                        <th id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row2_col0" class="data row2 col0" >she is happy to shop at store c.</td>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row2_col1" class="data row2 col1" >store c</td>
+            </tr>
+            <tr>
+                        <th id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76level0_row3" class="row_heading level0 row3" >3</th>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row3_col0" class="data row3 col0" >we want to shop at the store d.</td>
+                        <td id="T_68ded368_5a63_11ea_a62b_60f81dcb3b76row3_col1" class="data row3 col1" >store d</td>
+            </tr>
+    </tbody></table>
+
+
+
+
+```python
+
+```
