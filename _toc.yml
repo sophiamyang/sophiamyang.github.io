@@ -5,3 +5,7 @@
   sections:
     - file: markdown
     - file: notebooks
+- file: random
+  sections:
+    - file: markdown
+    - file: notebooks
