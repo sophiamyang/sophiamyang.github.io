@@ -28,7 +28,7 @@ Next is topic modeling. There are two ways to do topic modeling: NMF models and 
 Both NMF and LDA require users to define the number of topics. How do we know how many topics we should put in the model? We can use a grid search and find the optimal parameters (topics, learning rate, etc.) that can optimize the log-likelihood value [5].
 
 The output is a list of topics and their associated words, which can then be used to predict the topic of each file. However, since it is unsupervised, we cannot validate and iterate the model, and the performance of this prediction is often less than ideal. So instead of using the model to predict file topics, my goal for this step is to come up with a list of topics, so that we can use this list of topics to facilitate labeling.
-For the implementations of N-gram analysis and topic modeling, check out [this article](sophiamyang.github.io/_build/html/DS/text/text_basics.html).
+For the implementations of N-gram analysis and topic modeling, check out [this article](https://sophiamyang.github.io/DS/text/text_basics.html).
 
 ## Labeling
 Now, we should have a list of topics produced from the topic modeling. We can then label our files to this list of topics.
