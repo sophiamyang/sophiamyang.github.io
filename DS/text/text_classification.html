@@ -451,7 +451,7 @@
 <p>Next is topic modeling. There are two ways to do topic modeling: NMF models and LDA models. Non-Negative Matrix Factorization (NMF) is a matrix decomposition method, which decomposes a matrix into the product of W and H of non-negative elements. The default method optimizes the distance between the original matrix and WH, i.e., the Frobenius norm [3]. Latent Dirichlet Allocation (LDA) is a generative probabilistic model optimizing the posterior distribution of the topic assignment [4].
 Both NMF and LDA require users to define the number of topics. How do we know how many topics we should put in the model? We can use a grid search and find the optimal parameters (topics, learning rate, etc.) that can optimize the log-likelihood value [5].</p>
 <p>The output is a list of topics and their associated words, which can then be used to predict the topic of each file. However, since it is unsupervised, we cannot validate and iterate the model, and the performance of this prediction is often less than ideal. So instead of using the model to predict file topics, my goal for this step is to come up with a list of topics, so that we can use this list of topics to facilitate labeling.
-For the implementations of N-gram analysis and topic modeling, check out <span class="xref myst">this article</span>.</p>
+For the implementations of N-gram analysis and topic modeling, check out <a class="reference external" href="https://sophiamyang.github.io/DS/text/text_basics.html">this article</a>.</p>
 </div>
 </div>
 <div class="section" id="labeling">
