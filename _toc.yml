@@ -1,11 +1,39 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 - file: intro
-- file: content
-  sections:
-    - file: markdown
-    - file: notebooks
-- file: random
+
+- part: Data Science
+  chapters:
+  - file: DS/basics/basics
+    sections: 
+      - file: DS/basics/git
+      - file: DS/basics/conda
+  - file: DS/dataaccess/dataaccess  
+  - file: DS/etl/etl  
+    sections: 
+      - file: DS/etl/airflow_bigquery 
+  - file: DS/visualization/visualization
+  - file: DS/text/text
+    sections: 
+      - file: DS/text/text_basics
+      - file: DS/text/text_classification
+  - file: DS/timeseries/timeseries
+  - file: DS/survival/survival
+    sections: 
+      - file: DS/survival/survivalanalysis
+  - file: DS/machinelearning/machinelearning
+  - file: DS/deeplearning/deeplearning
+    sections: 
+      - file: DS/deeplearning/input_normalization
+      - file: DS/deeplearning/batch_normalization
+      - file: DS/deeplearning/weight_decay
+      - file: DS/deeplearning/data_augmentation
+  - file: DS/othermodels/othermodels
+    sections: 
+    - file: DS/othermodels/price_sensitivity
+
+
+- part: random
   sections:
     - file: markdown
     - file: notebooks

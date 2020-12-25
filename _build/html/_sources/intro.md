@@ -1,7 +1,6 @@
-Welcome to your Jupyter Book
+Welcome 
 ============================
 
-This is a small sample book to give you a feel for how book content is
-structured.
+Hello! My name is Sophia Yang. I am a Senior Data Scientist. 
 
-Check out the content pages bundled with this sample book to get started.
+Here I keep all my blog posts, notes, and random things. Some of the contents are also published on my [Medium blog](https://sophiamyang.medium.com/). All views are my own. 
