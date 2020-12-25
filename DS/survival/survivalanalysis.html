@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survival analysis using lifelines in Python &#8212; Sophia Yang</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Machine Learning" href="../machinelearning/machinelearning.html" />
+    <link rel="prev" title="Survival Analysis" href="survival.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Sophia Yang</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="survival.html">
+   Survival Analysis
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Content with notebooks
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/survival/survivalanalysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DS/survival/survivalanalysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Survival analysis using lifelines in Python
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#kaplan-meiser-estimate">
+   Kaplan-Meiser Estimate
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nelson-aalen-estimate">
+   Nelson Aalen Estimate
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exponential-model">
+   Exponential model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#weibull-model">
+   Weibull model
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-selection">
+     Model selection
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#survival-regression">
+   Survival regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Exponential model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coxs-proportional-hazard-model">
+     Cox’s proportional hazard model
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pro">
+       Pro
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#con">
+       Con
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#assumptions">
+       Assumptions
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aalen-s-additive-model">
+     Aalen’s additive model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cox-s-time-varying-proportional-hazard-model">
+     Cox’s time varying proportional hazard model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Model selection
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#survival-probability-calibration-plot">
+     Survival probability calibration plot
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#compare-model-fit-statistics">
+     Compare model fit statistics
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#out-of-sample-validation">
+     Out-of-sample validation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#within-sample-validation">
+     Within-sample validation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation">
+     Cross validation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="survival-analysis-using-lifelines-in-python">
+<h1>Survival analysis using lifelines in Python<a class="headerlink" href="#survival-analysis-using-lifelines-in-python" title="Permalink to this headline">¶</a></h1>
+<p>Survival analysis is used for modeling and analyzing survival rate (likely to survive) and hazard rate (likely to die).</p>
+<p>Let’s start with an example:</p>
+<p>Here we load a dataset from the lifelines package. I am only looking at 21 observations in my example. The survival analysis dataset contains two columns: T representing durations, and E representing censoring, whether the death has observed or not. Censoring is what makes survival analysis special. There are events you haven’t observed yet but you can’t drop them from your dataset.</p>
+<p>For example, in our dataset, for the first individual (index 34), he/she has survived until time 33, and the death was observed. But for the individual in index 39, he/she has survived at 61, but the death was not observed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lifelines.datasets</span> <span class="kn">import</span> <span class="n">load_waltons</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_waltons</span><span class="p">()</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">34</span><span class="p">:</span><span class="mi">55</span><span class="p">][[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">]]</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>T</th>
+      <th>E</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>34</th>
+      <td>33.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>54.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>54.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>61.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>61.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>61.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>69.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>69.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>69.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>69.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>69.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>69.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>69.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="kaplan-meiser-estimate">
+<h1>Kaplan-Meiser Estimate<a class="headerlink" href="#kaplan-meiser-estimate" title="Permalink to this headline">¶</a></h1>
+<p>The easiest way to estimate the survival function is through the Kaplan-Meiser Estimator. Equation is shown below .It’s basically counting how many people has died/survived at each time point. <span class="math notranslate nohighlight">\(d_i\)</span> represents number of deaths events at time <span class="math notranslate nohighlight">\(t_i\)</span>, <span class="math notranslate nohighlight">\(n_i\)</span> represents number of people at risk of death at time <span class="math notranslate nohighlight">\(t_i\)</span>.
+Again, use our example of 21 data points, at time 33, one person our of 21 people died. Thus, the survival rate at time 33 is calculated as 1–1/21. At time 54, among the remaining 20 people 2 has died. At time 61, among the remaining 18, 9 has dies. At time 67, we only have 7 people remained and 6 has died. We can see that Kaplan-Meiser Estimator is very easy to understand and easy to compute even by hand.
+<span class="math notranslate nohighlight">\(\hat{S}(t) = \prod_{t_i &lt; t}(1-\frac{d_i}{n_i})\)</span></p>
+<p><span class="math notranslate nohighlight">\(\hat{S}(33) = (1-\frac{1}{21}) = 0.95\)</span><br />
+<span class="math notranslate nohighlight">\(\hat{S}(54) = 0.95 (1-\frac{2}{20}) = 0.86\)</span><br />
+<span class="math notranslate nohighlight">\(\hat{S}(61) = 0.95*0.86* (1-\frac{9}{18}) = 0.43\)</span><br />
+<span class="math notranslate nohighlight">\(\hat{S}(69) = 0.95*0.86*0.43* (1-\frac{6}{7}) = 0.06\)</span></p>
+<p>Here we get the same results if we use the KaplanMeierFitter in lifeline. In addition to the functions below, we can get the event table from kmf.event_table , median survival time (time when 50% of the population has died) from kmf.median_survival_times , and confidence interval of the survival estimates from kmf.confidence_interval_ .</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+<span class="n">kmf</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">kmf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">event_observed</span><span class="o">=</span><span class="n">E</span><span class="p">)</span>
+<span class="n">kmf</span><span class="o">.</span><span class="n">survival_function_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>KM_estimate</th>
+    </tr>
+    <tr>
+      <th>timeline</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>33.0</th>
+      <td>0.952381</td>
+    </tr>
+    <tr>
+      <th>54.0</th>
+      <td>0.857143</td>
+    </tr>
+    <tr>
+      <th>61.0</th>
+      <td>0.428571</td>
+    </tr>
+    <tr>
+      <th>69.0</th>
+      <td>0.061224</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kmf</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;timeline&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/survivalanalysis_4_1.png" src="../../_images/survivalanalysis_4_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="nelson-aalen-estimate">
+<h1>Nelson Aalen Estimate<a class="headerlink" href="#nelson-aalen-estimate" title="Permalink to this headline">¶</a></h1>
+<p>Nelson Aalen estimator estimates hazard rate first with the following equations. <span class="math notranslate nohighlight">\(d_i\)</span> represents number of deaths events at time <span class="math notranslate nohighlight">\(t_i\)</span>, <span class="math notranslate nohighlight">\(n_i\)</span> represents number of people at risk of death at time <span class="math notranslate nohighlight">\(t_i\)</span>. We can get all the harzard rate through simple calculations shown below.</p>
+<p><span class="math notranslate nohighlight">\({\tilde  {H}}(t)=\sum _{{t_{i}\leq t}}{\frac  {d_{i}}{n_{i}}}\)</span></p>
+<p>with <span class="math notranslate nohighlight">\({\displaystyle d_{i}}\)</span> the number of events at <span class="math notranslate nohighlight">\({\displaystyle t_{i}}\)</span> and <span class="math notranslate nohighlight">\({\displaystyle n_{i}}\)</span> the total individuals at risk at <span class="math notranslate nohighlight">\({\displaystyle t_{i}}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\hat{H}(33) = \frac{1}{21} = 0.04\)</span><br />
+<span class="math notranslate nohighlight">\(\hat{H}(54) = \frac{1}{21}+\frac{2}{20} = 0.15\)</span><br />
+<span class="math notranslate nohighlight">\(\hat{H}(61) = \frac{1}{21}+\frac{2}{20}+\frac{9}{18} = 0.65\)</span><br />
+<span class="math notranslate nohighlight">\(\hat{H}(69) = \frac{1}{21}+\frac{2}{20}+\frac{9}{18}+\frac{6}{7} = 1.50\)</span></p>
+<p>Again, we can easily use <code class="docutils literal notranslate"><span class="pre">lifeline</span></code> to get the same results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">NelsonAalenFitter</span>
+<span class="n">naf</span> <span class="o">=</span> <span class="n">NelsonAalenFitter</span><span class="p">(</span><span class="n">nelson_aalen_smoothing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">naf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">event_observed</span><span class="o">=</span><span class="n">E</span><span class="p">)</span>
+<span class="n">naf</span><span class="o">.</span><span class="n">cumulative_hazard_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NA_estimate</th>
+    </tr>
+    <tr>
+      <th>timeline</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>33.0</th>
+      <td>0.047619</td>
+    </tr>
+    <tr>
+      <th>54.0</th>
+      <td>0.147619</td>
+    </tr>
+    <tr>
+      <th>61.0</th>
+      <td>0.647619</td>
+    </tr>
+    <tr>
+      <th>69.0</th>
+      <td>1.504762</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">naf</span><span class="o">.</span><span class="n">plot_cumulative_hazard</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;timeline&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/survivalanalysis_7_1.png" src="../../_images/survivalanalysis_7_1.png" />
+</div>
+</div>
+<p>Kaplan-Meier and Nelson-Aalen models are non-parametic. They are simple to interpret, but no functional form, so that we can’t model a distribution function with it. This is where the exponential model comes handy.</p>
+</div>
+<div class="section" id="exponential-model">
+<h1>Exponential model<a class="headerlink" href="#exponential-model" title="Permalink to this headline">¶</a></h1>
+<p>Exponential distribution is based on the poisson process, where the event occur continuously and independently with a constant event rate 𝜆. Exponential distribution models how much time needed until an event occurs with the pdf 𝑓(𝑡)=𝜆𝑒xp(−𝜆𝑡) and cdf 𝐹(𝑡)=𝑝(𝑇≤𝑡)=1−𝑒xp(−𝜆𝑡).</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f(t) = \lambda e^{(-\lambda t)}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(F(t) = p(T\leq t) = 1- e^{(-\lambda t)}\)</span></p></li>
+<li><p>F(t) probablitiy not surviving pass time t</p></li>
+</ul>
+<p>The cdf of the exponential model indicates the probability not surviving pass time t, but the survival function is the opposite. Thus, for survival function:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s(t) = p(T&gt;t) = 1-p(T\leq t)= 1-F(t) = \exp({-\lambda t})  \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(h(t) = \lambda\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H(t) = \lambda t\)</span></p></li>
+</ul>
+<p>Note that lifelines use the reciprocal of 𝜆, which doesn’t really matter. We can see that the exponential model smoothes out the survival function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">ExponentialFitter</span>
+<span class="n">exf</span> <span class="o">=</span> <span class="n">ExponentialFitter</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ExponentialFitter&#39;</span><span class="p">)</span>
+<span class="n">exf</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="../../_images/survivalanalysis_9_1.png" src="../../_images/survivalanalysis_9_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="weibull-model">
+<h1>Weibull model<a class="headerlink" href="#weibull-model" title="Permalink to this headline">¶</a></h1>
+<p>Exponential distribution is a special case of the Weibull distribution: x~exp(𝜆)~ Weibull (1/𝜆,1). The cdf of the Weibull distribution is 𝐹(𝑡)=1−exp(−(𝑡/𝜆)𝜌)</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span> &lt; 1: failture rate decreases over time</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span> = 1: failture rate is constant (exponential distribution)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span> &lt; 1: failture rate increases over time</p></li>
+</ul>
+<p>Again, we can write the survival function as 1-F(t):</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s(t) = \exp(-(t/\lambda)^\rho)  \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(h(t) =\rho/\lambda (t/\lambda )^{\rho-1}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H(t) = (t/\lambda )^\rho\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">WeibullFitter</span>
+<span class="n">wbf</span> <span class="o">=</span> <span class="n">WeibullFitter</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;WeibullFitter&#39;</span><span class="p">)</span>
+<span class="n">wbf</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="../../_images/survivalanalysis_11_1.png" src="../../_images/survivalanalysis_11_1.png" />
+</div>
+</div>
+<div class="section" id="model-selection">
+<h2>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">¶</a></h2>
+<p>We talked about four types of univariate models: Kaplan-Meier and Nelson-Aalen models are non-parametric models, Exponential and Weibull models are parametric models. There are a lot more other types of parametric models. Which model do we select largely depends on the context and your assumptions. Statistically, we can use QQ plots and AIC to see which model fits the data better. More info see https://lifelines.readthedocs.io/en/latest/Examples.html#selecting-a-parametric-model-using-qq-plots.</p>
+</div>
+</div>
+<div class="section" id="survival-regression">
+<h1>Survival regression<a class="headerlink" href="#survival-regression" title="Permalink to this headline">¶</a></h1>
+<p>The general function of survival regression can be written as:</p>
+<p>hazard = <span class="math notranslate nohighlight">\(\exp(b_0+b_1x_1+b_2x_2...b_kx_k)\)</span></p>
+<p>which represents that hazard is a function of Xs.</p>
+<div class="section" id="id1">
+<h2>Exponential model<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Exponential survival regression is when 𝑏0 is constant.</p>
+</div>
+<div class="section" id="coxs-proportional-hazard-model">
+<h2>Cox’s proportional hazard model<a class="headerlink" href="#coxs-proportional-hazard-model" title="Permalink to this headline">¶</a></h2>
+<p>Cox’s proportional hazard model is when <span class="math notranslate nohighlight">\(b_0\)</span> becomes <span class="math notranslate nohighlight">\(ln(b_0(t))\)</span>, which means the baseline hazard is a function of time.</p>
+<p><span class="math notranslate nohighlight">\(h(t|x)=b_0(t)exp(\sum\limits_{i=1}^n b_ix_i)\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(ℎ(𝑡|𝑥)\)</span> hazard</p></li>
+<li><p><span class="math notranslate nohighlight">\(𝑏_0(𝑡)\)</span> baseline hazard, time-varying</p></li>
+<li><p><span class="math notranslate nohighlight">\(exp(\sum\limits_{i=1}^n b_ix_i)\)</span> partial hazard, time-invariant</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_i\)</span>is often centered to the mean</p></li>
+</ul>
+<div class="section" id="pro">
+<h3>Pro<a class="headerlink" href="#pro" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>can fit survival models without knowing the distribution</p></li>
+<li><p>with censored data, inspecting distributional assumptions can be difficult</p></li>
+<li><p>no need to specify the underlying hazard function, great for estimating covariate effects and hazard ratios.</p></li>
+</ul>
+</div>
+<div class="section" id="con">
+<h3>Con<a class="headerlink" href="#con" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>estimate 𝑏0,…𝑏𝑘 without having to specify 𝑏0(𝑡)</p></li>
+<li><p>can not estimate s(t) and h(t)</p></li>
+</ul>
+</div>
+<div class="section" id="assumptions">
+<h3>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Non-informative censoring
+check: predicting censor by Xs</p></li>
+<li><p>survival times (t) are independent</p></li>
+<li><p>ln(hazard) is linear function of numeric Xs.
+check: residual plots
+fix: transformations</p></li>
+<li><p>Values of Xs don’t change over time.
+fix: add time-varying covariates</p></li>
+<li><p>Harzards are proportional. Hazard ratio between two subjects is constant.
+check: Schoenfeld residuals, proportional hazard test<br />
+fix: add non-linear term, binning the variable, add an interaction term with time, stratification (run model on subgroup), add time-varying covariates.</p></li>
+</ol>
+<p>The most important assumption of Cox’s proportional hazard model is the proportional hazard assumption. But we may not need to care about the proportional hazard assumption. As mentioned in Stensrud (2020), “There are legitimate reasons to assume that all datasets will violate the proportional hazards assumption”.</p>
+<p>Here is an example of the Cox’s proportional hazard model directly from the lifelines webpage (https://lifelines.readthedocs.io/en/latest/Survival%20Regression.html). One thing to note is the exp(coef) , which is called the hazard ratio. The <code class="docutils literal notranslate"><span class="pre">exp(coef)</span></code> of marriage is 0.65, which means that for at any given time, married subjects are 0.65 times as likely to dies as unmarried subjects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lifelines</span> <span class="kn">import</span> <span class="n">CoxPHFitter</span>
+<span class="kn">from</span> <span class="nn">lifelines.datasets</span> <span class="kn">import</span> <span class="n">load_rossi</span>
+<span class="n">rossi_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi_dataset</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s1">&#39;arrest&#39;</span><span class="p">)</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <tbody>
+    <tr>
+      <th>model</th>
+      <td>lifelines.CoxPHFitter</td>
+    </tr>
+    <tr>
+      <th>duration col</th>
+      <td>'week'</td>
+    </tr>
+    <tr>
+      <th>event col</th>
+      <td>'arrest'</td>
+    </tr>
+    <tr>
+      <th>baseline estimation</th>
+      <td>breslow</td>
+    </tr>
+    <tr>
+      <th>number of observations</th>
+      <td>432</td>
+    </tr>
+    <tr>
+      <th>number of events observed</th>
+      <td>114</td>
+    </tr>
+    <tr>
+      <th>partial log-likelihood</th>
+      <td>-658.75</td>
+    </tr>
+    <tr>
+      <th>time fit was run</th>
+      <td>2020-12-25 01:26:30 UTC</td>
+    </tr>
+  </tbody>
+</table>
+</div><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>exp(coef)</th>
+      <th>se(coef)</th>
+      <th>coef lower 95%</th>
+      <th>coef upper 95%</th>
+      <th>exp(coef) lower 95%</th>
+      <th>exp(coef) upper 95%</th>
+      <th>z</th>
+      <th>p</th>
+      <th>-log2(p)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fin</th>
+      <td>-0.38</td>
+      <td>0.68</td>
+      <td>0.19</td>
+      <td>-0.75</td>
+      <td>-0.00</td>
+      <td>0.47</td>
+      <td>1.00</td>
+      <td>-1.98</td>
+      <td>0.05</td>
+      <td>4.40</td>
+    </tr>
+    <tr>
+      <th>age</th>
+      <td>-0.06</td>
+      <td>0.94</td>
+      <td>0.02</td>
+      <td>-0.10</td>
+      <td>-0.01</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>-2.61</td>
+      <td>0.01</td>
+      <td>6.79</td>
+    </tr>
+    <tr>
+      <th>race</th>
+      <td>0.31</td>
+      <td>1.37</td>
+      <td>0.31</td>
+      <td>-0.29</td>
+      <td>0.92</td>
+      <td>0.75</td>
+      <td>2.50</td>
+      <td>1.02</td>
+      <td>0.31</td>
+      <td>1.70</td>
+    </tr>
+    <tr>
+      <th>wexp</th>
+      <td>-0.15</td>
+      <td>0.86</td>
+      <td>0.21</td>
+      <td>-0.57</td>
+      <td>0.27</td>
+      <td>0.57</td>
+      <td>1.30</td>
+      <td>-0.71</td>
+      <td>0.48</td>
+      <td>1.06</td>
+    </tr>
+    <tr>
+      <th>mar</th>
+      <td>-0.43</td>
+      <td>0.65</td>
+      <td>0.38</td>
+      <td>-1.18</td>
+      <td>0.31</td>
+      <td>0.31</td>
+      <td>1.37</td>
+      <td>-1.14</td>
+      <td>0.26</td>
+      <td>1.97</td>
+    </tr>
+    <tr>
+      <th>paro</th>
+      <td>-0.08</td>
+      <td>0.92</td>
+      <td>0.20</td>
+      <td>-0.47</td>
+      <td>0.30</td>
+      <td>0.63</td>
+      <td>1.35</td>
+      <td>-0.43</td>
+      <td>0.66</td>
+      <td>0.59</td>
+    </tr>
+    <tr>
+      <th>prio</th>
+      <td>0.09</td>
+      <td>1.10</td>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.15</td>
+      <td>1.04</td>
+      <td>1.16</td>
+      <td>3.19</td>
+      <td>&lt;0.005</td>
+      <td>9.48</td>
+    </tr>
+  </tbody>
+</table><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <tbody>
+    <tr>
+      <th>Concordance</th>
+      <td>0.64</td>
+    </tr>
+    <tr>
+      <th>Partial AIC</th>
+      <td>1331.50</td>
+    </tr>
+    <tr>
+      <th>log-likelihood ratio test</th>
+      <td>33.27 on 7 df</td>
+    </tr>
+    <tr>
+      <th>-log2(p) of ll-ratio test</th>
+      <td>15.37</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Finally, if the features vary over time, we need to use time varying models, which are more computational taxing but easy to implement in lifelines.</p>
+</div>
+</div>
+<div class="section" id="aalen-s-additive-model">
+<h2>Aalen’s additive model<a class="headerlink" href="#aalen-s-additive-model" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(h(t|x)= b_0(t)+b_1(t)x_1+...b_N(t)x_N\)</span></p>
+</div>
+<div class="section" id="cox-s-time-varying-proportional-hazard-model">
+<h2>Cox’s time varying proportional hazard model<a class="headerlink" href="#cox-s-time-varying-proportional-hazard-model" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(h(t|x)=b_0(t)exp(\sum\limits_{i=1}^n \beta_i(x_i(t)) - \bar{x_i})\)</span></p>
+</div>
+</div>
+<div class="section" id="id2">
+<h1>Model selection<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="survival-probability-calibration-plot">
+<h2>Survival probability calibration plot<a class="headerlink" href="#survival-probability-calibration-plot" title="Permalink to this headline">¶</a></h2>
+<p>The survival probability calibration plot compares simulated data based on your model and the observed data. It provides a straightforward view on how your model fit and deviate from the real data. This is implemented in <code class="docutils literal notranslate"><span class="pre">lifelines</span> <span class="pre">lifelines.survival_probability_calibration</span></code> function.</p>
+</div>
+<div class="section" id="compare-model-fit-statistics">
+<h2>Compare model fit statistics<a class="headerlink" href="#compare-model-fit-statistics" title="Permalink to this headline">¶</a></h2>
+<p>We can run multiple models and compare the model fit statistics (i.e., AIC, log-likelihood, and concordance). Model with a smaller AIC score, a larger log-likelihood, and larger concordance index is the better model.</p>
+</div>
+<div class="section" id="out-of-sample-validation">
+<h2>Out-of-sample validation<a class="headerlink" href="#out-of-sample-validation" title="Permalink to this headline">¶</a></h2>
+<p>We can also evaluate model fit with the out-of-sample data. Here we can investigate the out-of-sample log-likelihood values. This is especially useful when we tune the parameters of a certain model.</p>
+</div>
+<div class="section" id="within-sample-validation">
+<h2>Within-sample validation<a class="headerlink" href="#within-sample-validation" title="Permalink to this headline">¶</a></h2>
+<p>AIC is used when we evaluate model fit with the within-sample validation. Again smaller AIC value is better.</p>
+</div>
+<div class="section" id="cross-validation">
+<h2>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h2>
+<p>K-folds cross validation is also great at evaluating model fit. This is implemented in lifelines lifelines.utils.k_fold_cross_validation function.</p>
+<p>References:<br />
+https://www.youtube.com/watch?v=vX3l36ptrTU<br />
+https://lifelines.readthedocs.io/<br />
+https://stats.stackexchange.com/questions/64739/in-survival-analysis-why-do-we-use-semi-parametric-models-cox-proportional-haz<br />
+https://stats.stackexchange.com/questions/399544/in-survival-analysis-when-should-we-use-fully-parametric-models-over-semi-param<br />
+https://jamanetwork.com/journals/jama/article-abstract/2763185<br />
+Stensrud MJ, Hernán MA. Why Test for Proportional Hazards? JAMA. Published online March 13, 2020. doi:10.1001/jama.2020.1267</p>
+<p>By Sophia Yang on <a class="reference external" href="https://medium.com/analytics-vidhya/survival-analysis-using-lifelines-in-python-bf5eb0435dec">January 9, 2020</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/survival"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="survival.html" title="previous page">Survival Analysis</a>
+    <a class='right-next' id="next-link" href="../machinelearning/machinelearning.html" title="next page">Machine Learning</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

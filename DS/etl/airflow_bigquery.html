@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Airflow with Google BigQuery and Slack &#8212; Sophia Yang</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Visualization" href="../visualization/visualization.html" />
+    <link rel="prev" title="ETL pipeline" href="etl.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Sophia Yang</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="etl.html">
+   ETL pipeline
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Content with notebooks
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/etl/airflow_bigquery.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#first-task-instance-make-separate-folders-for-each-year-and-month">
+   First task instance: make separate folders for each year and month.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#second-task-instance-download-daily-aggregated-bigquery-data">
+   Second task instance: download daily aggregated Bigquery data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-dependencies-to-the-tasks">
+   Add dependencies to the tasks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-dag">
+   Test DAG
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#activate-dag">
+   Activate DAG
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="airflow-with-google-bigquery-and-slack">
+<h1>Airflow with Google BigQuery and Slack<a class="headerlink" href="#airflow-with-google-bigquery-and-slack" title="Permalink to this headline">¶</a></h1>
+<p>Airflow is an open source tool for creating, scheduling, and monitoring data processing pipelines. Airflow can be installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">airflow</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">airflow</span></code>. Before running airflow, we need to initiate the database <code class="docutils literal notranslate"><span class="pre">airflow</span> <span class="pre">initdb</span></code>.</p>
+<p>Then we can start the airflow webserver, which a python flask app providing the UI of airflow. The default port of the webserver is 8080: <code class="docutils literal notranslate"><span class="pre">airflow</span> <span class="pre">webserver</span> <span class="pre">-p</span> <span class="pre">8080</span></code>. When we open 0.0.0.0:8080 in the browser, we can see a bunch of airflow examples/DAGs.</p>
+<p>DAGs (directed acyclic graphs) represent workflows of multiple tasks with some sort of dependencies among them. The Graph View of a DAG usually shows clearly the logics of the workflow.</p>
+<p>In this example below, I’m interested in working with a BigQuery public dataset, San Francisco 311 service requests data, and counting how many requests were reported to each agency on a daily basis. Of course, we can run this query directly on BigQuery manually. However, with airflow, we can save the daily count data automatically and never need to worry about it. Here I am saving daily output to a csv file. And there are a lot of things we can do to add onto the daily airflow schedule. Here I am just demonstrating this simple daily aggregation task.</p>
+<p>To start, let’s import some useful python libraries.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="nn">airflow.operators.python_operator</span> <span class="kn">import</span> <span class="n">PythonOperator</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">errno</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span><span class="p">,</span> <span class="n">makedirs</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
+</div>
+<p>Then, we need to decide where we would like all our output files to go. I defined my output paths in a list in the <code class="docutils literal notranslate"><span class="pre">output_path</span></code> variable.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output_path</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;Users&#39;</span><span class="p">,</span> <span class="s1">&#39;YOUR USER NAME&#39;</span><span class="p">,</span><span class="s1">&#39;airflow&#39;</span><span class="p">,</span><span class="s1">&#39;dags&#39;</span><span class="p">,</span><span class="s1">&#39;example&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>One thing I like to do is to send failure messages to slack. Every time when airflow fails to run for a given step, I’d like airflow to send a failure message to slack. Full credit to Christopher Flynn, I adapted <a class="reference external" href="https://flynn.gg/blog/airflow-mods/">his codes</a> to do this step. First, I defined my base url for the web GUI. For local computers, the base url is usually http://0.0.0.0:8080. If you are running the airflow on a server, you should change the url accordingly. Next, I defined a send_slack function, which includes the information I’d like to send in the slack message. Note that you will need to go to the slack website and get a webhook url for the channel you’d like to use. The failure message will be sent directly to this webhook url. No authentication token is needed from slack. Then we need to define some default arguments. The most important thing here is to define ‘on_failure_callback’ as send_slack.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define web gui url</span>
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="s2">&quot;http://0.0.0.0:8080&quot;</span>
+<span class="c1">#define send_slack function</span>
+<span class="k">def</span> <span class="nf">send_slack</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">dag_id</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;dag&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dag_id</span>
+    <span class="n">task_id</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">task_id</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;dag&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">owner</span>
+    <span class="n">dag_run</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s1">&#39;dag_run&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run_id</span>
+    <span class="n">job_id</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s1">&#39;task_instance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">job_id</span>
+    <span class="n">try_number</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s1">&#39;task_instance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">try_number</span>
+    <span class="n">execution_date</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;execution_date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span>
+    <span class="n">log_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{BASE_URL}</span><span class="s2">/admin/airflow/log?task_id=</span><span class="si">{task_id}</span><span class="s2">&amp;dag_id=</span><span class="si">{dag_id}</span><span class="s2">&amp;execution_date=</span><span class="si">{execution_date}</span><span class="s2">&quot;</span>
+    
+    <span class="n">attachment</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;fallback&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{log_url}</span><span class="s2">|View failure log&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;danger&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretext&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{log_url}</span><span class="s2">|View failure log&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;author_name&quot;</span><span class="p">:</span> <span class="n">author</span><span class="p">,</span>
+        <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span>
+           <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Failed task&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;dag_id:</span><span class="si">{dag_id}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            task_id:</span><span class="si">{task_id}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            run_id:</span><span class="si">{dag_run}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            job_id:</span><span class="si">{job_id}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            try_number:</span><span class="si">{try_number}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;short&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}]}</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;attachments&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">attachment</span><span class="p">]}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;COPY AND PASTE SLACK WEBHOOK URL HERE&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">response</span>
+
+<span class="c1">#define default arguments</span>
+<span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;owner&#39;</span><span class="p">:</span> <span class="s1">&#39;airflow&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;depends_on_past&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="s1">&#39;on_failure_callback&#39;</span><span class="p">:</span> <span class="n">send_slack</span><span class="p">,</span>
+    <span class="s1">&#39;retries&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;retry_delay&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
+</pre></div>
+</div>
+<p>Finally, we can define our DAG.</p>
+<p>Let’s name our DAG as ‘example’ here and set the schedule interval as daily.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dag</span> <span class="o">=</span> <span class="n">DAG</span><span class="p">(</span>
+    <span class="s1">&#39;example&#39;</span><span class="p">,</span>
+    <span class="n">default_args</span> <span class="o">=</span> <span class="n">default_args</span><span class="p">,</span>
+    <span class="n">schedule_interval</span><span class="o">=</span><span class="s1">&#39;@daily&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then we can add task instances to our DAG.</p>
+<div class="section" id="first-task-instance-make-separate-folders-for-each-year-and-month">
+<h2>First task instance: make separate folders for each year and month.<a class="headerlink" href="#first-task-instance-make-separate-folders-for-each-year-and-month" title="Permalink to this headline">¶</a></h2>
+<p>I defined a make_folder function where I make the year and month folders of the current execution date if they are not already exist. Then I used a airflow PythonOperator to call on this function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Make separate folders for each execution</span>
+<span class="k">def</span> <span class="nf">make_folder</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">query_date</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;execution_date&#39;</span><span class="p">)</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span> <span class="p">[</span><span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">)]</span><span class="o">+</span><span class="p">[</span><span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m&#39;</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
+        <span class="n">makedirs</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">make_folder</span> <span class="o">=</span> <span class="n">PythonOperator</span><span class="p">(</span>
+    <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;make_folder&#39;</span><span class="p">,</span>
+    <span class="n">python_callable</span><span class="o">=</span><span class="n">make_folder</span><span class="p">,</span>
+    <span class="n">provide_context</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is just my way of organization output files. I’d like to have a separate folder for each month. And then later I can output all my daily output files to the corresponding month folder.</p>
+<p><img alt="" src="../../_images/airflow_bigquery.png" /></p>
+</div>
+<div class="section" id="second-task-instance-download-daily-aggregated-bigquery-data">
+<h2>Second task instance: download daily aggregated Bigquery data<a class="headerlink" href="#second-task-instance-download-daily-aggregated-bigquery-data" title="Permalink to this headline">¶</a></h2>
+<p>I defined a download_aggregated_bigquery_data function and used a PythonOperator to call this function. In my function, I basically used BigQuery command line language to query the dataset and do the aggregation. I set the query data as a parameter, so that it can query different dates everyday.</p>
+<p>Note that airflow has a built-in BigQueryOperator. However, I couldn’t find how to output the results to a csv file or other format of files stored outside of BigQuery. Because usually I need to do either visualization or modeling outside of BigQuery, it is important for me to save the output data somewhere on my computer or on the server. Let me know if you know how to do this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download_aggregated_bigquery_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">query_date</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;execution_date&#39;</span><span class="p">)</span>
+    
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;&quot;bq --format=csv query </span><span class="se">\</span>
+<span class="s2">    --max_rows=1000000000 </span><span class="se">\</span>
+<span class="s2">    --use_legacy_sql=false</span><span class="se">\</span>
+<span class="s2">    --parameter=&#39;query_date:TIMESTAMP:</span><span class="si">{0}</span><span class="s2">&#39; </span><span class="se">\</span>
+<span class="s2">    &#39;</span>
+<span class="s2">    SELECT agency_name, count(*) as counts from `bigquery-public-data.san_francisco_311.311_service_requests`</span>
+<span class="s2">    WHERE CAST(created_date as DATE) = CAST(@query_date AS DATE)</span>
+<span class="s2">    GROUP BY agency_name</span>
+<span class="s2">    &#39; &gt; </span><span class="si">{1}</span><span class="s2">/</span><span class="si">{2}</span><span class="s2">-</span><span class="si">{3}</span><span class="s2">-</span><span class="si">{4}</span><span class="s2">_bigquery.csv&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">query_date</span><span class="p">,</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="o">+</span><span class="p">[</span><span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">)]</span><span class="o">+</span> <span class="p">[</span><span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m&#39;</span><span class="p">)]),</span>
+        <span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">),</span>
+        <span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m&#39;</span><span class="p">),</span>
+        <span class="n">query_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">download_aggregated_bigquery_data</span><span class="o">=</span> <span class="n">PythonOperator</span><span class="p">(</span>
+    <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;download_aggregated_bigquery_data&#39;</span><span class="p">,</span>
+    <span class="n">python_callable</span><span class="o">=</span><span class="n">download_aggregated_bigquery_data</span><span class="p">,</span>
+    <span class="n">provide_context</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-dependencies-to-the-tasks">
+<h2>Add dependencies to the tasks<a class="headerlink" href="#add-dependencies-to-the-tasks" title="Permalink to this headline">¶</a></h2>
+<p>I would like to make the folder first, and then download the aggregated bigquery data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_folder</span><span class="o">.</span><span class="n">set_downstream</span><span class="p">(</span><span class="n">download_aggregated_bigquery_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a very basic example demonstration how to use airflow with slack and BigQuery. Normally after getting the data from BigQuery, users can add more task instances to do more data processing, visualization, and modeling.</p>
+</div>
+<div class="section" id="test-dag">
+<h2>Test DAG<a class="headerlink" href="#test-dag" title="Permalink to this headline">¶</a></h2>
+<p>I normally test each of the instances before running the whole DAG. We can run the following commands. The format is <code class="docutils literal notranslate"><span class="pre">airflow</span> <span class="pre">test</span> <span class="pre">dag_id</span> <span class="pre">task_id</span> <span class="pre">execution_date</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">airflow</span> <span class="n">test</span> <span class="n">example</span> <span class="n">make_folder</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>
+<span class="n">airflow</span> <span class="n">test</span> <span class="n">example</span> <span class="n">download_aggregated_bigquery_data</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="activate-dag">
+<h2>Activate DAG<a class="headerlink" href="#activate-dag" title="Permalink to this headline">¶</a></h2>
+<p>Now we can to turn on the airflow scheduler and activate the DAG we just defined. Note that airflow webserver and airflow scheduler are two completely separate things. Even though you see the DAG on the webserver, it won’t run until you click the pause button to turn it to ‘on’ on the webserver and run <code class="docutils literal notranslate"><span class="pre">airflow</span> <span class="pre">scheduler</span></code> in the command line.</p>
+<p>By Sophia Yang on <a class="reference external" href="https://sophiamyang.medium.com/airflow-with-google-bigquery-and-slack-messaging-9ffa643e29ef">December 8, 2018</a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/etl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="etl.html" title="previous page">ETL pipeline</a>
+    <a class='right-next' id="next-link" href="../visualization/visualization.html" title="next page">Visualization</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git workflow for data scientist &#8212; Sophia Yang</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Conda environment 101" href="conda.html" />
+    <link rel="prev" title="Basics" href="basics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Sophia Yang</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="basics.html">
+   Basics
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="conda.html">
+     Conda environment 101
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Content with notebooks
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/basics/git.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-1-git-clone">
+   Step 1: git clone
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-fork-the-team-project-you-are-going-to-work-on">
+   Step 2: Fork the team project you are going to work on
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-add-the-forked-repository">
+   Step 3: Add the forked repository.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-4-create-a-new-branch">
+   Step 4: Create a new branch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-5-write-your-code-and-commit-your-changes">
+   Step 5: Write your code and commit your changes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-6-git-push">
+   Step 6: git push
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-7-pull-request">
+   Step 7: pull request
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#alternative-approach">
+   Alternative approach
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="git-workflow-for-data-scientist">
+<h1>Git workflow for data scientist<a class="headerlink" href="#git-workflow-for-data-scientist" title="Permalink to this headline">¶</a></h1>
+<p><em>Github 101 for team projects</em></p>
+<p><img alt="" src="../../_images/ali-nafezarefi-62H_swdrc4A-unsplash.jpg" />
+<em>Photo by ali nafezarefi on Unsplash</em></p>
+<p>If you are working by yourself, then <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone,</span> <span class="pre">git</span> <span class="pre">status,</span> <span class="pre">git</span> <span class="pre">add,</span> <span class="pre">git</span> <span class="pre">commit,</span> <span class="pre">git</span> <span class="pre">push</span></code> would probably be sufficient for your work. However, if you ever work on a team project with other data scientists and software engineers, it is better to use forks and branches. Here is the git workflow for you if you are on a team project:</p>
+<div class="section" id="step-1-git-clone">
+<h2>Step 1: git clone<a class="headerlink" href="#step-1-git-clone" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to git clone your team’s project to your local machine, and then get in the project folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">team</span><span class="o">/</span><span class="n">team</span><span class="o">-</span><span class="n">project</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">team</span><span class="o">-</span><span class="n">project</span> 
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2-fork-the-team-project-you-are-going-to-work-on">
+<h2>Step 2: Fork the team project you are going to work on<a class="headerlink" href="#step-2-fork-the-team-project-you-are-going-to-work-on" title="Permalink to this headline">¶</a></h2>
+<p>It’s better if you commit your changes to a local branch and push the branch to your own fork. If everyone uses branches on the team project repository, there will be too many branches and become unmanageable. So fork your team project by going to the project page and click the “Fork” button on the top right of the page.</p>
+<p><img alt="alt text" src="../../_images/fork.png" /></p>
+</div>
+<div class="section" id="step-3-add-the-forked-repository">
+<h2>Step 3: Add the forked repository.<a class="headerlink" href="#step-3-add-the-forked-repository" title="Permalink to this headline">¶</a></h2>
+<p>Next, we add your forked repository and give it a name, e.g., “your-username”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">your</span><span class="o">-</span><span class="n">username</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">username</span><span class="o">/</span><span class="n">team</span><span class="o">-</span><span class="n">project</span><span class="o">.</span><span class="n">git</span> 
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-4-create-a-new-branch">
+<h2>Step 4: Create a new branch<a class="headerlink" href="#step-4-create-a-new-branch" title="Permalink to this headline">¶</a></h2>
+<p>Before we create a new branch, we should typically be in the main branch (Github default was master. Now the default is main). First, we check which branch we are in. If we are in main, then git pull to get all the up-to-date files. Then, we can create and check out a new branch called “your-newbranch”. Now you should be in the branch “your-newbranch”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># list all branches </span>
+<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">a</span>
+<span class="c1"># pull in all the changes from main</span>
+<span class="n">git</span> <span class="n">pull</span>
+<span class="c1"># create and checkout a new branch for your work </span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">your</span><span class="o">-</span><span class="n">newbranch</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-5-write-your-code-and-commit-your-changes">
+<h2>Step 5: Write your code and commit your changes<a class="headerlink" href="#step-5-write-your-code-and-commit-your-changes" title="Permalink to this headline">¶</a></h2>
+<p>Next, we can do some real work in the current branch “your-newbranch”, and then commit our changes. Don’t forget to write meaningful commit messages!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># check status </span>
+<span class="n">git</span> <span class="n">status</span>
+<span class="c1"># add your new code in file your-new-code.py</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">your</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">code</span><span class="o">.</span><span class="n">py</span>
+<span class="c1"># commit your changes</span>
+<span class="n">git</span> <span class="n">commit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-6-git-push">
+<h2>Step 6: git push<a class="headerlink" href="#step-6-git-push" title="Permalink to this headline">¶</a></h2>
+<p>Now we can push the changed new branch to your forked repository. It is important that we set your fork to be the upstream of your branch, so that we can push to your fork and not the team repository directly.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">your</span><span class="o">-</span><span class="n">username</span> <span class="n">your</span><span class="o">-</span><span class="n">newbranch</span> 
+</pre></div>
+</div>
+<p>And then we can go back to the main branch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">main</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-7-pull-request">
+<h2>Step 7: pull request<a class="headerlink" href="#step-7-pull-request" title="Permalink to this headline">¶</a></h2>
+<p>Now if you open your team project repository https://github.com/your-team/team-project, you should see a “pull request” button at the top of the page. You can click on it and make a pull request. Finally, your team can review your work and then merge your work to the main.</p>
+</div>
+<div class="section" id="alternative-approach">
+<h2>Alternative approach<a class="headerlink" href="#alternative-approach" title="Permalink to this headline">¶</a></h2>
+<p>Alternatively, you can git clone your fork instead of the original repository, and set the original repository as upstream, and then git push to the upstream:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># git clone your fork </span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">username</span><span class="o">/</span><span class="n">team</span><span class="o">-</span><span class="n">project</span><span class="o">.</span><span class="n">git</span> 
+<span class="n">cd</span> <span class="n">team</span><span class="o">-</span><span class="n">project</span>
+<span class="c1"># add team repository as upstream</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">upstream</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">team</span><span class="o">/</span><span class="n">team</span><span class="o">-</span><span class="n">project</span><span class="o">.</span><span class="n">git</span>
+<span class="c1"># pull the most up-to-date data from the team repository </span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">main</span>
+<span class="n">git</span> <span class="n">pull</span> <span class="n">upstream</span> <span class="n">main</span>
+<span class="c1"># commit your changes to your-newbranch </span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">your</span><span class="o">-</span><span class="n">newbranch</span>
+<span class="o">...</span> <span class="p">(</span><span class="n">make</span> <span class="n">changes</span><span class="p">)</span>
+<span class="n">git</span> <span class="n">commit</span>
+<span class="c1"># push your changes to your fork</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">your</span><span class="o">-</span><span class="n">newbranch</span>
+</pre></div>
+</div>
+<p>Now you know how to use git to work on a team project. Hope you enjoy it!</p>
+<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/git-workflow-for-data-scientists-c75445f23f44">December 18, 2020</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="basics.html" title="previous page">Basics</a>
+    <a class='right-next' id="next-link" href="conda.html" title="next page">Conda environment 101</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
