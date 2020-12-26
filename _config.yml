@@ -5,7 +5,7 @@
 
 #######################################################################################
 # Book settings
-title                       : Sophia Yang  # The title of the book. Will be placed in the left navbar.
+title                       : Ph.D. | Sr. Data Scientist  # The title of the book. Will be placed in the left navbar.
 author                      : Sophia Yang  # The author of the book
 copyright                   : "2020"  # Copyright year to be placed in the footer
-logo                        : logo.png  # A path to the book logo
+logo                        : name.png  # A path to the book logo
