@@ -8,11 +8,22 @@
     sections: 
       - file: DS/basics/git
       - file: DS/basics/conda
-  - file: DS/dataaccess/dataaccess  
+      - file: DS/basics/profiling
+      - file: DS/basics/intro
+  - file: DS/dataaccess/dataaccess 
+    sections: 
+      - file: DS/dataaccess/metabase
+      - file: DS/dataaccess/stripe
+      - file: DS/dataaccess/salesforce
+      - file: DS/dataaccess/intercom 
+      - file: DS/dataaccess/marketo 
   - file: DS/etl/etl  
     sections: 
       - file: DS/etl/airflow_bigquery 
   - file: DS/visualization/visualization
+    sections: 
+      - file: DS/visualization/landscape 
+      - file: DS/visualization/multiline
   - file: DS/text/text
     sections: 
       - file: DS/text/text_basics
@@ -34,9 +45,15 @@
   - file: DS/othermodels/othermodels
     sections: 
     - file: DS/othermodels/price_sensitivity
+    - file: DS/othermodels/clv
+  - file: DS/optimization/optimization
+    sections: 
+    - file: DS/optimization/descentmethod1
+    - file: DS/optimization/descentmethod2
 
 
 - part: random
   sections:
+    - file: random/pypowerup
     - file: markdown
     - file: notebooks
