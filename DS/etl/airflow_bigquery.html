@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Airflow with Google BigQuery and Slack &#8212; Sophia Yang</title>
+    <title>Airflow with Google BigQuery and Slack &#8212; Ph.D. | Sr. Data Scientist</title>
     
   <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -76,10 +76,10 @@
         <div class="navbar-brand-box">
 <a class="navbar-brand text-wrap" href="../../index.html">
   
-  <img src="../../_static/logo.png" class="logo" alt="logo">
+  <img src="../../_static/name.png" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">Sophia Yang</h1>
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
   
 </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -416,20 +416,20 @@
     <span class="n">job_id</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s1">&#39;task_instance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">job_id</span>
     <span class="n">try_number</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s1">&#39;task_instance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">try_number</span>
     <span class="n">execution_date</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;execution_date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)</span>
-    <span class="n">log_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{BASE_URL}</span><span class="s2">/admin/airflow/log?task_id=</span><span class="si">{task_id}</span><span class="s2">&amp;dag_id=</span><span class="si">{dag_id}</span><span class="s2">&amp;execution_date=</span><span class="si">{execution_date}</span><span class="s2">&quot;</span>
+    <span class="n">log_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_URL</span><span class="si">}</span><span class="s2">/admin/airflow/log?task_id=</span><span class="si">{</span><span class="n">task_id</span><span class="si">}</span><span class="s2">&amp;dag_id=</span><span class="si">{</span><span class="n">dag_id</span><span class="si">}</span><span class="s2">&amp;execution_date=</span><span class="si">{</span><span class="n">execution_date</span><span class="si">}</span><span class="s2">&quot;</span>
     
     <span class="n">attachment</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;fallback&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{log_url}</span><span class="s2">|View failure log&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fallback&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="n">log_url</span><span class="si">}</span><span class="s2">|View failure log&gt;&quot;</span><span class="p">,</span>
         <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;danger&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pretext&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{log_url}</span><span class="s2">|View failure log&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretext&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="n">log_url</span><span class="si">}</span><span class="s2">|View failure log&gt;&quot;</span><span class="p">,</span>
         <span class="s2">&quot;author_name&quot;</span><span class="p">:</span> <span class="n">author</span><span class="p">,</span>
         <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span>
            <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Failed task&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;dag_id:</span><span class="si">{dag_id}</span><span class="s2">;</span><span class="se">\</span>
-<span class="s2">            task_id:</span><span class="si">{task_id}</span><span class="s2">;</span><span class="se">\</span>
-<span class="s2">            run_id:</span><span class="si">{dag_run}</span><span class="s2">;</span><span class="se">\</span>
-<span class="s2">            job_id:</span><span class="si">{job_id}</span><span class="s2">;</span><span class="se">\</span>
-<span class="s2">            try_number:</span><span class="si">{try_number}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;dag_id:</span><span class="si">{</span><span class="n">dag_id</span><span class="si">}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            task_id:</span><span class="si">{</span><span class="n">task_id</span><span class="si">}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            run_id:</span><span class="si">{</span><span class="n">dag_run</span><span class="si">}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            job_id:</span><span class="si">{</span><span class="n">job_id</span><span class="si">}</span><span class="s2">;</span><span class="se">\</span>
+<span class="s2">            try_number:</span><span class="si">{</span><span class="n">try_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="s2">&quot;short&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}]}</span>
     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;attachments&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">attachment</span><span class="p">]}</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;COPY AND PASTE SLACK WEBHOOK URL HERE&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
