@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time series analysis using Prophet in Python — Part 1: Math explained &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation" href="timeseries2.html" />
+    <link rel="prev" title="Time Series Analysis" href="timeseries.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="timeseries2.html">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Content with notebooks
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/timeseries/timeseries1.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trend-model">
+   1. Trend model
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-trend-model">
+     Logistic trend model
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#carrying-capacity-can-change-over-time">
+       Carrying capacity can change over time
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#growth-rate-can-change-overtime">
+       Growth rate can change overtime
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#linear-trend-model">
+     Linear trend model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parameters">
+     Parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#seasonality">
+   2. Seasonality
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#holiday-model">
+   3. Holiday model
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#final-model">
+   Final model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-the-parameters-we-can-tune-in-prophet">
+   What are the parameters we can tune in Prophet?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#growth">
+     1. growth
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changepoint-prior-scale">
+     2. changepoint prior scale
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changepoint-range">
+     3. changepoint range:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#seasonality-prior-scale">
+     4. seasonality prior scale
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#holidays-prior-scale">
+     5. holidays_prior_scale
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#seasonality-mode">
+     6. seasonality_mode
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#yearly-seasonality">
+     7. yearly_seasonality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#weekly-seasonality">
+     8. weekly_seasonality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-features">
+     Other features:
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#locations-of-changepoints">
+       1. Locations of changepoints
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#speficy-seasonalities">
+       2. Speficy seasonalities
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-regressors">
+       3. Additional regressors
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#uncertainty">
+       4.Uncertainty
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="time-series-analysis-using-prophet-in-python-part-1-math-explained">
+<h1>Time series analysis using Prophet in Python — Part 1: Math explained<a class="headerlink" href="#time-series-analysis-using-prophet-in-python-part-1-math-explained" title="Permalink to this headline">¶</a></h1>
+<p>Prophet models time series as a generalized additive model (GAM) combining the trend function, seasonality function, holiday effects, and an error term in one model:</p>
+<p><span class="math notranslate nohighlight">\(y(t) = g(t) + s(t) + h(t) + \epsilon_t \)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(g(t)\)</span> : trend (non-periodic changes)</p></li>
+<li><p><span class="math notranslate nohighlight">\(s(t)\)</span> : seasonality (periodic changes)</p></li>
+<li><p><span class="math notranslate nohighlight">\(h(t)\)</span> : holiday effect</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_t\)</span>: error term, default prior <span class="math notranslate nohighlight">\(\epsilon \sim N(0, 0.5)\)</span></p></li>
+</ul>
+<div class="section" id="trend-model">
+<h2>1. Trend model<a class="headerlink" href="#trend-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logistic-trend-model">
+<h3>Logistic trend model<a class="headerlink" href="#logistic-trend-model" title="Permalink to this headline">¶</a></h3>
+<p>The logistic trend model is based on the logistic growth model:</p>
+<p><span class="math notranslate nohighlight">\(g(t) = \frac{C}{1+\exp{(-k(t-m)}}\)</span></p>
+<ul class="simple">
+<li><p>C: carrying capacity</p></li>
+<li><p>k: growth rate</p></li>
+<li><p>m: offset parameter</p></li>
+</ul>
+<p>Here is an example plotting g(t) with m=0 and t from 0 to 49. As we can see here, carrying capacity and growth rate may change and the resulting logistic growth model will look very differently.</p>
+<p><img alt="" src="../../_images/timeseries1.gif" /></p>
+<p>syntax for the plot:</p>
+<script src="https://gist.github.com/sophiamyang/9eb7c756b9f3c64156da232d1ff442b2.js"></script>
+<div class="section" id="carrying-capacity-can-change-over-time">
+<h4>Carrying capacity can change over time<a class="headerlink" href="#carrying-capacity-can-change-over-time" title="Permalink to this headline">¶</a></h4>
+<p>To indicate that the carrying capacity is a function of time. We can write C as C(t).</p>
+</div>
+<div class="section" id="growth-rate-can-change-overtime">
+<h4>Growth rate can change overtime<a class="headerlink" href="#growth-rate-can-change-overtime" title="Permalink to this headline">¶</a></h4>
+<p>With <span class="math notranslate nohighlight">\(𝛿_𝑗\)</span> change in growth rate at time <span class="math notranslate nohighlight">\(𝑠_𝑗\)</span>, growth rate becomes:</p>
+<p><span class="math notranslate nohighlight">\(k + \sum_{j:t&gt;s_j}{\delta_j}\)</span></p>
+<p>Here is another way to write this equation. We can vectorize the change 𝛅 and create a vector 𝐚(𝑡) to indicate when change happens.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\textbf{a}(t) \in \{0,1\}^s\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a_j(t) = \begin{cases}1 &amp; if  t \ge s_j\\0 &amp; otherwise\end{cases}\)</span></p></li>
+<li><p>growth rate at time t becomes: <span class="math notranslate nohighlight">\(k+\textbf{a}(t)^T\textbf{δ}\)</span></p></li>
+</ul>
+<p>With those two changes, the logistic trend model can be written as:</p>
+<p><span class="math notranslate nohighlight">\(g(t) = \frac{C(t)}{1+\exp{(-(k+\textbf{a}(t)^T\textbf{δ})(t - (m + \textbf{a}(t)^T\gamma)))}}\)</span></p>
+</div>
+</div>
+<div class="section" id="linear-trend-model">
+<h3>Linear trend model<a class="headerlink" href="#linear-trend-model" title="Permalink to this headline">¶</a></h3>
+<p>And similarly, the linear trend model can be written as:</p>
+<p><span class="math notranslate nohighlight">\(g(t) = {(k+\textbf{a}(t)^T\textbf{δ})t + (m + \textbf{a}(t)^T\gamma)}\)</span></p>
+<p>Note that 𝛾 here is to adjust the offset parameter to connect the endpoints of segments.</p>
+</div>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(c(t)\)</span> user defined</p></li>
+<li><p>Prior <span class="math notranslate nohighlight">\(m \sim N(0, 5)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(s_j\)</span> automatically selected</p></li>
+<li><p>Prior <span class="math notranslate nohighlight">\({δ}_j \sim Laplace(0, \tau)\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\tau\)</span> regularizes trend felexibility</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\gamma\)</span> calculated based on other parameters</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="seasonality">
+<h2>2. Seasonality<a class="headerlink" href="#seasonality" title="Permalink to this headline">¶</a></h2>
+<p>Seasonality is modeled based on the Fourier series:</p>
+<p><span class="math notranslate nohighlight">\(s(t) = \sum(a_n\cos(\frac{2\pi nt}{P}) + b_n\sin(\frac{2\pi nt}{P})) = X(t) \beta\)</span></p>
+<ul class="simple">
+<li><p>N: order of Fourier series</p></li>
+<li><p>P: period</p></li>
+</ul>
+<p>Which can be rewritten as 𝑋(𝑡)𝛽 with X(t) and 𝛽 specified as vectors:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X(t) = [\cos(\frac{2\pi 1t}{P}),\sin(\frac{2\pi 1t}{P}), ...\cos(\frac{2\pi Nt}{P}),\sin(\frac{2\pi Nt}{P}) ]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta = [a_1, b_1, ... a_N, b_N]\)</span></p></li>
+</ul>
+<p>Here is an example of the series and how the function changes regarding to a, b, N, and p (assuming a = a1 =… =aN and b = b1 =…= bN for simplicity).</p>
+<p><img alt="" src="../../_images/timeseries2.gif" /></p>
+<p>Syntax for this plot:</p>
+<script src="https://gist.github.com/sophiamyang/835e444fdaa8a23aba6415e79b77abcf.js"></script>
+<div class="section" id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>For yearly seasonality, default N=10, P=365.25</p></li>
+<li><p>For weekly seasonality, default N=3, P=7</p></li>
+<li><p>Prior <span class="math notranslate nohighlight">\(\beta \sim N(0, \sigma^2)\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> regularizes the strength of seasonality</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="holiday-model">
+<h2>3. Holiday model<a class="headerlink" href="#holiday-model" title="Permalink to this headline">¶</a></h2>
+<p>Holiday model models the linear effect of the holidays, which is a vector of dummies (1 indicates holiday and 0 otherwise):</p>
+<p><span class="math notranslate nohighlight">\(Z(t) = [1(t \in D_1),..., 1(t \in D_L)]\)</span></p>
+<p><span class="math notranslate nohighlight">\(h(t) = Z(t)\kappa\)</span></p>
+<div class="section" id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Prior <span class="math notranslate nohighlight">\(\kappa \sim N(0, \nu^2) \sim default N(0, 0.5)\)</span></p>
+</div>
+</div>
+<div class="section" id="final-model">
+<h2>Final model<a class="headerlink" href="#final-model" title="Permalink to this headline">¶</a></h2>
+<p>Combining all three models together, we get the final model for our time series analysis:</p>
+<p><span class="math notranslate nohighlight">\( y|m, \delta, \beta, \kappa,\epsilon,   \sim N(g(t) + s(t) + h(t), \epsilon) \)</span></p>
+<p>Then based on the priors of the parameters and the data, we can find maximum a posterior (MAP) estimates for all parameters.</p>
+</div>
+<div class="section" id="what-are-the-parameters-we-can-tune-in-prophet">
+<h2>What are the parameters we can tune in Prophet?<a class="headerlink" href="#what-are-the-parameters-we-can-tune-in-prophet" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="growth">
+<h3>1. growth<a class="headerlink" href="#growth" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Default: “linear”</p></li>
+<li><p>Alternative: “logistic</p></li>
+</ul>
+</div>
+<div class="section" id="changepoint-prior-scale">
+<h3>2. changepoint prior scale<a class="headerlink" href="#changepoint-prior-scale" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\tau\)</span></p></li>
+<li><p>Default: 0.05</p></li>
+<li><p>Higher value means more changepoints and more flexible trend</p></li>
+</ul>
+</div>
+<div class="section" id="changepoint-range">
+<h3>3. changepoint range:<a class="headerlink" href="#changepoint-range" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Defult: 0.8</p></li>
+<li><p>changepoints only apply to 80% of the data to better project forward and avoid overfitting at the end</p></li>
+</ul>
+</div>
+<div class="section" id="seasonality-prior-scale">
+<h3>4. seasonality prior scale<a class="headerlink" href="#seasonality-prior-scale" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
+<li><p>Default: 10</p></li>
+</ul>
+</div>
+<div class="section" id="holidays-prior-scale">
+<h3>5. holidays_prior_scale<a class="headerlink" href="#holidays-prior-scale" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\nu\)</span></p></li>
+<li><p>Default: 10</p></li>
+<li><p>Lower values means lower holiday effects. Reduce the value to avoid overfitting of the holiday effect.</p></li>
+</ul>
+</div>
+<div class="section" id="seasonality-mode">
+<h3>6. seasonality_mode<a class="headerlink" href="#seasonality-mode" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Default: “additive”, i.e., <span class="math notranslate nohighlight">\(g(t) + s(t)\)</span></p></li>
+<li><p>Alternative : “multiplicative”, grows with the trend, i.e., <span class="math notranslate nohighlight">\(g(t)*s(t)\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="yearly-seasonality">
+<h3>7. yearly_seasonality<a class="headerlink" href="#yearly-seasonality" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Order of the Fourier series</p></li>
+<li><p>Default: False; if yearly_seasonality=True, default 10</p></li>
+<li><p>Higher value corresponds to higer frequent changes</p></li>
+</ul>
+</div>
+<div class="section" id="weekly-seasonality">
+<h3>8. weekly_seasonality<a class="headerlink" href="#weekly-seasonality" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Order of the Fourier series</p></li>
+<li><p>Default: 3</p></li>
+<li><p>Higher value corresponds to higer frequent changes</p></li>
+</ul>
+</div>
+<div class="section" id="other-features">
+<h3>Other features:<a class="headerlink" href="#other-features" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="locations-of-changepoints">
+<h4>1. Locations of changepoints<a class="headerlink" href="#locations-of-changepoints" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>automatic detected</p></li>
+<li><p>can be specified using <code class="docutils literal notranslate"><span class="pre">changepoints</span> <span class="pre">=</span> <span class="pre">[dates]</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="speficy-seasonalities">
+<h4>2. Speficy seasonalities<a class="headerlink" href="#speficy-seasonalities" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Defaults: weekly and yearly seasonalities</p></li>
+<li><p>can add additional seasonalities (e.g., monthly) using <code class="docutils literal notranslate"><span class="pre">add_seasonality</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="additional-regressors">
+<h4>3. Additional regressors<a class="headerlink" href="#additional-regressors" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>we can add additional regressors using <code class="docutils literal notranslate"><span class="pre">add_regressor</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="uncertainty">
+<h4>4.Uncertainty<a class="headerlink" href="#uncertainty" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Trend: we assume similiar trend changes in the future. Higher changepoint prior scale lead to higher uncertainty.</p></li>
+<li><p>Seasonality: we need to use MCMC sampling to get the uncertainty in seasonality
+Next, I am going to show you how to use Prophet and how to tune your model in practice. Check it out!</p></li>
+</ul>
+<p>References:<br />
+https://peerj.com/preprints/3190.pdf<br />
+https://facebook.github.io/prophet/docs/quick_start.html</p>
+<p>By Sophia Yang on <a class="reference external" href="https://medium.com/analytics-vidhya/time-series-analysis-using-prophet-in-python-part-1-math-explained-5936509c175c">July 8, 2020</a></p>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/timeseries"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="timeseries.html" title="previous page">Time Series Analysis</a>
+    <a class='right-next' id="next-link" href="timeseries2.html" title="next page">Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

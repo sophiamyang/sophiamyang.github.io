@@ -1,0 +1,569 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Survival Analysis" href="../survival/survival.html" />
+    <link rel="prev" title="Time series analysis using Prophet in Python — Part 1: Math explained" href="timeseries1.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="timeseries1.html">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Content with notebooks
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/timeseries/timeseries2.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataset">
+   Dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-prophet-model">
+   Basic Prophet model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-fit">
+   Model fit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hyperparameter-tuning">
+   Hyperparameter tuning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parallel-computing">
+   Parallel computing
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation">
+     Cross-validation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Hyperparameter tuning
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="time-series-analysis-using-prophet-in-python-part-2-hyperparameter-tuning-and-cross-validation">
+<h1>Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation<a class="headerlink" href="#time-series-analysis-using-prophet-in-python-part-2-hyperparameter-tuning-and-cross-validation" title="Permalink to this headline">¶</a></h1>
+<p>In the previous article, we explained all the math behind Prophet. This article, I am going to show you how to use Prophet in practice and how to do hyperparameter tuning.</p>
+<div class="section" id="dataset">
+<h2>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start with a real time series dataset. Since we are using Prophet, let’s see how many times Prophet has downloaded from PyPI. Here we get the daily download counts by running this Google Bigquery command in subprocess (Note that you’ll need to install Google Cloud SDK https://cloud.google.com/sdk/docs/downloads-yum to be able to run the bq command to query data from Bigquery):</p>
+<script src="https://gist.github.com/sophiamyang/084b141461dbc7d31402731a2873c92a.js"></script>
+<p>Let’s load the data. Here we can see that there are 637 observations. The date is from 2018–10–01 to 2020–06–30 as we have defined in the query. The max number of daily downloads is 32258. (We didn’t query any data before 2018–10–01 is because data before that is not reliable in PyPI).</p>
+<p><img alt="" src="../../_images/p1.png" /></p>
+</div>
+<div class="section" id="basic-prophet-model">
+<h2>Basic Prophet model<a class="headerlink" href="#basic-prophet-model" title="Permalink to this headline">¶</a></h2>
+<p>Now we can run Prophet on our data. First, we need to make sure that our date is in the datetime format by running pd.to_datetime. Second, we need to rename the columns to ds and y , which are the required names by Prophet.</p>
+<p>Then, we can instantiating a Prophet object m, fit the our data into the model, make future predictions, plot the prediction, and run cross validation to inspect the model fit.</p>
+<script src="https://gist.github.com/sophiamyang/4deaf1991927b96f35e3425d83f534c4.js"></script>
+<p><img alt="fig1" src="../../_images/p2.png" />
+<em>fig1</em></p>
+<p><img alt="fig2" src="../../_images/p3.png" />
+<em>fig2</em></p>
+<p>Fig1 shows the general trend and the forecasting trend and Fig2 shows the the trend component and the weekly effect separately. As we can see from the figures, the number of downloads of Prophet grows steadily over time and people download it more on the weekdays.</p>
+</div>
+<div class="section" id="model-fit">
+<h2>Model fit<a class="headerlink" href="#model-fit" title="Permalink to this headline">¶</a></h2>
+<p>Cross validation in Prophet uses historical data and compares the forecasted values with the real values in history. There are three parameters we need to define in the cross_validation function:</p>
+<ul class="simple">
+<li><p>initial: the size of the initial training period, default is 3*horizon</p></li>
+<li><p>period: space between two or more training periods, i.e., cutoff dates, default is 0.5*horizon</p></li>
+<li><p>horizon: forecasting horizon, i.e., how many days are we going to make forecast on.</p></li>
+</ul>
+<p>In our example, since we only have 637 days, I chose smaller values of those parameters. I am using the initial 400 days to predict the next 180 days. The period is not really used here. Because I only have enough data to do the prediction once. If you have lots of data. you may do this 180 day forecast many times and make predictions every 90 days.</p>
+<p>df_p is the performance matrix showing several model fit statistics:</p>
+<ul class="simple">
+<li><p>MS: mean squared error</p></li>
+<li><p>RMSE: root mean squared error</p></li>
+<li><p>MAE: mean absolute error</p></li>
+<li><p>MAPE: mean absolute percent error</p></li>
+<li><p>MDAPE: median absolute percent error</p></li>
+</ul>
+<p><img alt="df_p" src="../../_images/p4.png" />
+<em>df_p</em></p>
+<p>fig3 shows the MAPE for the forecast. The percentage error for this prediction ranges from around 8% to 25%.</p>
+<p><img alt="fig3" src="../../_images/p5.png" /></p>
+</div>
+<div class="section" id="hyperparameter-tuning">
+<h2>Hyperparameter tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this headline">¶</a></h2>
+<p>The previous model did not specify any parameters in the model and uses all the default parameters. If you would like to know what are the default parameters in Prophet, check out my previous <a class="reference external" href="https://sophiamyang.github.io/DS/timeseries/timeseries1.html">article</a>.</p>
+<p>Here we define a param_grid of all the parameters and values we want to loop through, and then calculated the mean value of the performance matrix, and get the best parameter combination in terms of MAPE. The syntax below is based on this <a class="reference external" href="https://nbviewer.jupyter.org/github/ryankarlos/prophet/blob/9e6d9548d1caca27af3367819bab10a65da10392/notebooks/diagnostics.ipynb#Hyperparameter-Optimisation">notebook</a> with few revisions.</p>
+<script src="https://gist.github.com/sophiamyang/d19946e1c135b55e0836e794b7454a0e.js"></script>
+<p>The result shows the best parameter combination for our data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">best</span> <span class="n">param</span> <span class="n">combination</span> <span class="ow">is</span> <span class="p">{</span><span class="s1">&#39;changepoint_prior_scale&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s1">&#39;changepoint_range&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;seasonality_prior_scale&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="s1">&#39;holidays_prior_scale&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;seasonality_mode&#39;</span><span class="p">:</span> <span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="s1">&#39;growth&#39;</span><span class="p">:</span> <span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;yearly_seasonality&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Then we can use this set of parameters in our final model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span> <span class="n">Prophet</span><span class="p">(</span>
+    <span class="n">changepoint_prior_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">changepoint_range</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">seasonality_prior_scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">holidays_prior_scale</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">seasonality_mode</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span>
+    <span class="n">growth</span><span class="o">=</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> 
+    <span class="n">yearly_seasonality</span><span class="o">=</span> <span class="mi">10</span>
+<span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">add_country_holidays</span><span class="p">(</span><span class="n">country_name</span><span class="o">=</span><span class="s1">&#39;US&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">future</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">make_future_dataframe</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span> 
+<span class="n">future</span><span class="p">[</span><span class="s1">&#39;cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60000</span>
+<span class="n">future</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">forecast</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<span class="n">fig21</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast</span><span class="p">)</span>
+<span class="n">fig22</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">plot_components</span><span class="p">(</span><span class="n">forecast</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With our final model, we see a lot more details. The forecasting is actually going down a little bit, although there is a high variance in the trend mostly due to the ups and downs in the changepoints. In addition, we can see the holiday effects, weekly effects, and yearly effects. Looks like for most holidays, the downloads of Prophet decreased and the yearly effect looks like a summer dip.</p>
+<p><img alt="" src="../../_images/p6.png" />
+<img alt="" src="../../_images/p7.png" />
+<img alt="" src="../../_images/p8.png" /></p>
+</div>
+<div class="section" id="parallel-computing">
+<h2>Parallel computing<a class="headerlink" href="#parallel-computing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cross-validation">
+<h3>Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
+<p>The cross validation process can use dask in the backend to do parralell computing. Here are some examples: <a class="reference external" href="https://github.com/dask/dask-examples/blob/master/applications/forecasting-with-prophet.ipynb">example 1</a>, <a class="reference external" href="https://github.com/facebook/prophet/blob/30bcfed91872015ed6b864b29b7886e03e7a87f6/notebooks/diagnostics.ipynb">example 2</a>. Basically, we just need to add <code class="docutils literal notranslate"><span class="pre">parallel=&quot;dask&quot;</span></code> when we call the <code class="docutils literal notranslate"><span class="pre">cross_validation</span></code> function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>  <span class="c1"># connect to the cluster</span>
+<span class="n">df_cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="s1">&#39;400 days&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s1">&#39;90 days&#39;</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="s1">&#39;180 days&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="s2">&quot;dask&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Hyperparameter tuning<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The grid search process can take a long time to run. We can also use dask to distribute the task to multiple workers and speed up the process. Here is a <a class="reference external" href="https://nbviewer.jupyter.org/gist/TomAugspurger/8619e223ea42c922cd655d18d6c96424">notebook</a> showing how to do the hyperparameter tuning in task.
+That’s it! Thanks for reading!</p>
+<p>References:<br />
+https://nbviewer.jupyter.org/github/ryankarlos/prophet/blob/9e6d9548d1caca27af3367819bab10a65da10392/notebooks/diagnostics.ipynb#Hyperparameter-Optimisation<br />
+https://facebook.github.io/prophet/<br />
+https://nbviewer.jupyter.org/github/ryankarlos/prophet/blob/9e6d9548d1caca27af3367819bab10a65da10392/notebooks/diagnostics.ipynb#Hyperparameter-Optimisation<br />
+https://nbviewer.jupyter.org/gist/TomAugspurger/8619e223ea42c922cd655d18d6c96424<br />
+https://github.com/facebook/prophet/issues/1381</p>
+<p>By Sophia Yang on <a class="reference external" href="https://medium.com/analytics-vidhya/time-series-analysis-using-prophet-in-python-part-2-hyperparameter-tuning-and-cross-validation-88e7d831a067">July 9, 2020</a></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/timeseries"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="timeseries1.html" title="previous page">Time series analysis using Prophet in Python — Part 1: Math explained</a>
+    <a class='right-next' id="next-link" href="../survival/survival.html" title="next page">Survival Analysis</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
