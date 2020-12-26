@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pricing research — Van Westendorp’s Price Sensitivity Meter in Python &#8212; Ph.D. | Sr. Data Scientist</title>
+    <title>Customer lifetime value in a discrete-time contractual setting &#8212; Ph.D. | Sr. Data Scientist</title>
     
   <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Customer lifetime value in a discrete-time contractual setting" href="clv.html" />
-    <link rel="prev" title="Other Models" href="othermodels.html" />
+    <link rel="next" title="PyPowerUp" href="../../random/pypowerup.html" />
+    <link rel="prev" title="Pricing research — Van Westendorp’s Price Sensitivity Meter in Python" href="price_sensitivity.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -264,13 +264,13 @@
    Other Models
   </a>
   <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="price_sensitivity.html">
      Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="clv.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Customer lifetime value in a discrete-time contractual setting
     </a>
    </li>
@@ -340,7 +340,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/DS/othermodels/price_sensitivity.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/DS/othermodels/clv.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -365,7 +365,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DS/othermodels/price_sensitivity.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DS/othermodels/clv.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -388,29 +388,111 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#survey">
-   Survey
+  <a class="reference internal nav-link" href="#motivating-question">
+   Motivating question
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   Data
+  <a class="reference internal nav-link" href="#assumptions">
+   Assumptions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#analysis">
-   Analysis
+  <a class="reference internal nav-link" href="#equation">
+   Equation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-key-results-are">
-   The key results are:
+  <a class="reference internal nav-link" href="#example">
+   Example
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#validating-results-with-qualtrics">
-   Validating results with Qualtrics
+  <a class="reference internal nav-link" href="#geometric-beta-model">
+   Geometric-beta model
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#customer-duration-geometric-theta">
+     customer duration ~ geometric(
+     <span class="math notranslate nohighlight">
+      \(\theta\)
+     </span>
+     )
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#theta-sim-beta-alpha-beta">
+     <span class="math notranslate nohighlight">
+      \(\theta \sim beta(\alpha, \beta)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-beta-distribution">
+     Geometric-beta distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#find-the-maximum-likelihood-estimator-for-alpha-and-beta">
+     Find the maximum likelihood estimator for
+     <span class="math notranslate nohighlight">
+      \(\alpha\)
+     </span>
+     and
+     <span class="math notranslate nohighlight">
+      \(\beta\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculate-clv">
+   Calculate CLV
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#given-alpha-and-beta-calculate-survival-rate-for-each-time-point">
+     Given
+     <span class="math notranslate nohighlight">
+      \(\alpha\)
+     </span>
+     and
+     <span class="math notranslate nohighlight">
+      \(\beta\)
+     </span>
+     , calculate survival rate for each time point
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     calculate CLV
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-implementation">
+   Python implementation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-estimation">
+     Maximum likelihood estimation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-fit">
+     Model fit
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Calculate CLV
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -423,38 +505,211 @@
         
               <div>
                 
-  <div class="section" id="pricing-research-van-westendorps-price-sensitivity-meter-in-python">
-<h1>Pricing research — Van Westendorp’s Price Sensitivity Meter in Python<a class="headerlink" href="#pricing-research-van-westendorps-price-sensitivity-meter-in-python" title="Permalink to this headline">¶</a></h1>
-<p><em>Survey design and analysis in Python</em></p>
-<div class="section" id="survey">
-<h2>Survey<a class="headerlink" href="#survey" title="Permalink to this headline">¶</a></h2>
-<p>Van Westendorp’s price sensitivity meter is designed to investigate customer price preferences. The price sensitivity meter survey consists of four questions asking each survey participants to provide four price points of the product when the product is:</p>
+  <div class="section" id="customer-lifetime-value-in-a-discrete-time-contractual-setting">
+<h1>Customer lifetime value in a discrete-time contractual setting<a class="headerlink" href="#customer-lifetime-value-in-a-discrete-time-contractual-setting" title="Permalink to this headline">¶</a></h1>
+<p><em>math and Python implementation</em></p>
+<div class="section" id="motivating-question">
+<h2>Motivating question<a class="headerlink" href="#motivating-question" title="Permalink to this headline">¶</a></h2>
+<p>In a monthly/yearly (i.e., discrete-time) subscription business setting (i.e., contractual), based on our current customer’s characteristics, what is the expected value of a new customer?</p>
 <ul class="simple">
-<li><p>Too cheap (i.e., so inexpensive)</p></li>
-<li><p>Cheap (i.e., a bargain)</p></li>
-<li><p>Expensive</p></li>
-<li><p>Too expensive
-An example of the four questions shows as follows:</p></li>
+<li><p>Note that our setting is a discrete-time contractual setting. If your business model is not subscription based (i.e., non-contractual), please check out the <a class="reference external" href="https://lifetimes.readthedocs.io/en/latest/?badge=latest">lifetimes</a> package in Python.</p></li>
 </ul>
-<p><img alt="" src="../../_images/price_sensitivity.png" />
-<em>Source: Qualtrics</em></p>
 </div>
-<div class="section" id="data">
-<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
-<p>Assuming 20 participants have filled in the survey. Let’s first import needed libraries and read in data from these 20 participants.</p>
+<div class="section" id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>here we only focus on revenue and ignore the customer acquisition cost, and other costs.</p></li>
+</ul>
+</div>
+<div class="section" id="equation">
+<h2>Equation<a class="headerlink" href="#equation" title="Permalink to this headline">¶</a></h2>
+<p>(Fader, Peter, &amp; Bruce (2007a))</p>
+<p>The equation of the expected value of customer life time value is quite straightforward:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E(CLV) = \sum_{n=1}^{\infty} m \frac{s(t)}{(1+d)^t} \)</span></p></li>
+<li><p>m: subscription rate</p></li>
+<li><p>s(t): survival function at time t</p></li>
+<li><p>d: discount rate reflecting the time value of money</p></li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example from the paper Fader, Peter, &amp; Bruce (2007b). Assume we have 1000 customers, at Year 1 (t0) we have all 1000 customers. At Year 2 (t1), only 631 customers are active. And at Year 5, only 326 customers are still active. Assume our subscription rate is $100/year and the discount rate is 10%.</p>
+<ul class="simple">
+<li><p>m = $100/year</p></li>
+<li><p>d = 10%</p></li>
+</ul>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Year 1</p></th>
+<th class="head"><p>Year 2</p></th>
+<th class="head"><p>Year 3</p></th>
+<th class="head"><p>Year 4</p></th>
+<th class="head"><p>Year 5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>1000</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>1000</p></td>
+<td><p>631</p></td>
+<td><p>468</p></td>
+<td><p>382</p></td>
+<td><p>326</p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\( E(CLV) = 100 + 100\frac{0.631}{1.1} + 100\frac{0.468}{1.1^2} + 100\frac{0.382}{1.1^3} + 100\frac{0.326}{1.1^4} + 100\frac{s(5)}{1.1^5} + ... 100\frac{s(n)}{1.1^n} \)</span></p>
+<ul class="simple">
+<li><p>Based on the CLV equation, we can fill in the data and rewrite the equation as shown above.</p></li>
+<li><p>Issue: the only issue is we do not know future survival rate. Thus, we can use the Geometric-beta model to model our data and predict the survival function.</p></li>
+</ul>
+</div>
+<div class="section" id="geometric-beta-model">
+<h2>Geometric-beta model<a class="headerlink" href="#geometric-beta-model" title="Permalink to this headline">¶</a></h2>
+<p>(Fader, Peter, &amp; Bruce (2007a))</p>
+<div class="section" id="customer-duration-geometric-theta">
+<h3>customer duration ~ geometric(<span class="math notranslate nohighlight">\(\theta\)</span>)<a class="headerlink" href="#customer-duration-geometric-theta" title="Permalink to this headline">¶</a></h3>
+<p>We assume that customer duration/lifetime follows a geometric distribution because customers can only churn once.</p>
+<ul class="simple">
+<li><p>probability of churn: <span class="math notranslate nohighlight">\(\theta\)</span></p></li>
+<li><p>probability of retention: <span class="math notranslate nohighlight">\(1-\theta\)</span></p></li>
+<li><p>probability of customer churn at time t: P(T=t|<span class="math notranslate nohighlight">\(\theta\)</span>) = <span class="math notranslate nohighlight">\(\theta(1-\theta)^{t-1}\)</span></p></li>
+<li><p>survival rate at time t: <span class="math notranslate nohighlight">\(S(t|\theta) = (1-\theta)^t\)</span></p></li>
+<li><p>retention rate at time t: <span class="math notranslate nohighlight">\(r(t) = \frac{s(t)}{s(t-1)}\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="theta-sim-beta-alpha-beta">
+<h3><span class="math notranslate nohighlight">\(\theta \sim beta(\alpha, \beta)\)</span><a class="headerlink" href="#theta-sim-beta-alpha-beta" title="Permalink to this headline">¶</a></h3>
+<p>We model the heterogeneity of 𝜃 as a beta distribution. We use beta distribution because it is bounded by the interval [0, 1], and it comes in all possible shapes.</p>
+<ul class="simple">
+<li><p>defined on the interval [0, 1]</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(\theta|\alpha, \beta) = \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)}\)</span>, <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="geometric-beta-distribution">
+<h3>Geometric-beta distribution<a class="headerlink" href="#geometric-beta-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Then we can combine the geometric distribution and the beta distribution and calculate the joint distribution. And through some calculation of Beta functions and Gamma functions, we can calculate the probability of customer churn at any time t and also the retention rate at any time t.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p(T=t|\alpha, \beta) = \int_{0}^{1}p(T=t|\theta)f(\theta|\alpha, \beta)d\theta\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(p(T=1|\alpha, \beta) = \frac{B(\alpha+1, \beta)}{B(\alpha, \beta)} = \frac{\Gamma(\alpha+1)\Gamma(\beta)\Gamma(\alpha+\beta)}{\Gamma(\alpha +\beta+1)\Gamma(\alpha)\Gamma(\beta)} = \frac {\alpha}{\alpha+\beta}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p(T=t|\alpha, \beta) = \frac{\beta+t-2}{\alpha+\beta+t-1}p(T=t-1)\)</span> for t&gt;1</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(r(t) = \frac{\beta+t-1}{\alpha+\beta+t-1}\)</span></p></li>
+<li><p>Likelihood function: probability of losing <span class="math notranslate nohighlight">\(n_1\)</span> customer at t1, losing <span class="math notranslate nohighlight">\(n_2\)</span> customer at t2, … and keep <span class="math notranslate nohighlight">\({n-\sum{n_t}}\)</span> customer at the end of the observed period.
+<span class="math notranslate nohighlight">\(L(\alpha, \beta|data) = p(T=1|\alpha,\beta)^{n_1}p(T=2|\alpha,\beta)^{n_2} ...p(T=n-1|\alpha,\beta)^{n_{(n-1)}} s(T=t|\alpha,\beta)^{n-\sum{n_t}}\)</span></p></li>
+<li><p>Log-likelihood function: <span class="math notranslate nohighlight">\(LL(\alpha, \beta|data)= ln(L(\alpha, \beta|data))\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="find-the-maximum-likelihood-estimator-for-alpha-and-beta">
+<h3>Find the maximum likelihood estimator for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span><a class="headerlink" href="#find-the-maximum-likelihood-estimator-for-alpha-and-beta" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>In order to find the maximum likelihood estimator for our parameters, we then maximize the log-likelihood function or minimize the negative log-likelihood function. Through optimization procedure, we get the MLE values for 𝛼 and 𝛽.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="calculate-clv">
+<h2>Calculate CLV<a class="headerlink" href="#calculate-clv" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="given-alpha-and-beta-calculate-survival-rate-for-each-time-point">
+<h3>Given <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, calculate survival rate for each time point<a class="headerlink" href="#given-alpha-and-beta-calculate-survival-rate-for-each-time-point" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r(t) = \frac{\beta+t-1}{\alpha+\beta+t-1}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(s(t) = 1\)</span> when t = 0</p></li>
+<li><p><span class="math notranslate nohighlight">\(s(t) = r(t)s(t-1)\)</span> when t&gt;0</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>calculate CLV<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>choose a reasonable large number for k</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E(CLV) = \sum_{n=1}^{k} m \frac{s(t)}{(1+d)^t} \)</span></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="python-implementation">
+<h2>Python implementation<a class="headerlink" href="#python-implementation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="maximum-likelihood-estimation">
+<h3>Maximum likelihood estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h3>
+<p>Here is my Python implementation for calculate the log likelihood function, and to optimize the negative log likelihood function. Note that we need to give the parameter an initial value as a starting point for optimization. In our example here, the initial values for 𝛼 and 𝛽 are both 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">hvplot.pandas</span> 
-<span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span> <span class="n">value_and_grad</span><span class="p">,</span> <span class="n">hessian</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">hvplot.pandas</span>
 
-<span class="n">prices</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">350</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">450</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">257</span><span class="p">,</span><span class="mi">109</span><span class="p">,</span><span class="mi">109</span><span class="p">,</span><span class="mi">280</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span>
-          <span class="s1">&#39;Cheap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">150</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">190</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">350</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">460</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">388</span><span class="p">,</span><span class="mi">299</span><span class="p">,</span><span class="mi">129</span><span class="p">,</span><span class="mi">350</span><span class="p">,</span><span class="mi">410</span><span class="p">,</span><span class="mi">260</span><span class="p">,</span><span class="mi">240</span><span class="p">],</span>
-          <span class="s1">&#39;Expensive&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">450</span><span class="p">,</span><span class="mi">350</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">370</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">370</span><span class="p">,</span><span class="mi">490</span><span class="p">,</span><span class="mi">490</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">433</span><span class="p">,</span><span class="mi">399</span><span class="p">,</span><span class="mi">149</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">420</span><span class="p">,</span><span class="mi">270</span><span class="p">,</span><span class="mi">280</span><span class="p">],</span>
-          <span class="s1">&#39;Too Expensive&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span><span class="mi">480</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">490</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">380</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">380</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">140</span><span class="p">,</span><span class="mi">499</span><span class="p">,</span><span class="mi">422</span><span class="p">,</span><span class="mi">199</span><span class="p">,</span><span class="mi">410</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">280</span><span class="p">,</span><span class="mi">300</span><span class="p">],</span>
-        <span class="p">}</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_loglikelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">,</span> <span class="n">return_s</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    params: alpha and beta initial values    </span>
+<span class="sd">    n: total number of people starting at t0</span>
+<span class="sd">    actives: # of people stayed active at each time point starting at t1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">active</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># t: [ 1, 2, ...]</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lost</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ll</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+            <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="p">(</span><span class="n">alpha</span><span class="o">+</span><span class="n">beta</span><span class="p">))</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">lost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">active</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">beta</span><span class="o">+</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">alpha</span><span class="o">+</span><span class="n">beta</span><span class="o">+</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">lost</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">active</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            
+        <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lost</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="c1">#print(&#39;p: &#39;, p[i-1])</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    
+    <span class="c1">#print(&#39;s: &#39;, s[-1])</span>
+    <span class="k">if</span> <span class="n">return_s</span><span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ll</span> 
+    
+<span class="k">def</span> <span class="nf">_negative_log_likelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">_loglikelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">)))</span>       
 </pre></div>
 </div>
 </div>
@@ -1835,174 +2090,136 @@ if (window.Jupyter !== undefined) {
 }
 </script><div class="output text_html"></div></div>
 </div>
-<p>The first five rows of the data frame look like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c1">#init params</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">active</span> <span class="o">=</span> <span class="p">[</span><span class="mi">631</span><span class="p">,</span> <span class="mi">482</span><span class="p">,</span> <span class="mi">382</span><span class="p">,</span> <span class="mi">326</span><span class="p">]</span>
+<span class="c1">#active = [869, 743, 653, 593, 551, 517, 491]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_negative_log_likelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Too Cheap</th>
-      <th>Cheap</th>
-      <th>Expensive</th>
-      <th>Too Expensive</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>100</td>
-      <td>150</td>
-      <td>400</td>
-      <td>500</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>120</td>
-      <td>200</td>
-      <td>400</td>
-      <td>480</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>200</td>
-      <td>250</td>
-      <td>450</td>
-      <td>500</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>200</td>
-      <td>300</td>
-      <td>350</td>
-      <td>400</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>300</td>
-      <td>340</td>
-      <td>400</td>
-      <td>490</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-</div>
-<div class="section" id="analysis">
-<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
-<p>Here I wrote a function to calculate the cumulative percentage of the four questions (Too Cheap, Cheap, Expensive, Too Expensive), plot the four lines, and report on the optimal price and acceptable price range.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">price_sensitivity_meter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="c1"># convert data from wide to long</span>
-    <span class="c1"># calculate frequency of each price for each group</span>
-    <span class="n">df1</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">,</span> <span class="s1">&#39;Cheap&#39;</span><span class="p">,</span> <span class="s1">&#39;Expensive&#39;</span><span class="p">,</span> <span class="s1">&#39;Too Expensive&#39;</span><span class="p">]]</span>
-             <span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
-             <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-             <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;level_0&#39;</span><span class="p">:</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;prices&#39;</span><span class="p">})[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span><span class="s1">&#39;prices&#39;</span><span class="p">]]</span>
-             <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">,</span><span class="s1">&#39;prices&#39;</span><span class="p">])</span>
-             <span class="o">.</span><span class="n">size</span><span class="p">()</span>
-             <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-             <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;frequency&#39;</span><span class="p">})</span>
-            <span class="p">)</span>
-    <span class="c1"># calculate cumsum percentages</span>
-    <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;cumsum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">])[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
-    <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">])[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
-    <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;cumsum&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span>
-    <span class="c1"># convert data from long back to wide</span>
-    <span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="s1">&#39;percentage&#39;</span><span class="p">,</span> <span class="s1">&#39;prices&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">)</span>
-    
-    <span class="c1"># take linear values in missing values</span>
-    <span class="k">if</span> <span class="n">interpolate</span><span class="p">:</span>
-        <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">]</span>
-        <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Cheap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Cheap&#39;</span><span class="p">]</span>
-        <span class="n">plot</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;prices&#39;</span><span class="p">,</span> 
-                          <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">,</span> <span class="s1">&#39;Cheap&#39;</span><span class="p">,</span> <span class="s1">&#39;Expensive&#39;</span><span class="p">,</span> <span class="s1">&#39;Too Expensive&#39;</span><span class="p">],</span>
-                          <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Percentage&#39;</span><span class="p">,</span>
-                          <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
-                          <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span><span class="s1">&#39;lightpink&#39;</span><span class="p">,</span><span class="s1">&#39;crimson&#39;</span><span class="p">]</span>
-                              <span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">legend_position</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
-    
-    <span class="c1"># forward fill </span>
-    <span class="k">else</span><span class="p">:</span> 
-        <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        
-        <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">]</span>
-        <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Cheap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Cheap&#39;</span><span class="p">]</span>
-        <span class="n">plot</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">hvplot</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;prices&#39;</span><span class="p">,</span> 
-                               <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">,</span> <span class="s1">&#39;Cheap&#39;</span><span class="p">,</span> <span class="s1">&#39;Expensive&#39;</span><span class="p">,</span> <span class="s1">&#39;Too Expensive&#39;</span><span class="p">],</span>
-                               <span class="n">where</span><span class="o">=</span><span class="s1">&#39;post&#39;</span><span class="p">,</span>
-                               <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Percentage&#39;</span><span class="p">,</span>
-                               <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
-                               <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span><span class="s1">&#39;lightpink&#39;</span><span class="p">,</span><span class="s1">&#39;crimson&#39;</span><span class="p">]</span>
-                              <span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">legend_position</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
-    <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;optimal_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Expensive&#39;</span><span class="p">])</span>
-    <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;left_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Cheap&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Expensive&#39;</span><span class="p">])</span>
-    <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;right_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Too Expensive&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Cheap&#39;</span><span class="p">])</span>
-    <span class="n">optimal</span> <span class="o">=</span> <span class="n">df3</span><span class="p">[</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;optimal_diff&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">df3</span><span class="p">[</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;left_diff&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">df3</span><span class="p">[</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;right_diff&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    
-
-    <span class="n">optimal_line</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">VLine</span><span class="p">(</span><span class="n">optimal</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-
-    <span class="n">lower_line</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">VLine</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-    <span class="n">upper_line</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">VLine</span><span class="p">(</span><span class="n">upper_bound</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-
-    
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Optimal Price: $</span><span class="si">{</span><span class="n">optimal</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Acceptable Price Range: $</span><span class="si">{</span><span class="n">lower_bound</span><span class="si">}</span><span class="s1"> to $</span><span class="si">{</span><span class="n">upper_bound</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">plot</span> <span class="o">*</span> <span class="n">lower_line</span> <span class="o">*</span> <span class="n">optimal_line</span> <span class="o">*</span> <span class="n">upper_line</span>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1463.67190229294
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here is the output when we run <code class="docutils literal notranslate"><span class="pre">price_sensitivity_meter(df)</span></code>. The x-axis shows the price points, the y-axis shows the percentage of the cumulative frequencies of the prices. If you would like the plot to be more smooth, you can set <code class="docutils literal notranslate"><span class="pre">interpolate=True</span></code>. The default value of interpolate is False in our function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">price_sensitivity_meter</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+        <span class="n">_negative_log_likelihood</span><span class="p">,</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">),</span> <span class="c1">#parameters we do not optimize on </span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">1e-13</span><span class="p">,</span>
+        <span class="n">x0</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="c1">#starting value of params </span>
+        <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)],</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ftol&#39;</span> <span class="p">:</span> <span class="mf">1e-100000000</span><span class="p">},</span>
+    <span class="p">)</span>
+<span class="n">res</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal Price: $300
-Acceptable Price Range: $280 to $350
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      fun: 1409.5002650603922
+ hess_inv: &lt;2x2 LbfgsInvHessProduct with dtype=float64&gt;
+      jac: array([-2.27373674e-05,  0.00000000e+00])
+  message: b&#39;CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH&#39;
+     nfev: 54
+      nit: 13
+     njev: 18
+   status: 0
+  success: True
+        x: array([0.7826705 , 1.35068514])
 </pre></div>
 </div>
+</div>
+</div>
+<p>Through optimization, the optimized negative log likelihood is 1409.5, and the MLE for 𝛼 and 𝛽 are 0.78 and 1.35.</p>
+</div>
+<div class="section" id="model-fit">
+<h3>Model fit<a class="headerlink" href="#model-fit" title="Permalink to this headline">¶</a></h3>
+<p>Here is my function to access model fit. Here I am only comparing the observed and calculated survival rate. You can change this function to compare likelihood function and retention rate as well.
+The first plot here used the initial parameters (1,1) as the model parameter, we can see that the model calculated survival rate is not very ideal. The second plot used the MLE values for the parameters and the model calculated survival rate is very close to the observed survival rate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model_fit_survival</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">active</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">df_plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span> 
+                            <span class="s1">&#39;observed&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">/</span><span class="n">n</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">active</span><span class="p">],</span> 
+                            <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">_loglikelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">,</span> <span class="n">return_s</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+    <span class="k">return</span> <span class="n">df_plot</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,[</span><span class="s1">&#39;observed&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">],</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Survival rate&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using init params (1,1)</span>
+<span class="n">model_fit_survival</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output text_html"><div id='1001'>
 
 
 
 
 
-  <div class="bk-root" id="11f6abb1-b9eb-4e46-998f-3c71866a9894" data-root-id="1001"></div>
+  <div class="bk-root" id="bacf92da-ab7d-424f-b56d-5db83f14a156" data-root-id="1001"></div>
 </div>
 <script type="application/javascript">(function(root) {
   function embed_document(root) {
-    var docs_json = {"9f124525-a7cb-45b0-94fe-0bd311497b1b":{"roots":{"references":[{"attributes":{"text":"","text_color":{"value":"black"},"text_font_size":{"value":"12pt"}},"id":"1010","type":"Title"},{"attributes":{},"id":"1014","type":"LinearScale"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer01823","sizing_mode":"stretch_width"},"id":"1357","type":"Spacer"},{"attributes":{},"id":"1019","type":"BasicTicker"},{"attributes":{"data_source":{"id":"1080"},"glyph":{"id":"1083"},"hover_glyph":null,"muted_glyph":{"id":"1085"},"nonselection_glyph":{"id":"1084"},"selection_glyph":null,"view":{"id":"1087"}},"id":"1086","type":"GlyphRenderer"},{"attributes":{"axis_label":"Percentage","bounds":"auto","formatter":{"id":"1042"},"major_label_orientation":"horizontal","ticker":{"id":"1023"}},"id":"1022","type":"LinearAxis"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer01822","sizing_mode":"stretch_width"},"id":"1002","type":"Spacer"},{"attributes":{"dimension":"height","level":"glyph","line_color":"grey","line_dash":[6],"line_width":0.4,"location":280},"id":"1224","type":"Span"},{"attributes":{},"id":"1122","type":"UnionRenderers"},{"attributes":{},"id":"1028","type":"WheelZoomTool"},{"attributes":{"source":{"id":"1080"}},"id":"1087","type":"CDSView"},{"attributes":{"dimension":"height","level":"glyph","line_color":"blue","line_dash":[6],"line_width":0.4,"location":300},"id":"1227","type":"Span"},{"attributes":{"axis":{"id":"1022"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1025","type":"Grid"},{"attributes":{"axis_label":"prices","bounds":"auto","formatter":{"id":"1040"},"major_label_orientation":"horizontal","ticker":{"id":"1019"}},"id":"1018","type":"LinearAxis"},{"attributes":{},"id":"1016","type":"LinearScale"},{"attributes":{},"id":"1078","type":"UnionRenderers"},{"attributes":{"line_color":"lightpink","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1083","type":"Line"},{"attributes":{"line_alpha":0.1,"line_color":"lightpink","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1084","type":"Line"},{"attributes":{},"id":"1023","type":"BasicTicker"},{"attributes":{"axis":{"id":"1018"},"grid_line_color":null,"ticker":null},"id":"1021","type":"Grid"},{"attributes":{},"id":"1027","type":"PanTool"},{"attributes":{"source":{"id":"1101"}},"id":"1108","type":"CDSView"},{"attributes":{},"id":"1026","type":"SaveTool"},{"attributes":{"label":{"value":"Expensive"},"renderers":[{"id":"1086"}]},"id":"1100","type":"LegendItem"},{"attributes":{"overlay":{"id":"1031"}},"id":"1029","type":"BoxZoomTool"},{"attributes":{"line_alpha":0.2,"line_color":"lightpink","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1085","type":"Line"},{"attributes":{},"id":"1030","type":"ResetTool"},{"attributes":{"click_policy":"mute","items":[{"id":"1060"},{"id":"1079"},{"id":"1100"},{"id":"1123"}],"location":[0,0],"orientation":"horizontal"},"id":"1059","type":"Legend"},{"attributes":{},"id":"1044","type":"Selection"},{"attributes":{"data_source":{"id":"1043"},"glyph":{"id":"1046"},"hover_glyph":null,"muted_glyph":{"id":"1048"},"nonselection_glyph":{"id":"1047"},"selection_glyph":null,"view":{"id":"1050"}},"id":"1049","type":"GlyphRenderer"},{"attributes":{"line_alpha":0.1,"line_color":"green","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1047","type":"Line"},{"attributes":{"line_alpha":0.2,"line_color":"green","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1048","type":"Line"},{"attributes":{"data":{"Variable":["Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap","Too Cheap"],"prices":{"__ndarray__":"AAAAAAAAWUAAAAAAAEBbQAAAAAAAQFtAAAAAAACAW0AAAAAAAIBbQAAAAAAAAF5AAAAAAAAAXkAAAAAAACBgQAAAAAAAIGBAAAAAAABAYEAAAAAAAEBgQAAAAAAAgGFAAAAAAACAYUAAAAAAAKBiQAAAAAAAoGJAAAAAAADAYkAAAAAAAMBiQAAAAAAAgGZAAAAAAACAZkAAAAAAAMBnQAAAAAAAwGdAAAAAAADgaEAAAAAAAOBoQAAAAAAAAGlAAAAAAAAAaUAAAAAAAABuQAAAAAAAAG5AAAAAAABAb0AAAAAAAEBvQAAAAAAAEHBAAAAAAAAQcEAAAAAAAEBwQAAAAAAAQHBAAAAAAADgcEAAAAAAAOBwQAAAAAAAgHFAAAAAAACAcUAAAAAAALByQAAAAAAAsHJAAAAAAADAckAAAAAAAMByQAAAAAAAQHVAAAAAAABAdUAAAAAAAOB1QAAAAAAA4HVAAAAAAACAdkAAAAAAAIB2QAAAAAAAIHdAAAAAAAAgd0AAAAAAAMB3QAAAAAAAwHdAAAAAAABAeEAAAAAAAEB4QAAAAAAA8HhAAAAAAADweEAAAAAAAAB5QAAAAAAAAHlAAAAAAACgeUAAAAAAAKB5QAAAAAAAQHpAAAAAAABAekAAAAAAAGB6QAAAAAAAYHpAAAAAAADgekAAAAAAAOB6QAAAAAAAEHtAAAAAAAAQe0AAAAAAACB8QAAAAAAAIHxAAAAAAADAfEAAAAAAAMB8QAAAAAAAAH5AAAAAAAAAfkAAAAAAAKB+QAAAAAAAoH5AAAAAAAAwf0AAAAAAADB/QAAAAAAAQH9AAAAAAABAf0A=","dtype":"float64","order":"little","shape":[79]},"value":{"__ndarray__":"AAAAAADAUkAAAAAAAMBSQAAAAAAAQFBAAAAAAABAUEAAAAAAAEBQQAAAAAAAQFBAAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAACARkAAAAAAAIBGQAAAAAAAgEZAAAAAAACARkAAAAAAAABEQAAAAAAAAERAAAAAAACAQUAAAAAAAIBBQAAAAAAAgEFAAAAAAACAQUAAAAAAAIBBQAAAAAAAgEFAAAAAAAAAPkAAAAAAAAA+QAAAAAAAAD5AAAAAAAAAPkAAAAAAAAA0QAAAAAAAADRAAAAAAAAALkAAAAAAAAAuQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAkQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAkQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAkQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAkQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","dtype":"float64","order":"little","shape":[79]}},"selected":{"id":"1044"},"selection_policy":{"id":"1058"}},"id":"1043","type":"ColumnDataSource"},{"attributes":{"dimension":"height","level":"glyph","line_color":"grey","line_dash":[6],"line_width":0.4,"location":350},"id":"1230","type":"Span"},{"attributes":{"line_color":"green","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1046","type":"Line"},{"attributes":{"source":{"id":"1043"}},"id":"1050","type":"CDSView"},{"attributes":{},"id":"1099","type":"UnionRenderers"},{"attributes":{"data":{"Variable":["Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive","Expensive"],"prices":{"__ndarray__":"AAAAAAAAWUAAAAAAAEBbQAAAAAAAQFtAAAAAAACAW0AAAAAAAIBbQAAAAAAAAF5AAAAAAAAAXkAAAAAAACBgQAAAAAAAIGBAAAAAAABAYEAAAAAAAEBgQAAAAAAAgGFAAAAAAACAYUAAAAAAAKBiQAAAAAAAoGJAAAAAAADAYkAAAAAAAMBiQAAAAAAAgGZAAAAAAACAZkAAAAAAAMBnQAAAAAAAwGdAAAAAAADgaEAAAAAAAOBoQAAAAAAAAGlAAAAAAAAAaUAAAAAAAABuQAAAAAAAAG5AAAAAAABAb0AAAAAAAEBvQAAAAAAAEHBAAAAAAAAQcEAAAAAAAEBwQAAAAAAAQHBAAAAAAADgcEAAAAAAAOBwQAAAAAAAgHFAAAAAAACAcUAAAAAAALByQAAAAAAAsHJAAAAAAADAckAAAAAAAMByQAAAAAAAQHVAAAAAAABAdUAAAAAAAOB1QAAAAAAA4HVAAAAAAACAdkAAAAAAAIB2QAAAAAAAIHdAAAAAAAAgd0AAAAAAAMB3QAAAAAAAwHdAAAAAAABAeEAAAAAAAEB4QAAAAAAA8HhAAAAAAADweEAAAAAAAAB5QAAAAAAAAHlAAAAAAACgeUAAAAAAAKB5QAAAAAAAQHpAAAAAAABAekAAAAAAAGB6QAAAAAAAYHpAAAAAAADgekAAAAAAAOB6QAAAAAAAEHtAAAAAAAAQe0AAAAAAACB8QAAAAAAAIHxAAAAAAADAfEAAAAAAAMB8QAAAAAAAAH5AAAAAAAAAfkAAAAAAAKB+QAAAAAAAoH5AAAAAAAAwf0AAAAAAADB/QAAAAAAAQH9AAAAAAABAf0A=","dtype":"float64","order":"little","shape":[79]},"value":{"__ndarray__":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAkQAAAAAAAACRAAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAANEAAAAAAAAA0QAAAAAAAADRAAAAAAAAANEAAAAAAAAA0QAAAAAAAADRAAAAAAAAANEAAAAAAAAA0QAAAAAAAADRAAAAAAAAANEAAAAAAAAA5QAAAAAAAADlAAAAAAAAAPkAAAAAAAAA+QAAAAAAAAD5AAAAAAAAAPkAAAAAAAIBBQAAAAAAAgEFAAAAAAACAQUAAAAAAAIBBQAAAAAAAAERAAAAAAAAAREAAAAAAAABEQAAAAAAAAERAAAAAAAAASUAAAAAAAABJQAAAAAAAAElAAAAAAAAASUAAAAAAAABJQAAAAAAAAElAAAAAAACAS0AAAAAAAIBLQAAAAAAAwFJAAAAAAADAUkAAAAAAAMBSQAAAAAAAwFJAAAAAAAAAVEAAAAAAAABUQAAAAAAAAFRAAAAAAAAAVEAAAAAAAABUQAAAAAAAAFRAAAAAAABAVUAAAAAAAEBVQAAAAAAAgFZAAAAAAACAVkAAAAAAAIBWQAAAAAAAgFZAAAAAAACAVkAAAAAAAIBWQAAAAAAAAFlAAAAAAAAAWUAAAAAAAABZQAAAAAAAAFlAAAAAAAAAWUA=","dtype":"float64","order":"little","shape":[79]}},"selected":{"id":"1081"},"selection_policy":{"id":"1099"}},"id":"1080","type":"ColumnDataSource"},{"attributes":{},"id":"1062","type":"Selection"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1031","type":"BoxAnnotation"},{"attributes":{},"id":"1058","type":"UnionRenderers"},{"attributes":{},"id":"1081","type":"Selection"},{"attributes":{},"id":"1102","type":"Selection"},{"attributes":{"children":[{"id":"1002"},{"id":"1009"},{"id":"1357"}],"margin":[0,0,0,0],"name":"Row01818","tags":["embedded"]},"id":"1001","type":"Row"},{"attributes":{"line_alpha":0.1,"line_color":"crimson","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1105","type":"Line"},{"attributes":{"label":{"value":"Too Cheap"},"renderers":[{"id":"1049"}]},"id":"1060","type":"LegendItem"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1005"},{"id":"1026"},{"id":"1027"},{"id":"1028"},{"id":"1029"},{"id":"1030"}]},"id":"1032","type":"Toolbar"},{"attributes":{"line_color":"crimson","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1104","type":"Line"},{"attributes":{"label":{"value":"Too Expensive"},"renderers":[{"id":"1107"}]},"id":"1123","type":"LegendItem"},{"attributes":{"line_alpha":0.1,"line_color":"lightgreen","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1065","type":"Line"},{"attributes":{"data_source":{"id":"1101"},"glyph":{"id":"1104"},"hover_glyph":null,"muted_glyph":{"id":"1106"},"nonselection_glyph":{"id":"1105"},"selection_glyph":null,"view":{"id":"1108"}},"id":"1107","type":"GlyphRenderer"},{"attributes":{"data":{"Variable":["Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap","Cheap"],"prices":{"__ndarray__":"AAAAAAAAWUAAAAAAAEBbQAAAAAAAQFtAAAAAAACAW0AAAAAAAIBbQAAAAAAAAF5AAAAAAAAAXkAAAAAAACBgQAAAAAAAIGBAAAAAAABAYEAAAAAAAEBgQAAAAAAAgGFAAAAAAACAYUAAAAAAAKBiQAAAAAAAoGJAAAAAAADAYkAAAAAAAMBiQAAAAAAAgGZAAAAAAACAZkAAAAAAAMBnQAAAAAAAwGdAAAAAAADgaEAAAAAAAOBoQAAAAAAAAGlAAAAAAAAAaUAAAAAAAABuQAAAAAAAAG5AAAAAAABAb0AAAAAAAEBvQAAAAAAAEHBAAAAAAAAQcEAAAAAAAEBwQAAAAAAAQHBAAAAAAADgcEAAAAAAAOBwQAAAAAAAgHFAAAAAAACAcUAAAAAAALByQAAAAAAAsHJAAAAAAADAckAAAAAAAMByQAAAAAAAQHVAAAAAAABAdUAAAAAAAOB1QAAAAAAA4HVAAAAAAACAdkAAAAAAAIB2QAAAAAAAIHdAAAAAAAAgd0AAAAAAAMB3QAAAAAAAwHdAAAAAAABAeEAAAAAAAEB4QAAAAAAA8HhAAAAAAADweEAAAAAAAAB5QAAAAAAAAHlAAAAAAACgeUAAAAAAAKB5QAAAAAAAQHpAAAAAAABAekAAAAAAAGB6QAAAAAAAYHpAAAAAAADgekAAAAAAAOB6QAAAAAAAEHtAAAAAAAAQe0AAAAAAACB8QAAAAAAAIHxAAAAAAADAfEAAAAAAAMB8QAAAAAAAAH5AAAAAAAAAfkAAAAAAAKB+QAAAAAAAoH5AAAAAAAAwf0AAAAAAADB/QAAAAAAAQH9AAAAAAABAf0A=","dtype":"float64","order":"little","shape":[79]},"value":{"__ndarray__":"AAAAAAAAWUAAAAAAAABZQAAAAAAAAFlAAAAAAAAAWUAAAAAAAMBXQAAAAAAAwFdAAAAAAACAVkAAAAAAAIBWQAAAAAAAQFVAAAAAAABAVUAAAAAAAEBVQAAAAAAAQFVAAAAAAABAVUAAAAAAAEBVQAAAAAAAQFVAAAAAAABAVUAAAAAAAABUQAAAAAAAAFRAAAAAAAAAVEAAAAAAAABUQAAAAAAAwFJAAAAAAADAUkAAAAAAAMBSQAAAAAAAwFJAAAAAAABAUEAAAAAAAEBQQAAAAAAAAE5AAAAAAAAATkAAAAAAAIBLQAAAAAAAgEtAAAAAAACAS0AAAAAAAIBLQAAAAAAAAElAAAAAAAAASUAAAAAAAABJQAAAAAAAAElAAAAAAAAASUAAAAAAAABJQAAAAAAAgEZAAAAAAACARkAAAAAAAABEQAAAAAAAAERAAAAAAACAQUAAAAAAAIBBQAAAAAAAADlAAAAAAAAAOUAAAAAAAAAuQAAAAAAAAC5AAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAALkAAAAAAAAAkQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAkQAAAAAAAACRAAAAAAAAAJEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","dtype":"float64","order":"little","shape":[79]}},"selected":{"id":"1062"},"selection_policy":{"id":"1078"}},"id":"1061","type":"ColumnDataSource"},{"attributes":{},"id":"1042","type":"BasicTickFormatter"},{"attributes":{"end":110.0,"reset_end":110.0,"reset_start":-10.0,"start":-10.0,"tags":[[["value","value",null]]]},"id":"1004","type":"Range1d"},{"attributes":{"line_color":"lightgreen","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1064","type":"Line"},{"attributes":{"end":500.0,"reset_end":500.0,"reset_start":100.0,"start":100.0,"tags":[[["prices","prices",null]]]},"id":"1003","type":"Range1d"},{"attributes":{"source":{"id":"1061"}},"id":"1068","type":"CDSView"},{"attributes":{"data_source":{"id":"1061"},"glyph":{"id":"1064"},"hover_glyph":null,"muted_glyph":{"id":"1066"},"nonselection_glyph":{"id":"1065"},"selection_glyph":null,"view":{"id":"1068"}},"id":"1067","type":"GlyphRenderer"},{"attributes":{},"id":"1040","type":"BasicTickFormatter"},{"attributes":{"line_alpha":0.2,"line_color":"crimson","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1106","type":"Line"},{"attributes":{"label":{"value":"Cheap"},"renderers":[{"id":"1067"}]},"id":"1079","type":"LegendItem"},{"attributes":{"line_alpha":0.2,"line_color":"lightgreen","line_width":2,"x":{"field":"prices"},"y":{"field":"value"}},"id":"1066","type":"Line"},{"attributes":{"data":{"Variable":["Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive","Too Expensive"],"prices":{"__ndarray__":"AAAAAAAAWUAAAAAAAEBbQAAAAAAAQFtAAAAAAACAW0AAAAAAAIBbQAAAAAAAAF5AAAAAAAAAXkAAAAAAACBgQAAAAAAAIGBAAAAAAABAYEAAAAAAAEBgQAAAAAAAgGFAAAAAAACAYUAAAAAAAKBiQAAAAAAAoGJAAAAAAADAYkAAAAAAAMBiQAAAAAAAgGZAAAAAAACAZkAAAAAAAMBnQAAAAAAAwGdAAAAAAADgaEAAAAAAAOBoQAAAAAAAAGlAAAAAAAAAaUAAAAAAAABuQAAAAAAAAG5AAAAAAABAb0AAAAAAAEBvQAAAAAAAEHBAAAAAAAAQcEAAAAAAAEBwQAAAAAAAQHBAAAAAAADgcEAAAAAAAOBwQAAAAAAAgHFAAAAAAACAcUAAAAAAALByQAAAAAAAsHJAAAAAAADAckAAAAAAAMByQAAAAAAAQHVAAAAAAABAdUAAAAAAAOB1QAAAAAAA4HVAAAAAAACAdkAAAAAAAIB2QAAAAAAAIHdAAAAAAAAgd0AAAAAAAMB3QAAAAAAAwHdAAAAAAABAeEAAAAAAAEB4QAAAAAAA8HhAAAAAAADweEAAAAAAAAB5QAAAAAAAAHlAAAAAAACgeUAAAAAAAKB5QAAAAAAAQHpAAAAAAABAekAAAAAAAGB6QAAAAAAAYHpAAAAAAADgekAAAAAAAOB6QAAAAAAAEHtAAAAAAAAQe0AAAAAAACB8QAAAAAAAIHxAAAAAAADAfEAAAAAAAMB8QAAAAAAAAH5AAAAAAAAAfkAAAAAAAKB+QAAAAAAAoH5AAAAAAAAwf0AAAAAAADB/QAAAAAAAQH9AAAAAAABAf0A=","dtype":"float64","order":"little","shape":[79]},"value":{"__ndarray__":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAkQAAAAAAAACRAAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAALkAAAAAAAAAuQAAAAAAAAC5AAAAAAAAANEAAAAAAAAA0QAAAAAAAADRAAAAAAAAANEAAAAAAAAA+QAAAAAAAAD5AAAAAAAAAPkAAAAAAAAA+QAAAAAAAAD5AAAAAAAAAPkAAAAAAAAA+QAAAAAAAAD5AAAAAAAAAPkAAAAAAAAA+QAAAAAAAAERAAAAAAAAAREAAAAAAAABEQAAAAAAAAERAAAAAAAAAREAAAAAAAABEQAAAAAAAgEZAAAAAAACARkAAAAAAAABJQAAAAAAAAElAAAAAAAAASUAAAAAAAABJQAAAAAAAgEtAAAAAAACAS0AAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAAAATkAAAAAAAABOQAAAAAAAAE5AAAAAAABAUEAAAAAAAEBQQAAAAAAAgFFAAAAAAACAUUAAAAAAAMBSQAAAAAAAwFJAAAAAAAAAWUA=","dtype":"float64","order":"little","shape":[79]}},"selected":{"id":"1102"},"selection_policy":{"id":"1122"}},"id":"1101","type":"ColumnDataSource"},{"attributes":{"below":[{"id":"1018"},{"id":"1059"}],"center":[{"id":"1021"},{"id":"1025"}],"left":[{"id":"1022"}],"margin":[5,5,5,5],"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"min_border_top":10,"plot_height":400,"plot_width":700,"renderers":[{"id":"1049"},{"id":"1067"},{"id":"1086"},{"id":"1107"},{"id":"1224"},{"id":"1227"},{"id":"1230"}],"sizing_mode":"fixed","title":{"id":"1010"},"toolbar":{"id":"1032"},"x_range":{"id":"1003"},"x_scale":{"id":"1014"},"y_range":{"id":"1004"},"y_scale":{"id":"1016"}},"id":"1009","subtype":"Figure","type":"Plot"},{"attributes":{"callback":null,"renderers":[{"id":"1049"},{"id":"1067"},{"id":"1086"},{"id":"1107"}],"tags":["hv_created"],"tooltips":[["Variable","@{Variable}"],["prices","@{prices}"],["value","@{value}"]]},"id":"1005","type":"HoverTool"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.2.3"}};
-    var render_items = [{"docid":"9f124525-a7cb-45b0-94fe-0bd311497b1b","root_ids":["1001"],"roots":{"1001":"11f6abb1-b9eb-4e46-998f-3c71866a9894"}}];
+    var docs_json = {"51cab5e8-570d-40b9-8b1b-3409e305aec2":{"roots":{"references":[{"attributes":{},"id":"1025","type":"PanTool"},{"attributes":{},"id":"1026","type":"WheelZoomTool"},{"attributes":{},"id":"1024","type":"SaveTool"},{"attributes":{"overlay":{"id":"1029"}},"id":"1027","type":"BoxZoomTool"},{"attributes":{},"id":"1028","type":"ResetTool"},{"attributes":{},"id":"1039","type":"BasicTickFormatter"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1005"},{"id":"1024"},{"id":"1025"},{"id":"1026"},{"id":"1027"},{"id":"1028"}]},"id":"1030","type":"Toolbar"},{"attributes":{},"id":"1037","type":"BasicTickFormatter"},{"attributes":{"text":"Survival rate","text_color":{"value":"black"},"text_font_size":{"value":"12pt"}},"id":"1008","type":"Title"},{"attributes":{"click_policy":"mute","items":[{"id":"1058"},{"id":"1077"}],"location":[0,0],"title":"Variable"},"id":"1057","type":"Legend"},{"attributes":{},"id":"1075","type":"UnionRenderers"},{"attributes":{"source":{"id":"1041"}},"id":"1048","type":"CDSView"},{"attributes":{"data_source":{"id":"1041"},"glyph":{"id":"1044"},"hover_glyph":null,"muted_glyph":{"id":"1046"},"nonselection_glyph":{"id":"1045"},"selection_glyph":null,"view":{"id":"1048"}},"id":"1047","type":"GlyphRenderer"},{"attributes":{},"id":"1055","type":"UnionRenderers"},{"attributes":{"children":[{"id":"1002"},{"id":"1007"},{"id":"1168"}],"margin":[0,0,0,0],"name":"Row01557","tags":["embedded"]},"id":"1001","type":"Row"},{"attributes":{"line_alpha":0.2,"line_color":"#1f77b3","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1046","type":"Line"},{"attributes":{},"id":"1060","type":"Selection"},{"attributes":{"data":{"Variable":["model","model","model","model"],"t":[1,2,3,4],"value":{"__ndarray__":"AAAAAAAA4D9WVVVVVVXVPwEAAAAAANA/nJmZmZmZyT8=","dtype":"float64","order":"little","shape":[4]}},"selected":{"id":"1060"},"selection_policy":{"id":"1075"}},"id":"1059","type":"ColumnDataSource"},{"attributes":{"line_alpha":0.1,"line_color":"#1f77b3","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1045","type":"Line"},{"attributes":{"line_color":"#1f77b3","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1044","type":"Line"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer01561","sizing_mode":"stretch_width"},"id":"1002","type":"Spacer"},{"attributes":{"label":{"value":"observed"},"renderers":[{"id":"1047"}]},"id":"1058","type":"LegendItem"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1029","type":"BoxAnnotation"},{"attributes":{"axis_label":"t","bounds":"auto","formatter":{"id":"1037"},"major_label_orientation":"horizontal","ticker":{"id":"1017"}},"id":"1016","type":"LinearAxis"},{"attributes":{"end":4.0,"reset_end":4.0,"reset_start":1.0,"start":1.0,"tags":[[["t","t",null]]]},"id":"1003","type":"Range1d"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer01562","sizing_mode":"stretch_width"},"id":"1168","type":"Spacer"},{"attributes":{"callback":null,"renderers":[{"id":"1047"},{"id":"1065"}],"tags":["hv_created"],"tooltips":[["Variable","@{Variable}"],["t","@{t}"],["value","@{value}"]]},"id":"1005","type":"HoverTool"},{"attributes":{"below":[{"id":"1016"}],"center":[{"id":"1019"},{"id":"1023"}],"left":[{"id":"1020"}],"margin":[5,5,5,5],"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"min_border_top":10,"plot_height":300,"plot_width":700,"renderers":[{"id":"1047"},{"id":"1065"}],"right":[{"id":"1057"}],"sizing_mode":"fixed","title":{"id":"1008"},"toolbar":{"id":"1030"},"x_range":{"id":"1003"},"x_scale":{"id":"1012"},"y_range":{"id":"1004"},"y_scale":{"id":"1014"}},"id":"1007","subtype":"Figure","type":"Plot"},{"attributes":{"end":0.6741,"reset_end":0.6741,"reset_start":0.15690000000000007,"start":0.15690000000000007,"tags":[[["value","value",null]]]},"id":"1004","type":"Range1d"},{"attributes":{},"id":"1014","type":"LinearScale"},{"attributes":{"axis":{"id":"1016"},"grid_line_color":null,"ticker":null},"id":"1019","type":"Grid"},{"attributes":{},"id":"1017","type":"BasicTicker"},{"attributes":{"line_alpha":0.2,"line_color":"#ff7e0e","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1064","type":"Line"},{"attributes":{"data_source":{"id":"1059"},"glyph":{"id":"1062"},"hover_glyph":null,"muted_glyph":{"id":"1064"},"nonselection_glyph":{"id":"1063"},"selection_glyph":null,"view":{"id":"1066"}},"id":"1065","type":"GlyphRenderer"},{"attributes":{},"id":"1042","type":"Selection"},{"attributes":{"data":{"Variable":["observed","observed","observed","observed"],"t":[1,2,3,4],"value":{"__ndarray__":"/tR46SYx5D8MAiuHFtneP6abxCCwctg/d76fGi/d1D8=","dtype":"float64","order":"little","shape":[4]}},"selected":{"id":"1042"},"selection_policy":{"id":"1055"}},"id":"1041","type":"ColumnDataSource"},{"attributes":{"line_alpha":0.1,"line_color":"#ff7e0e","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1063","type":"Line"},{"attributes":{},"id":"1021","type":"BasicTicker"},{"attributes":{"line_color":"#ff7e0e","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1062","type":"Line"},{"attributes":{},"id":"1012","type":"LinearScale"},{"attributes":{"label":{"value":"model"},"renderers":[{"id":"1065"}]},"id":"1077","type":"LegendItem"},{"attributes":{"axis":{"id":"1020"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1023","type":"Grid"},{"attributes":{"source":{"id":"1059"}},"id":"1066","type":"CDSView"},{"attributes":{"axis_label":"","bounds":"auto","formatter":{"id":"1039"},"major_label_orientation":"horizontal","ticker":{"id":"1021"}},"id":"1020","type":"LinearAxis"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.2.3"}};
+    var render_items = [{"docid":"51cab5e8-570d-40b9-8b1b-3409e305aec2","root_ids":["1001"],"roots":{"1001":"bacf92da-ab7d-424f-b56d-5db83f14a156"}}];
+    root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined && root.Bokeh.Panel !== undefined) {
+    embed_document(root);
+  } else {
+    var attempts = 0;
+    var timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined && root.Bokeh.Panel !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else if (document.readyState == "complete") {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using optimized params res.x </span>
+<span class="n">model_fit_survival</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">active</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id='1220'>
+
+
+
+
+
+  <div class="bk-root" id="26f3961d-ac40-4af9-986e-931d47968f52" data-root-id="1220"></div>
+</div>
+<script type="application/javascript">(function(root) {
+  function embed_document(root) {
+    var docs_json = {"ccdd7f14-4790-4dfd-91e9-e3d01391467d":{"roots":{"references":[{"attributes":{},"id":"1247","type":"ResetTool"},{"attributes":{"line_alpha":0.1,"line_color":"#ff7e0e","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1282","type":"Line"},{"attributes":{},"id":"1256","type":"BasicTickFormatter"},{"attributes":{"label":{"value":"model"},"renderers":[{"id":"1284"}]},"id":"1296","type":"LegendItem"},{"attributes":{"data_source":{"id":"1278"},"glyph":{"id":"1281"},"hover_glyph":null,"muted_glyph":{"id":"1283"},"nonselection_glyph":{"id":"1282"},"selection_glyph":null,"view":{"id":"1285"}},"id":"1284","type":"GlyphRenderer"},{"attributes":{},"id":"1258","type":"BasicTickFormatter"},{"attributes":{"data":{"Variable":["observed","observed","observed","observed"],"t":[1,2,3,4],"value":{"__ndarray__":"/tR46SYx5D8MAiuHFtneP6abxCCwctg/d76fGi/d1D8=","dtype":"float64","order":"little","shape":[4]}},"selected":{"id":"1261"},"selection_policy":{"id":"1274"}},"id":"1260","type":"ColumnDataSource"},{"attributes":{"line_color":"#ff7e0e","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1281","type":"Line"},{"attributes":{},"id":"1261","type":"Selection"},{"attributes":{},"id":"1294","type":"UnionRenderers"},{"attributes":{"line_alpha":0.2,"line_color":"#ff7e0e","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1283","type":"Line"},{"attributes":{"data_source":{"id":"1260"},"glyph":{"id":"1263"},"hover_glyph":null,"muted_glyph":{"id":"1265"},"nonselection_glyph":{"id":"1264"},"selection_glyph":null,"view":{"id":"1267"}},"id":"1266","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1278"}},"id":"1285","type":"CDSView"},{"attributes":{"line_color":"#1f77b3","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1263","type":"Line"},{"attributes":{"text":"Survival rate","text_color":{"value":"black"},"text_font_size":{"value":"12pt"}},"id":"1227","type":"Title"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1248","type":"BoxAnnotation"},{"attributes":{},"id":"1233","type":"LinearScale"},{"attributes":{"source":{"id":"1260"}},"id":"1267","type":"CDSView"},{"attributes":{"end":4.0,"reset_end":4.0,"reset_start":1.0,"start":1.0,"tags":[[["t","t",null]]]},"id":"1222","type":"Range1d"},{"attributes":{"callback":null,"renderers":[{"id":"1266"},{"id":"1284"}],"tags":["hv_created"],"tooltips":[["Variable","@{Variable}"],["t","@{t}"],["value","@{value}"]]},"id":"1224","type":"HoverTool"},{"attributes":{},"id":"1274","type":"UnionRenderers"},{"attributes":{"below":[{"id":"1235"}],"center":[{"id":"1238"},{"id":"1242"}],"left":[{"id":"1239"}],"margin":[5,5,5,5],"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"min_border_top":10,"plot_height":300,"plot_width":700,"renderers":[{"id":"1266"},{"id":"1284"}],"right":[{"id":"1276"}],"sizing_mode":"fixed","title":{"id":"1227"},"toolbar":{"id":"1249"},"x_range":{"id":"1222"},"x_scale":{"id":"1231"},"y_range":{"id":"1223"},"y_scale":{"id":"1233"}},"id":"1226","subtype":"Figure","type":"Plot"},{"attributes":{"end":0.6638397432571104,"reset_end":0.6638397432571104,"reset_start":0.29528729606753545,"start":0.29528729606753545,"tags":[[["value","value",null]]]},"id":"1223","type":"Range1d"},{"attributes":{"line_alpha":0.1,"line_color":"#1f77b3","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1264","type":"Line"},{"attributes":{"line_alpha":0.2,"line_color":"#1f77b3","line_width":2,"x":{"field":"t"},"y":{"field":"value"}},"id":"1265","type":"Line"},{"attributes":{},"id":"1236","type":"BasicTicker"},{"attributes":{"axis":{"id":"1235"},"grid_line_color":null,"ticker":null},"id":"1238","type":"Grid"},{"attributes":{},"id":"1244","type":"PanTool"},{"attributes":{"click_policy":"mute","items":[{"id":"1277"},{"id":"1296"}],"location":[0,0],"title":"Variable"},"id":"1276","type":"Legend"},{"attributes":{},"id":"1231","type":"LinearScale"},{"attributes":{},"id":"1240","type":"BasicTicker"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer02008","sizing_mode":"stretch_width"},"id":"1221","type":"Spacer"},{"attributes":{"axis":{"id":"1239"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1242","type":"Grid"},{"attributes":{"children":[{"id":"1221"},{"id":"1226"},{"id":"1387"}],"margin":[0,0,0,0],"name":"Row02004","tags":["embedded"]},"id":"1220","type":"Row"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer02009","sizing_mode":"stretch_width"},"id":"1387","type":"Spacer"},{"attributes":{"axis_label":"","bounds":"auto","formatter":{"id":"1258"},"major_label_orientation":"horizontal","ticker":{"id":"1240"}},"id":"1239","type":"LinearAxis"},{"attributes":{"label":{"value":"observed"},"renderers":[{"id":"1266"}]},"id":"1277","type":"LegendItem"},{"attributes":{"axis_label":"t","bounds":"auto","formatter":{"id":"1256"},"major_label_orientation":"horizontal","ticker":{"id":"1236"}},"id":"1235","type":"LinearAxis"},{"attributes":{"data":{"Variable":["model","model","model","model"],"t":[1,2,3,4],"value":{"__ndarray__":"6JoDo5NC5D+Oky/vE2beP5AKJieBpNg/c3lwb6ni1D8=","dtype":"float64","order":"little","shape":[4]}},"selected":{"id":"1279"},"selection_policy":{"id":"1294"}},"id":"1278","type":"ColumnDataSource"},{"attributes":{},"id":"1245","type":"WheelZoomTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1224"},{"id":"1243"},{"id":"1244"},{"id":"1245"},{"id":"1246"},{"id":"1247"}]},"id":"1249","type":"Toolbar"},{"attributes":{},"id":"1243","type":"SaveTool"},{"attributes":{},"id":"1279","type":"Selection"},{"attributes":{"overlay":{"id":"1248"}},"id":"1246","type":"BoxZoomTool"}],"root_ids":["1220"]},"title":"Bokeh Application","version":"2.2.3"}};
+    var render_items = [{"docid":"ccdd7f14-4790-4dfd-91e9-e3d01391467d","root_ids":["1220"],"roots":{"1220":"26f3961d-ac40-4af9-986e-931d47968f52"}}];
     root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
   }
   if (root.Bokeh !== undefined && root.Bokeh.Panel !== undefined) {
@@ -2025,24 +2242,51 @@ Acceptable Price Range: $280 to $350
 })(window);</script></div></div>
 </div>
 </div>
-<div class="section" id="the-key-results-are">
-<h2>The key results are:<a class="headerlink" href="#the-key-results-are" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Optimal price point (OPP)</p></li>
-</ul>
-<p>The intersection of “Too Cheap” and “Too Expensive”. In our example, the optimal price is $300.</p>
-<ul class="simple">
-<li><p>Acceptable price range</p></li>
-</ul>
-<p>The lower bound (aka. point of marginal cheapness or PMC) is the intersection of “Too Cheap” and “Expensive”. The upper bound (aka. point of marginal expensiveness or PME.) is the intersection of “Cheap” and “Too Expensive”. In our example, the acceptable price range is $280 to $350.</p>
+<div class="section" id="id2">
+<h3>Calculate CLV<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Now we can calculate the expected value of the customer lifetime value using the MLE parameters. We can see that the expected value of a new customer is $362.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">e_clv</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">net_cf</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">disc</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+            <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">disc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">beta</span><span class="o">+</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">alpha</span><span class="o">+</span><span class="n">beta</span><span class="o">+</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">disc</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">clv</span> <span class="o">=</span> <span class="n">net_cf</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">disc</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">clv</span>
+
+        
+    
+</pre></div>
 </div>
-<div class="section" id="validating-results-with-qualtrics">
-<h2>Validating results with Qualtrics<a class="headerlink" href="#validating-results-with-qualtrics" title="Permalink to this headline">¶</a></h2>
-<p>To make sure our results are correct, I validated my results with Qualtrics. With the same data, Qualtrics produces the following report:
-<img alt="" src="../../_images/price_sensitivity2.png" /></p>
-<p>The optimal price is the same as our result. Both show \$300 as the optimal price. The acceptable price range is different but very close. We got $280 to $350, while Qualtrics reported $280.1 to $350.0. (I am not sure why Qualtrics has a slope in each step in the plot. The vertical lines between steps are not straight. I suspect that with large data size, the vertical lines will become straight.)</p>
-<p>Now you can design your own Price Sensitivity Meter survey and analyze results in Python. Enjoy!</p>
-<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/pricing-research-van-westendorps-price-sensitivity-meter-in-python-ec07fabbeacd">October 2, 2020</a>.</p>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">net_cf</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">e_clv</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">net_cf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>362.067712163816
+</pre></div>
+</div>
+</div>
+</div>
+<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/customer-lifetime-value-in-a-discrete-time-contractual-setting-math-and-python-implementation-af3ef606cefe">August 24, 2020</a></p>
+</div>
 </div>
 </div>
 
@@ -2074,8 +2318,8 @@ Acceptable Price Range: $280 to $350
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="othermodels.html" title="previous page">Other Models</a>
-    <a class='right-next' id="next-link" href="clv.html" title="next page">Customer lifetime value in a discrete-time contractual setting</a>
+    <a class='left-prev' id="prev-link" href="price_sensitivity.html" title="previous page">Pricing research — Van Westendorp’s Price Sensitivity Meter in Python</a>
+    <a class='right-next' id="next-link" href="../../random/pypowerup.html" title="next page">PyPowerUp</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
