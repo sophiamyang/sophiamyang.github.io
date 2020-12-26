@@ -113,3 +113,5 @@ https://facebook.github.io/prophet/
 https://nbviewer.jupyter.org/github/ryankarlos/prophet/blob/9e6d9548d1caca27af3367819bab10a65da10392/notebooks/diagnostics.ipynb#Hyperparameter-Optimisation    
 https://nbviewer.jupyter.org/gist/TomAugspurger/8619e223ea42c922cd655d18d6c96424   
 https://github.com/facebook/prophet/issues/1381   
+
+By Sophia Yang on [July 9, 2020](https://medium.com/analytics-vidhya/time-series-analysis-using-prophet-in-python-part-2-hyperparameter-tuning-and-cross-validation-88e7d831a067)
