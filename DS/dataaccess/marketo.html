@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting Marketo data in Python — Marketo rest API and Python API &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ETL pipeline" href="../etl/etl.html" />
+    <link rel="prev" title="Query Intercom data in Python — Intercom rest API" href="intercom.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/profiling.html">
+     How to assess your code performance in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/intro.html">
+     Python Landscape and Introduction
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="dataaccess.html">
+   Data Accessing
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="metabase.html">
+     Query Metabase data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="stripe.html">
+     Query and analyze Stripe data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="salesforce.html">
+     Query Salesforce Data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intercom.html">
+     Query Intercom data in Python — Intercom rest API
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Getting Marketo data in Python — Marketo rest API and Python API
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/landscape.html">
+     Python Visualization Landscape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/multiline.html">
+     Python Visualization — Multiple Line Plotting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../timeseries/timeseries1.html">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../timeseries/timeseries2.html">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/clv.html">
+     Customer lifetime value in a discrete-time contractual setting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../optimization/optimization.html">
+   Optimization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../optimization/descentmethod1.html">
+     Descent method — Steepest descent and conjugate gradient
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../optimization/descentmethod2.html">
+     Descent method — Steepest descent and conjugate gradient in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../random/pypowerup.html">
+   PyPowerUp
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Notebooks template
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/dataaccess/marketo.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#marketo-rest-api">
+   Marketo rest API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#marketo-python-api">
+   Marketo Python API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#marketo-python-api-bulk-extract">
+   Marketo Python API — Bulk Extract
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="getting-marketo-data-in-python-marketo-rest-api-and-python-api">
+<h1>Getting Marketo data in Python — Marketo rest API and Python API<a class="headerlink" href="#getting-marketo-data-in-python-marketo-rest-api-and-python-api" title="Permalink to this headline">¶</a></h1>
+<p>There are two ways I have used to get Marketo data in Python. First is to use Marketo rest API directly. Second is to use the marketo Python API <code class="docutils literal notranslate"><span class="pre">marketorestpython</span></code>. I really like the <code class="docutils literal notranslate"><span class="pre">marketorestpython</span></code> library and I highly recommend everyone to use this library. But in this article, I am going to talk about both approach.</p>
+<div class="section" id="marketo-rest-api">
+<h2>Marketo rest API<a class="headerlink" href="#marketo-rest-api" title="Permalink to this headline">¶</a></h2>
+<p>First, we need to get <code class="docutils literal notranslate"><span class="pre">client_id</span></code>, <code class="docutils literal notranslate"><span class="pre">client_secret</span></code>, <code class="docutils literal notranslate"><span class="pre">munchkin_id</span></code>/instance URL information. Client Id and Client Secret can be set up via LaunchPoint and they can be found under Admin &gt; LaunchPoint &gt; View Details . And Munchkin Account ID can be found under Admin &gt; Integration &gt; Munchkin menu. munchkin_id is also part of the instance URL, which can be found under Admin &gt; Integration &gt; Web Services &gt; REST API &gt; Identity.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">munchkin_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">client_secret</span><span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">client_id</span><span class="p">,</span>
+        <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">}</span>
+<span class="n">host</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">munchkin_id</span><span class="si">}</span><span class="s1">.mktorest.com&#39;</span>
+</pre></div>
+</div>
+<p>Second, we need to get <code class="docutils literal notranslate"><span class="pre">access</span> <span class="pre">token</span></code> and <code class="docutils literal notranslate"><span class="pre">next</span> <span class="pre">page</span> <span class="pre">token</span></code>. Since we have all the credentials ready. We can use the Python requests library and do an HTTP GET <code class="docutils literal notranslate"><span class="pre">request</span></code> to get tokens.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">host</span><span class="o">+</span><span class="s1">&#39;/identity/oauth/token&#39;</span><span class="p">,</span> 
+                 <span class="n">params</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">client_id</span><span class="p">,</span>
+                  <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">},</span>
+                 <span class="n">headers</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Accept-Encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;gzip&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+<span class="n">data_nextPageToken</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">host</span><span class="o">+</span><span class="s1">&#39;/rest/v1/activities/pagingtoken.json&#39;</span><span class="p">,</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;access_token&#39;</span><span class="p">:</span><span class="n">token</span><span class="p">,</span>
+                      <span class="s1">&#39;sinceDatetime&#39;</span><span class="p">:</span><span class="s1">&#39;2019-11-01&#39;</span>
+                     <span class="p">}</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">nextPageToken</span> <span class="o">=</span> <span class="n">data_nextPageToken</span><span class="p">[</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Next, we can use the access token to get the activities and leads data from Marketo.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">act1</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">host</span><span class="o">+</span><span class="s1">&#39;/rest/v1/activities.json&#39;</span><span class="p">,</span> 
+             <span class="n">params</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+                      <span class="s1">&#39;nextPageToken&#39;</span><span class="p">:</span> <span class="n">nextPageToken</span><span class="p">,</span>
+                      <span class="s1">&#39;activityTypeIds&#39;</span><span class="p">:[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span>
+                     <span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">leads1</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">host</span><span class="o">+</span><span class="s1">&#39;/rest/v1/leads.json&#39;</span><span class="p">,</span> 
+             <span class="n">params</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+                      <span class="s1">&#39;filterType&#39;</span><span class="p">:</span><span class="s1">&#39;email&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;filterValues&#39;</span><span class="p">:[</span><span class="s1">&#39;a@b.com&#39;</span><span class="p">,</span><span class="s1">&#39;c@d.com&#39;</span><span class="p">]</span>                
+                     <span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can see results in a pandas dataframe:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">act1</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">leads1</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Besides the activity and the leads data, activity type data is also worth looking at if you are wondering which activity type corresponds to which number.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">host</span><span class="o">+</span><span class="s1">&#39;/rest/v1/activities/types.json&#39;</span><span class="p">,</span> 
+             <span class="n">params</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">token</span>                
+                     <span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="marketo-python-api">
+<h2>Marketo Python API<a class="headerlink" href="#marketo-python-api" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/jepcastelein/marketo-rest-python">marketorestpython</a> library is very easy to use. To install marketorestpython, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">marketorestpython</span></code>.</p>
+<p>First we need to import the library, get <code class="docutils literal notranslate"><span class="pre">client_id</span></code>, <code class="docutils literal notranslate"><span class="pre">client_secret</span></code>, <code class="docutils literal notranslate"><span class="pre">munchkin_id</span></code> and input all the credentials in the MarketoClient function. Then we are ready to go.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marketorestpython.client</span> <span class="kn">import</span> <span class="n">MarketoClient</span>
+<span class="n">munchkin_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="n">client_secret</span><span class="o">=</span> <span class="s2">&quot;&quot;</span> 
+<span class="n">api_limit</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">max_retry_time</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">mc</span> <span class="o">=</span> <span class="n">MarketoClient</span><span class="p">(</span><span class="n">munchkin_id</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">api_limit</span><span class="p">,</span> <span class="n">max_retry_time</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To get the activity types, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_activity_types&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Get activity data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">act</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_lead_activities&#39;</span><span class="p">,</span> 
+    <span class="n">activityTypeIds</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
+    <span class="n">sinceDatetime</span><span class="o">=</span><span class="s1">&#39;2019-10-01&#39;</span><span class="p">,</span> 
+    <span class="n">untilDatetime</span><span class="o">=</span><span class="s1">&#39;2019-10-02&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">act</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Get leads data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lead</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_multiple_leads_by_filter_type&#39;</span><span class="p">,</span> 
+    <span class="n">filterType</span><span class="o">=</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> 
+    <span class="n">filterValues</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a@b.com&#39;</span><span class="p">,</span><span class="s1">&#39;c@d.com&#39;</span><span class="p">],</span> 
+    <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;firstName&#39;</span><span class="p">,</span> <span class="s1">&#39;middleName&#39;</span><span class="p">,</span> <span class="s1">&#39;lastName&#39;</span><span class="p">],</span> 
+    <span class="n">batchSize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="marketo-python-api-bulk-extract">
+<h2>Marketo Python API — Bulk Extract<a class="headerlink" href="#marketo-python-api-bulk-extract" title="Permalink to this headline">¶</a></h2>
+<p>The simple Marketo API has really low data limit, sometimes we need to export a large amount of data from Marketo. Then we need to use bulk extract.</p>
+<p>There are several steps/methods we need to do for bulk extract: we need to create a job, enqueue a job, check job status to make sure it is completed, and then we can get the data. The only thing we need to define is the start date and the end date for the created date in the filters. If you want the whole database, you can simply make a scheduler and download data every day/month.</p>
+<p>To bulk extract activities:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#create a job</span>
+<span class="n">new_export_job_details</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;create_activities_export_job&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;createdAt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;endAt&#39;</span><span class="p">:</span> <span class="s1">&#39;2019-10-03&#39;</span><span class="p">,</span> <span class="s1">&#39;startAt&#39;</span><span class="p">:</span> <span class="s1">&#39;2019-10-01&#39;</span><span class="p">}})</span>
+<span class="c1">#enqueue a job</span>
+<span class="n">enqueued_job_details</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;enqueue_activities_export_job&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">new_export_job_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;exportId&#39;</span><span class="p">])</span>
+<span class="c1">#check job status</span>
+<span class="n">export_job_status</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_activities_export_job_status&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">new_export_job_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;exportId&#39;</span><span class="p">])</span>
+<span class="c1">#get data</span>
+<span class="n">export_file_contents</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_activities_export_job_file&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">new_export_job_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;exportId&#39;</span><span class="p">])</span>
+<span class="c1">#convert data to pandas dataframe </span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">export_file_contents</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To bulk extract leads, in addition to the date range, you also need to define the list of fields you want to query:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#create a job</span>
+<span class="c1">#list of fields: https://developers.marketo.com/rest-api/lead-database/fields/list-of-standard-fields/</span>
+<span class="n">new_export_job_details</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;create_leads_export_job&#39;</span><span class="p">,</span> 
+                                    <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;firstName&#39;</span><span class="p">,</span> 
+                                            <span class="s1">&#39;lastName&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;city&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;country&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;website&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;company&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Department&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;InferredCompany&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;InferredCity&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;InferredCountry&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Industry&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;AnnualRevenue&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;leadScore&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;LeadRole&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;LeadSource&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;leadStatus&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Site&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;State&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Title&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Unsubscribed&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;UnsubscribedReason&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;SFDCType&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;createdAt&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;updatedAt&#39;</span><span class="p">,</span>
+                                   
+                                    <span class="p">]</span> 
+                                    <span class="p">,</span><span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;createdAt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;endAt&#39;</span><span class="p">:</span> <span class="s1">&#39;2019-10-01&#39;</span><span class="p">,</span> <span class="s1">&#39;startAt&#39;</span><span class="p">:</span> <span class="s1">&#39;2019-10-02&#39;</span><span class="p">}})</span>
+<span class="c1">#enqueue a job</span>
+<span class="n">enqueued_job_details</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;enqueue_leads_export_job&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">new_export_job_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;exportId&#39;</span><span class="p">])</span>
+<span class="c1">#check job status</span>
+<span class="n">export_job_status</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_leads_export_job_status&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">new_export_job_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;exportId&#39;</span><span class="p">])</span>
+<span class="c1"># get data</span>
+<span class="n">export_file_contents</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;get_leads_export_job_file&#39;</span><span class="p">,</span> <span class="n">job_id</span><span class="o">=</span><span class="n">new_export_job_details</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;exportId&#39;</span><span class="p">])</span>
+<span class="c1">#convert data to pandas dataframe</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">export_file_contents</span><span class="p">)</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Hope this article is helpful. In the next article, I am going to talk about how to set up an airflow dag to download Marketo data on a regular basis. Enjoy!</p>
+<p>By Sophia Yang on <a class="reference external" href="https://sophiamyang.medium.com/getting-marketo-data-in-python-marketo-rest-api-and-python-api-2568b777ea5b">December 17, 2019</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/dataaccess"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="intercom.html" title="previous page">Query Intercom data in Python — Intercom rest API</a>
+    <a class='right-next' id="next-link" href="../etl/etl.html" title="next page">ETL pipeline</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

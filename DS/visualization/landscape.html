@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Visualization Landscape &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Python Visualization — Multiple Line Plotting" href="multiline.html" />
+    <link rel="prev" title="Visualization" href="visualization.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/profiling.html">
+     How to assess your code performance in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../basics/intro.html">
+     Python Landscape and Introduction
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/metabase.html">
+     Query Metabase data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/stripe.html">
+     Query and analyze Stripe data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/salesforce.html">
+     Query Salesforce Data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/intercom.html">
+     Query Intercom data in Python — Intercom rest API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/marketo.html">
+     Getting Marketo data in Python — Marketo rest API and Python API
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="visualization.html">
+   Visualization
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Python Visualization Landscape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="multiline.html">
+     Python Visualization — Multiple Line Plotting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../timeseries/timeseries1.html">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../timeseries/timeseries2.html">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/clv.html">
+     Customer lifetime value in a discrete-time contractual setting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../optimization/optimization.html">
+   Optimization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../optimization/descentmethod1.html">
+     Descent method — Steepest descent and conjugate gradient
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../optimization/descentmethod2.html">
+     Descent method — Steepest descent and conjugate gradient in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../random/pypowerup.html">
+   PyPowerUp
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Notebooks template
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/visualization/landscape.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matplotlib">
+   Matplotlib
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matplotlib-based">
+   Matplotlib-based
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#javascript">
+   JavaScript
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#json">
+   JSON
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#webgl">
+   WebGL
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#other">
+   Other
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="python-visualization-landscape">
+<h1>Python Visualization Landscape<a class="headerlink" href="#python-visualization-landscape" title="Permalink to this headline">¶</a></h1>
+<p>Visualization is a big and hot topic. Many developers have their own solutions and contributed to many visualization packages in Python. Entering the Python visualization world, most people start with matplotlib. But matplotlib is limited in many ways. If you want to visualize a more complicated graph or with a lot more data, where can you go next? Which visualization library should you use? What does the Python visualization landscape look like? These are the questions I have pondered and there are many great resources out there to learn about the visualization landscape.</p>
+<p>In PyCon 2017, Jake Vanderplas, core developer for Altair, presented a talk describing the history and landscape of Python visualization libraries (video: https://www.youtube.com/watch?v=FytuB8nFHPQ; slides: https://speakerdeck.com/jakevdp/pythons-visualization-landscape-pycon-2017). He visualized almost all of the Python visualization libraries in a connected graph showing the clusters and relationships among the tools. Nicolas P. Rougier later adapted the graph to the figure shown below. In November 2018, James Bednar, core developer for Bokeh, Holoviews, GeoViews, Datashader, Panel, and hvPlot, published an article further described the graph in details (<a class="reference external" href="https://www.anaconda.com/python-data-visualization-2018-why-so-many-libraries/">Bednar, 2018</a>). Finally, in June 2019, Anaconda published pyviz.org as an open-platform to track and inform the public about the current python visualization tools and development. For any data scientists who try to understand the Python visualization landscape, I recommend you to start with pyviz.org.</p>
+<p><img alt="" src="../../_images/landscape.png" />
+<em>Nicolas P. Rougier’s adaptation of the Python Visualization Landscape slide from Jake VanderPlas’ keynote at Pycon 2017</em></p>
+<p>To further understand the visualization landscape graph, in the Bednar article, he categories the libraries into two main groups:</p>
+<ul class="simple">
+<li><p>SciVis</p></li>
+<li><p>InfoVis</p></li>
+</ul>
+<p>SciVis libraries including VisPy, glumpy, GT, Mayavi, ParaView, VTK, and yt primarily visualize three or four dimensions “physically situated data”. InfoVis libraries, including all the rest of the libraries, visualize “information in arbitrary spaces”. The Bednar article further grouped the InfoVis libraries the following subgroups:</p>
+<ul class="simple">
+<li><p>Matplotlib</p></li>
+<li><p>Matplotlib-based</p></li>
+<li><p>JavaScript</p></li>
+<li><p>JSON</p></li>
+<li><p>WebGL</p></li>
+<li><p>Other</p></li>
+</ul>
+<div class="section" id="matplotlib">
+<h2>Matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this headline">¶</a></h2>
+<p>Matplotlib was created by John D. Hunter in 2002 and released in 2003 for the purpose of better analyzing EEG data using 2D plots of arrays. John at the time was frustrated with the limitations of MATLAB and then emulated the MATLAB graphics commands to create the Python library Matplotlib. John D. Hunter wrote a brief history about Matplotlib, see https://matplotlib.org/3.1.0/users/history.html. The main advantage of Matplotlib is that it works well with any operating systems, supports many backends, and provides simple interface (https://pyvideo.org/scipy-2012/matplotlib-lessons-from-middle-age-or-how-you.html). However, there are several weaknesses of Matplotlib. As mentioned in Jake Vanderplas’s blog (http://jakevdp.github.io/blog/2013/03/23/matplotlib-and-the-future-of-visualization-in-python/), Matplotlib is not desirable for creating dynamic and interactive graphics, the syntax of Matplotlib is verbose, and the output shows age. Luckily, people have developed better tools around, or independent of Matplotlib to make Python visualization better.</p>
+</div>
+<div class="section" id="matplotlib-based">
+<h2>Matplotlib-based<a class="headerlink" href="#matplotlib-based" title="Permalink to this headline">¶</a></h2>
+<p>Many Python packages are built on top of Matplotlib.</p>
+<p>Cartopy was created in 2011 by the UK Met Office (Met Office, 2017). It is designed with a simple interface to plot maps using Matplotlib.</p>
+<p>YT was released in 2008 by a group of astrophisical scholars. It is designed for astrophysical analysis and visualization (Turk, et al., 2010). It was initially developed to examine nested adaptive mesh refinement with Enzo, and has extended to work with various simulation methods.</p>
+<p>seaborn was created by Michael Waskom in 2012, and first released in 2013. It is designed for statistical visualization. It is great for plotting distributions, relationships, and structure of the data.
+Networkx was released in 2005 by Aric Hagberg, Pieter Swart, and Dan Schult. It is for visualizing, manipulating, and analyzing graphs and networks.</p>
+<p>Pandas, the most popular data manipulation and analysis tool in Python, was created by Wes McKinney and was released in 2008. It provides plotting functions of pandas DataFrame using matplotlib.</p>
+<p>Glue was created by the astronomy researchers, Chris Beaumont and Thomas Robitaille, in 2014. It is designed to explore relationships within and among related datasets with linked statistical graphics and linked datasets.</p>
+<p>plotnine was released in 2017 and created by Hassan Kibirige. It is designed to improve the functionalities of ggpy by implementing a grammar of graphics in Python based on the ggplot2 library in R.</p>
+<p>yellowbrick was released in 2016 and created by two professors Rebecca Bilbro and Benjamin Bengfort as teaching tool in a data science certificate program. It is designed for evaluating machine learning models and helping with the model selection and hyperparameter tuning process.</p>
+<p>Scikit-plot was released in 2017 and created by Reiichiro Nakano to visualize scikit-learn objects. It is used to plot the results and performance of machine learning models.</p>
+<p>Basemap was depreciated in favor of Cartopy.</p>
+<p>ggpy is no longer maintained and developed.</p>
+</div>
+<div class="section" id="javascript">
+<h2>JavaScript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h2>
+<p>Matplotlib-based tools do not offer the interactivities I often desire in the plot. If I want interactive plots, the solution is Bokeh. Bokeh was released in 2013 and created by Bryan Van de Ven. It is using its JavaScript API, BokehJS, to provide dynamic and interactive visualization with large datasets in the browser. It also allows users to add custom JavaScript to display widget, hover, and other features in the plots. Another amazing feature of Bokeh is the Bokeh server, which can be used to create dashboard and apps.</p>
+<p>Toyplot was released in 2014 and created by Timothy M. Shead from the Sandia National Laboratories. It is also built on JavaScript and also allows users to add and define their custom JavaScript modules. Similar to Bokeh, Toyplot provides many interactive visualization features such as creating animation plots.</p>
+<p>Plotly was created by the Plotly software company, which was founded by Alex Johnson, Jack Parmer, Chris Parmer, and Matthew Sundquist in 2012. The Plotly Python API relies on its JavaScript API plotly.js, which built on d3.js. Similiar to Bokeh’s Bokeh server, Plotly has its own framework called Dash to create apps and dashboard. Unlike all the other Python visualization projects, Dash is not completely open sourced. It has an enterprise version to help clients deploy apps at scale.</p>
+<p>bqplot was released and open-sourced in 2015 by Bloomberg. It is a “Grammar of Graphics-based interactive plotting framework for the Jupyter notebook” using d3.js and ipywidgets.(https://bqplot.readthedocs.io/en/latest/introduction.html).</p>
+<p>Cufflinks was released in 2015 and created by Jorge Santos. It is built on top of Plotly and applied to pandas dataframe.</p>
+<p>ipyleaflet was released in 2016 by Project Jupyter. It is designed to work with geospatial data to create interactive and dynamic Leaflet maps.</p>
+<p>Lightining is no longer maintained and developed.</p>
+</div>
+<div class="section" id="json">
+<h2>JSON<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h2>
+<p>Vega was created by a group of researchers from Stanford University and University of Washington in 2014 (Satyanarayan, Wongsuphasawat, &amp; Heer, 2014). It is a visualization grammar on top of D3, with its specifications written in JSON format.</p>
+<p>Vega-Lite was built on top of Vega with simplified specifications and automated visulization components. It is also developed by a group of researchers from Stanford University and University of Washington.
+Altair is a declarative statistical visualization library, built on top of Vega and Vega-Lite. It was released by 2016 and created by Jake Vanderplas and Brian Granger. Altair translates simple Python code into the JSON-format Vega-Lite language.</p>
+<p>vincent, d3po, and mpld3 are no longer maintained and developed.</p>
+</div>
+<div class="section" id="webgl">
+<h2>WebGL<a class="headerlink" href="#webgl" title="Permalink to this headline">¶</a></h2>
+<p>The WebGL category includes the libraries that are built on JavaScript but targeting on the 3D viuliazation including ipyvolumn, ipyvolum, and Plotly.</p>
+<p>ipyvolumn was released in 2017 by Maarten A. Breddels. It is specialized in invisualizing 3d volumes and glyphs in the Jupyter notebook.</p>
+<p>pythreejs was released in 2015 and maintained by Jason Grout, Sylvain Corlay, and Vidar Tonaas Fauske. It is the Python version of the three.js API, which allows users to visualize and animate 3D objects.
+Plotly was covered in the JavaScript section earlier.</p>
+</div>
+<div class="section" id="other">
+<h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<p>Few other tools worth mentioning are datashader, holoviews, and hvplot.</p>
+<p>Datashader was created by James Bednar in 2016. Datashader uses Numba and Dask to create a graphics pipeline system to represent big data quickly and effectively. It makes big data visualization possible.</p>
+<p>Holoviews was released in 2015 and was created by Jean-Luc Stevens. Holoviews is a high-level tool built on top of Bokeh, matplotlib, and datashader. It provides a simple and concise interface for building Bokeh or matplotlib plots. By defining and describing your data in a metadata, Holoviews is able to plot the data effortlessly.</p>
+<p>hvPlot was released in 2018 and created by Philipp Rudiger and James Bednar. It is an even higher-level plotting tool built on HoloViews. hvPlot makes plotting extremely easy with supported few data format — Pandas, XArray, DataArray, Dask, Streamz, and Intake. If you have need to plot a Pandas dataframe, hvPlot would be your ideal choice for easy interactive plots.</p>
+<p>Among all of the Python visualization tools, my favorite are Bokeh, Holoviews, GeoViews, hvPlot, and datashader. Except for Bokeh, they are all part of <a class="reference external" href="https://holoviz.org/">HoloViz</a>. They make it easy to do interactive plots with any size of data. If you have not used Bokeh and HoloViz, make sure to check them out!</p>
+<p>References:<br />
+Bednar, J. (2018). Python Data Visualization 2018: Why So Many Libraries? https://www.anaconda.com/python-data-visualization-2018-why-so-many-libraries/<br />
+Hunter, J. (2012). Matplotlib: Lessons from middle age. Or, how you too can turn a hundred lines of patch rejection into two hundred thousand lines of code. Scipy 2012. https://pyvideo.org/scipy-2012/matplotlib-lessons-from-middle-age-or-how-you.html<br />
+Hunter, J. (2008). History. Matplotlib. https://matplotlib.org/3.1.0/users/history.html
+VanderPlas, J. (2013). Matplotlib and the Future of Visualization in Python. http://jakevdp.github.io/blog/2013/03/23/matplotlib-and-the-future-of-visualization-in-python/<br />
+Met Office. (2017). SciTools: our history in a nutshell. https://www.ecmwf.int/sites/default/files/elibrary/2017/17850-scitools-our-history-nutshell.pdf<br />
+Turk, M. J., Smith, B. D., Oishi, J. S., Skory, S., Skillman, S. W., Abel, T., &amp; Norman, M. L. (2010). yt: A multi-code analysis toolkit for astrophysical simulation data. The Astrophysical Journal Supplement Series, 192(1), 9.</p>
+<p>By Sophia Yang on <a class="reference external" href="https://sophiamyang.medium.com/python-visualization-landscape-3b95ede3d030">October 24, 2019</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/visualization"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="visualization.html" title="previous page">Visualization</a>
+    <a class='right-next' id="next-link" href="multiline.html" title="next page">Python Visualization — Multiple Line Plotting</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
