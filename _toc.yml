@@ -18,6 +18,9 @@
       - file: DS/text/text_basics
       - file: DS/text/text_classification
   - file: DS/timeseries/timeseries
+    sections:
+      - file: DS/timeseries/timeseries1
+      - file: DS/timeseries/timeseries2
   - file: DS/survival/survival
     sections: 
       - file: DS/survival/survivalanalysis
