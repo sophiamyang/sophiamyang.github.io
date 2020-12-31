@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jupyter Workflow for Data Scientists &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Git workflow for data scientist" href="git.html" />
+    <link rel="prev" title="Basics" href="basics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   WELCOME
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="basics.html">
+   Basics
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Jupyter Workflow for Data Scientists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="conda.html">
+     Conda environment 101
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="profiling.html">
+     How to assess your code performance in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intro.html">
+     Python Landscape and Introduction
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/metabase.html">
+     Query Metabase data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/stripe.html">
+     Query and analyze Stripe data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/salesforce.html">
+     Query Salesforce Data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/intercom.html">
+     Query Intercom data in Python — Intercom rest API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dataaccess/marketo.html">
+     Getting Marketo data in Python — Marketo rest API and Python API
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../visualization/visualization.html">
+   Visualization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/landscape.html">
+     Python Visualization Landscape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/multiline.html">
+     Python Visualization — Multiple Line Plotting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../timeseries/timeseries1.html">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../timeseries/timeseries2.html">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../othermodels/clv.html">
+     Customer lifetime value in a discrete-time contractual setting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../optimization/optimization.html">
+   Optimization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../optimization/descentmethod1.html">
+     Descent method — Steepest descent and conjugate gradient
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../optimization/descentmethod2.html">
+     Descent method — Steepest descent and conjugate gradient in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../random/pypowerup.html">
+   PyPowerUp
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../markdown.html">
+   Markdown template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   Notebooks template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../contact.html">
+   Contact me
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DS/basics/jupyterworkflow.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DS/basics/jupyterworkflow.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup-environment">
+     Setup environment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#start-jupyter">
+     Start Jupyter
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#start-jupyter-from-a-remote-server">
+     Start Jupyter from a remote server
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#useful-jupyter-commands">
+   Useful Jupyter commands
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#most-useful-shortcuts">
+     Most useful shortcuts
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#time-and-timeit">
+     time and timeit
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#theme">
+     theme
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#debug">
+   Debug
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jupyter-visual-debugger">
+     Jupyter visual debugger
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jupyter-notebook-debug">
+     Jupyter Notebook %debug
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pdb-on">
+     %pdb on
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#breakpoint">
+     breakpoint
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#version-control">
+   Version control
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#approach-1-pairing-ipynb-file-with-a-py-file">
+     Approach 1: pairing .ipynb file with a .py file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#approach-2-work-with-py-file-directly-using">
+     Approach 2: work with .py file directly using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       #
+      </span>
+      <span class="pre">
+       %%
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#deployment">
+   Deployment
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="jupyter-workflow-for-data-scientists">
+<h1>Jupyter Workflow for Data Scientists<a class="headerlink" href="#jupyter-workflow-for-data-scientists" title="Permalink to this headline">¶</a></h1>
+<p><em>setup, debug, version control, and deployment</em></p>
+<p>Many data scientists like to use Jupyter Notebook or JupyterLab to do their data explorations, visualizations, and model building. I know some data scientists refuse to use Jupyter Notebook. But, I love to use Jupyter Notebook/Lab to do my experiments and explorations. Here is a Jupyter Notebook workflow that might be helpful.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setup-environment">
+<h3>Setup environment<a class="headerlink" href="#setup-environment" title="Permalink to this headline">¶</a></h3>
+<p>Whenever you are working on a new project, you should always have a new fresh environment to start with. If you are lazy and don’t want to create a new environment for every project, you should at least create one new environment that’s separate from your base environment and do your work in this new environment. To create a new environment, simply run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">new_project</span> <span class="pre">python=3.8</span></code>. Here I created a new environment called <code class="docutils literal notranslate"><span class="pre">new_project</span></code>. I specified the Python version when I create the environment, but you don’t have to. Now I can activate this environment by running <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">new_project</span></code>, and then install the necessary packages I need for this environment, e.g., <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter</span> <span class="pre">notebook</span> <span class="pre">pandas</span> <span class="pre">numpy</span></code>. If you would like to use JupyterLab, make sure to run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyterlab</span></code>.</p>
+</div>
+<div class="section" id="start-jupyter">
+<h3>Start Jupyter<a class="headerlink" href="#start-jupyter" title="Permalink to this headline">¶</a></h3>
+<p>To start Jupyter Notebook, run <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> in the command line. If you would like to start JupyterLab, run <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code>. JupyterLab is a web-based interactive development environment for Jupyter notebooks. It has a different interface and has more (easy-to-use) plugins and thus more flexible than Jupyter Notebook. The workflow between Jupyter Notebook and JupyterLab JupyterLab is similar. This article applies to both Jupyter Notebook and JupyterLab.</p>
+</div>
+<div class="section" id="start-jupyter-from-a-remote-server">
+<h3>Start Jupyter from a remote server<a class="headerlink" href="#start-jupyter-from-a-remote-server" title="Permalink to this headline">¶</a></h3>
+<p>A lot of times we want to run Jupyter from a remote server and work on it from a local browser. First, we need to set up the same environment on this remote server. Next, we need to set up port forwarding. Here we forward port 10000 from the remote machine to our local machine and start the notebook on this port. Note that the remote port and the local port don’t have to be the same, but I like to use the same port for simplicity. If port 10000 is not available, you can use other port numbers. Now you should see a link on your command line starting with localhost:10000. Copy and paste this link to your web browser, and you are all set to use the Jupyter Notebook from the remote machine on your local machine.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">L</span> <span class="mi">10000</span><span class="p">:</span><span class="n">localhost</span><span class="p">:</span><span class="mi">10000</span> <span class="n">user</span><span class="nd">@host</span>
+<span class="n">jupyter</span> <span class="n">notebook</span> <span class="o">--</span><span class="n">ip</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="o">--</span><span class="n">port</span> <span class="mi">10000</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="useful-jupyter-commands">
+<h2>Useful Jupyter commands<a class="headerlink" href="#useful-jupyter-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="most-useful-shortcuts">
+<h3>Most useful shortcuts<a class="headerlink" href="#most-useful-shortcuts" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">A</span></code>: insert cell above<br />
+<code class="docutils literal notranslate"><span class="pre">B</span></code>: insert cell below<br />
+<code class="docutils literal notranslate"><span class="pre">X</span></code>: cut cell<br />
+<code class="docutils literal notranslate"><span class="pre">C</span></code>: copy cell<br />
+<code class="docutils literal notranslate"><span class="pre">V</span></code>: paste cell<br />
+<code class="docutils literal notranslate"><span class="pre">D,D</span></code>: delete cell<br />
+<code class="docutils literal notranslate"><span class="pre">Z</span></code>: undo delete cells<br />
+<code class="docutils literal notranslate"><span class="pre">⌘</span> <span class="pre">S</span></code>: save and checkpoint<br />
+<code class="docutils literal notranslate"><span class="pre">⌘</span> <span class="pre">enter</span></code>: run selected cell<br />
+<code class="docutils literal notranslate"><span class="pre">shift</span> <span class="pre">enter</span></code>: run current cell</p>
+</div>
+<div class="section" id="time-and-timeit">
+<h3>time and timeit<a class="headerlink" href="#time-and-timeit" title="Permalink to this headline">¶</a></h3>
+<p>The built-in magic function <code class="docutils literal notranslate"><span class="pre">%%time</span></code> outputs time execution of a Python statement or expression. <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code>
+measures time execution of a Python statement or expression by running it many times for better accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 2 µs, sys: 0 ns, total: 2 µs
+Wall time: 5.01 µs
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+<span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.52 ns ± 0.0812 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="theme">
+<h3>theme<a class="headerlink" href="#theme" title="Permalink to this headline">¶</a></h3>
+<p>JupyterLab has a built-in dark mode. You can find it at <code class="docutils literal notranslate"><span class="pre">Settings</span> <span class="pre">-</span> <span class="pre">Jupyter</span> <span class="pre">Lab</span> <span class="pre">Theme</span> <span class="pre">-</span> <span class="pre">Jupyter</span> <span class="pre">Lab</span> <span class="pre">Dark</span></code>. I don’t think Jupyter Notebook has a built-in dark mode yet. But you can use the Python package <code class="docutils literal notranslate"><span class="pre">jupyterthemes</span></code> to change your notebook theme. Check out <a class="reference external" href="https://github.com/dunovank/jupyter-themes"><code class="docutils literal notranslate"><span class="pre">jupyterthemes</span></code></a> for details.</p>
+</div>
+</div>
+<div class="section" id="debug">
+<h2>Debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jupyter-visual-debugger">
+<h3>Jupyter visual debugger<a class="headerlink" href="#jupyter-visual-debugger" title="Permalink to this headline">¶</a></h3>
+<p>Project Jupyter announced their Jupyter visual debugger back in March this year. Here is how to install the debugger if you are using JupyterLab 2.xx.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">nodejs</span> <span class="n">xeus</span><span class="o">-</span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="n">defaults</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+<span class="n">jupyter</span> <span class="n">labextension</span> <span class="n">install</span> <span class="nd">@jupyterlab</span><span class="o">/</span><span class="n">debugger</span>
+</pre></div>
+</div>
+<p>Note that the debugger is already included in JupyterLab 3.0. If you are using JupyterLab 3.0 and above, you will only need to install xeus-python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span><span class="o">-</span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="n">defaults</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+</pre></div>
+</div>
+<p>To use the Jupyter visual debugger, click XPython in the JupyterLab New Launcher:
+<img alt="" src="../../_images/jupyter1.png" /></p>
+<p>And then activate the debugger by drag the right corner button to orange, select a breakpoint with a red dot in front of the line, and play the callstack:</p>
+<p><img alt="" src="../../_images/jupyter.gif" /></p>
+<p>More information about the Jupyter visual debugger can be found in this <a class="reference external" href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559">blog post</a>.</p>
+</div>
+<div class="section" id="jupyter-notebook-debug">
+<h3>Jupyter Notebook %debug<a class="headerlink" href="#jupyter-notebook-debug" title="Permalink to this headline">¶</a></h3>
+<p>Whenever we see an exception, we can use the <code class="docutils literal notranslate"><span class="pre">%debug</span></code> magic command to open up an interactive Python debugger.
+<img alt="" src="../../_images/jupyter2.png" /></p>
+</div>
+<div class="section" id="pdb-on">
+<h3>%pdb on<a class="headerlink" href="#pdb-on" title="Permalink to this headline">¶</a></h3>
+<p>Alternatively, we can also turn on the <code class="docutils literal notranslate"><span class="pre">%pdb</span></code> magic command to automatically run the debugger on an exception.
+<img alt="" src="../../_images/jupyter3.png" /></p>
+</div>
+<div class="section" id="breakpoint">
+<h3>breakpoint<a class="headerlink" href="#breakpoint" title="Permalink to this headline">¶</a></h3>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">breakpoint</span></code> and run debugger line by line. <code class="docutils literal notranslate"><span class="pre">breakpoint</span></code> also works for other code editors like VSCode.
+<img alt="" src="../../_images/jupyter4.png" /></p>
+</div>
+</div>
+<div class="section" id="version-control">
+<h2>Version control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">jupytext</span></code> and <code class="docutils literal notranslate"><span class="pre">VSCode</span></code> made version control so much easier for Jupyter notebooks. Before we jump into <code class="docutils literal notranslate"><span class="pre">jupytext</span></code> and <code class="docutils literal notranslate"><span class="pre">VSCode</span></code>, let me remind you why version control is annoying with Jupyter:</p>
+<ul class="simple">
+<li><p>Jupyter Notebooks can be very large. If you have to push your Jupyter notebooks to Github, please remove all of your output. Otherwise, your Github repository can explode very quickly.</p></li>
+<li><p>Jupyter Notebooks are saved as json files. It is difficult to read your notebook diffs on Github.</p></li>
+</ul>
+<p>Now let’s talk about solutions. There are two approaches:</p>
+<div class="section" id="approach-1-pairing-ipynb-file-with-a-py-file">
+<h3>Approach 1: pairing .ipynb file with a .py file<a class="headerlink" href="#approach-1-pairing-ipynb-file-with-a-py-file" title="Permalink to this headline">¶</a></h3>
+<p>The first approach lets you still use your .ipynb file. But when we work on those .ipynb files, we use <code class="docutils literal notranslate"><span class="pre">jupytext</span></code> (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupytext</span> <span class="pre">-c</span> <span class="pre">defaults</span> <span class="pre">-c</span> <span class="pre">conda-forge</span></code>) to pair your notebook with a .py file. Click “File - Jupytext - Pair Notebook with percent Script”. I prefer the percent script, which indicates cells in .py with <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">%%</span></code> comment. But you can also use other formats. Now whenever we make any changes in the .ipynb file, the changes will automatically show up in the corresponding .py file. Then we can just do version control with this .py file.</p>
+<p><img alt="" src="../../_images/jupyter5.png" /></p>
+</div>
+<div class="section" id="approach-2-work-with-py-file-directly-using">
+<h3>Approach 2: work with .py file directly using <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">%%</span></code><a class="headerlink" href="#approach-2-work-with-py-file-directly-using" title="Permalink to this headline">¶</a></h3>
+<p>The second approach lets you see Jupyter interface with .py files. With this approach, we don’t work with .ipynb files anymore. Instead, we work with .py files directly.</p>
+<p>To see the Jupyter interface with .py files, we need to use the command <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">%%</span></code> for each code cell. In VSCode, we can run this cell by clicking the <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Cell</span></code> button (see image below). Similarly, when we have <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">%%</span></code> in the .py files and have <code class="docutils literal notranslate"><span class="pre">jupytext</span></code> installed, Jupyter Notebook or JupyterLab can open the .py file as the regular Jupyter files you normally see.</p>
+<p>Now all of our work will be in .py files, we can do our normal version control with those files.</p>
+<p><img alt="" src="../../_images/jupyter6.png" /></p>
+</div>
+</div>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<p>There are a lot of platforms and tools that can help you deploy your Jupyter Notebooks. For example, you can host your notebooks on <a class="reference external" href="https://mybinder.org/">binder</a> for free. And there are a lot of other commercial products out there for deploying your notebooks into production.</p>
+<p>However, what I would like to say is DO NOT deploy Jupyter Notebook .ipynb files directly in production unless your infrastructure is designed to deploy Jupyter notebooks. Please convert your notebooks to a normal Python script if you can.</p>
+<p>Hopefully, you find this article useful! Thanks!</p>
+<p>References:<br />
+https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559<br />
+https://ipython.readthedocs.io/en/stable/api/generated/IPython.core.debugger.html</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="basics.html" title="previous page">Basics</a>
+    <a class='right-next' id="next-link" href="git.html" title="next page">Git workflow for data scientist</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
