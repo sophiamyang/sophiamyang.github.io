@@ -91,7 +91,7 @@ def test_optimization(tickers, start_date, end_date, expected):
         st.integers(min_value=1e3, max_value=int(1e5)),
         st.integers(min_value=1e5, max_value=int(1e6))
     ),
-    index=range_indexes(min_size=5)
+    index=range_indexes(min_size=8)
     )
 )
 def test_optimization_allocation(df):
