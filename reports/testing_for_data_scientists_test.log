@@ -1,0 +1,95 @@
+Traceback (most recent call last):
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/nbclient/client.py", line 1087, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/nbclient/client.py", line 540, in async_execute
+    await self.async_execute_cell(
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import yfinance as yf 
+import pandas as pd
+import matplotlib.pyplot as plt
+import scipy.optimize as spo
+import math
+import numpy as np
+
+def get_data(tickers, start_date, end_date):
+    """
+    use yfinance to get stock "Adj Close" data
+    """
+    return yf.download(tickers, start=start_date, end=end_date)['Adj Close']
+
+def stock_plot(price):
+    fig, ax = plt.subplots()
+    tickers = price.columns.to_list()
+    for ticker in tickers:
+        ax.plot(price[[ticker]], label=ticker)
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Adjusted closing price')
+    ax.legend()
+    return fig
+
+def calculate_daily_returns(allocation, price):
+    """
+    Calculate daily return
+    allocation: allocation of the stocks in your portfolio
+    price: adj close price for the stocks
+    """
+    start_val = 1 #how much money we have to start with
+    normed = price/price.iloc[0] #normalize prices
+    allocated = normed * allocation
+    position = allocated * start_val
+    portfolio = position.sum(axis=1)
+    daily_returns = (portfolio/portfolio.shift(1)) - 1
+    return daily_returns
+
+def sharpe_ratio(allocation, price):
+    """
+    Calculate negative sharpe ratio
+    allocation: allocation of the stocks in your portfolio
+    price: adj close price for the stocks
+    """
+    daily_returns = calculate_daily_returns(allocation, price)
+    sharpe_ratio = (daily_returns.mean()/daily_returns.std()) * (-1)
+    return sharpe_ratio
+
+def optimize_sharpe_ratio(price):    
+    """
+    optimizes sharpe ratio for best allocations
+    """
+    tickers = price.columns.to_list()
+    allocation = np.ones(len(tickers))/len(tickers)
+    bounds = [(0.0, 1.0) for i in range(len(tickers))]
+    constraints = (
+        { 'type': 'ineq', 'fun': lambda inputs: 1.0 - np.sum(inputs) },
+        { 'type': 'ineq', 'fun': lambda inputs:  np.sum(inputs)-1 })
+    result = spo.minimize(
+        sharpe_ratio, allocation, args=price, method='SLSQP',
+        options={'disp':True},bounds=bounds,constraints=constraints)
+    allocations = result.x
+    return allocations
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m<ipython-input-1-6412cdbb5e12>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;32mimport[0m [0myfinance[0m [0;32mas[0m [0myf[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0;32mimport[0m [0mpandas[0m [0;32mas[0m [0mpd[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;32mimport[0m [0mmatplotlib[0m[0;34m.[0m[0mpyplot[0m [0;32mas[0m [0mplt[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;32mimport[0m [0mscipy[0m[0;34m.[0m[0moptimize[0m [0;32mas[0m [0mspo[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0;32mimport[0m [0mmath[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mModuleNotFoundError[0m: No module named 'yfinance'
+ModuleNotFoundError: No module named 'yfinance'
+

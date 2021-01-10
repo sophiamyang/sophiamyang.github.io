@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing for data scientists &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Jupyter workflow for data scientists" href="../jupyterworkflow.html" />
+    <link rel="prev" title="Basics" href="../basics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   WELCOME
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../basics.html">
+   Basics
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Testing for data scientists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../jupyterworkflow.html">
+     Jupyter workflow for data scientists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../conda.html">
+     Conda environment 101
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../profiling.html">
+     How to assess your code performance in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../intro.html">
+     Python Landscape and Introduction
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/metabase.html">
+     Query Metabase data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/stripe.html">
+     Query and analyze Stripe data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/salesforce.html">
+     Query Salesforce Data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/intercom.html">
+     Query Intercom data in Python — Intercom rest API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/marketo.html">
+     Getting Marketo data in Python — Marketo rest API and Python API
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../visualization/visualization.html">
+   Visualization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/landscape.html">
+     Python Visualization Landscape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/multiline.html">
+     Python Visualization — Multiple Line Plotting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../timeseries/timeseries1.html">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../timeseries/timeseries2.html">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../othermodels/clv.html">
+     Customer lifetime value in a discrete-time contractual setting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../optimization/optimization.html">
+   Optimization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../optimization/descentmethod1.html">
+     Descent method — Steepest descent and conjugate gradient
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../optimization/descentmethod2.html">
+     Descent method — Steepest descent and conjugate gradient in Python
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../random/pypowerup.html">
+   PyPowerUp
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown.html">
+   Markdown template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../notebooks.html">
+   Notebooks template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../contact.html">
+   Contact me
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/DS/basics/testing_for_data_scientists/testing_for_data_scientists.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-up">
+   Set up
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-data-accessing-and-the-input-data">
+   Test data accessing and the input data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#another-example-and-fixture">
+     Another Example and Fixture
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-plots">
+   Test plots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-data-processing">
+   Test data processing
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parametrize">
+     parametrize
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-model">
+   Test model
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hypothesis">
+     Hypothesis
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="testing-for-data-scientists">
+<h1>Testing for data scientists<a class="headerlink" href="#testing-for-data-scientists" title="Permalink to this headline">¶</a></h1>
+<p><em>Using pytest and hypothesis for unit testing</em></p>
+<p>Software testing is essential for software development. It is recommended for software engineers to use test-driven development (TDD), which is a software development process that develops test cases first and then develops the software. For data scientists, it is not always easy and plausible to write tests first. Nevertheless, software testing is so important. Every data scientist should know how to do unit testing and use unit testing in their data science workflow. A lot of data scientists already use assertions, which is a very important first step to test-driven development. This article will step up from assertions and focus on two tools – <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>. There are other testing tools available, such as the Python built-in library <code class="docutils literal notranslate"><span class="pre">unittest</span></code>. <code class="docutils literal notranslate"><span class="pre">unittest</span></code> has similar functionalities as <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, but I think <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is more user friendly for data scientists and includes more useful features.</p>
+<div class="section" id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
+<p>To install <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">pytest</span> <span class="pre">hypothesis</span> <span class="pre">-c</span> <span class="pre">defaults</span> <span class="pre">-c</span> <span class="pre">conda-forge</span></code>.</p>
+<p>To use  <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>, we will need to separate the main script and the testing script. In our examples below, our main script for data accessing, processing, and modeling will be called <code class="docutils literal notranslate"><span class="pre">stock_example.py</span></code>. Our testing script will be called <code class="docutils literal notranslate"><span class="pre">test_stock_example.py</span></code>. In practice, data accessing, processing, and modeling are usually in separate files and there might be multiple testing files. Also, it is recommended to save your test files under a <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory. The structure of our files is shown below:</p>
+<pre>
+.
+&#8866; stock_exmple.py
+&#8866; tests
+        &#8985; test_stock_example.py
+</pre>
+</div>
+<div class="section" id="test-data-accessing-and-the-input-data">
+<h2>Test data accessing and the input data<a class="headerlink" href="#test-data-accessing-and-the-input-data" title="Permalink to this headline">¶</a></h2>
+<p>Data Scientists can get data from anywhere: from internal sources, vendors, and different APIs. Our data pipelines and models depend on successfully getting the right data. If we fail to get the data or if the vendor changes the data schema or format, we want to be able to catch these issues in a testing script.</p>
+<p>In our example, we use the yahoo finance API (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">yfinance</span></code>) to get the stock data and try to optimize stock allocations in a portfolio. In <code class="docutils literal notranslate"><span class="pre">stock_example.py</span></code>, I wrote a function <code class="docutils literal notranslate"><span class="pre">stock_data</span></code> to get the adjusted closing price from given tickers and return a pandas dataframe (see image below, left panel). To test this function, in the <code class="docutils literal notranslate"><span class="pre">test_stock_example.py</span></code> file (see image below, right panel), we define two stocks and timeframe, and get a dataframe <code class="docutils literal notranslate"><span class="pre">df_func</span></code> from the function <code class="docutils literal notranslate"><span class="pre">stock_data</span></code>. <code class="docutils literal notranslate"><span class="pre">df_truth</span></code> is what we expect the function to return. Then <code class="docutils literal notranslate"><span class="pre">df_func</span></code> must be the same as the <code class="docutils literal notranslate"><span class="pre">df_truth</span></code>. Function <code class="docutils literal notranslate"><span class="pre">assert_frame_equal</span></code> is recommended to use when comparing two dataframes. If the two data frames are not the same, then <code class="docutils literal notranslate"><span class="pre">assert_frame_equal</span></code> will tell us exactly where the differences are.</p>
+<p><img alt="" src="../../../_images/test1.png" /></p>
+<p>Now if we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code> (if pytest does not add the current directory in the PYTHONPATH), then
+we can see we pass the test. The dataframe we got from the function is indeed the dataframe we expect to see. This simple test will tell us if we have trouble accessing data through the API or if the data format changes.</p>
+<p><img alt="" src="../../../_images/result1.png" /></p>
+<div class="section" id="another-example-and-fixture">
+<h3>Another Example and Fixture<a class="headerlink" href="#another-example-and-fixture" title="Permalink to this headline">¶</a></h3>
+<p>If your testing case is large and you do not want to check if the two dataframes are the same, you can use assertions in the testing script to check for dataframe shape, duplicates, column names, missing values, and others. For example, in the example below, we got data from three tickers and from a longer period of time. We checked the shape of the dataframe, no null values in any of the cells, all cell values above zero, and the column names.</p>
+<p>Note that in this example, I used a decorator <code class="docutils literal notranslate"><span class="pre">&#64;pytest.fixture</span></code> to define a fixture function <code class="docutils literal notranslate"><span class="pre">load_data</span></code>. In this function, we load our data and return a dataframe. The default scope of fixture is <code class="docutils literal notranslate"><span class="pre">scope='function'</span></code> and the fixture will be invoked per function. We can provide fixture a larger scope, e.g., <code class="docutils literal notranslate"><span class="pre">class</span></code>, <code class="docutils literal notranslate"><span class="pre">module</span></code>, <code class="docutils literal notranslate"><span class="pre">package</span></code>, and <code class="docutils literal notranslate"><span class="pre">session</span></code>. Fixture function with a larger scope (e.g., <code class="docutils literal notranslate"><span class="pre">&#64;pytest.fixture(scope=&quot;module&quot;)</span></code>) will allow us to load our data only once and use it in different test functions. Then we can use this fixture as a parameter in test functions. Here, I pass in the fixture <code class="docutils literal notranslate"><span class="pre">load_data</span></code> in my test function <code class="docutils literal notranslate"><span class="pre">test_load_data</span></code> and I define <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">load_data</span></code> to get this dataframe. Then I can do my assertions and checks like I mentioned before.</p>
+<p><img alt="" src="../../../_images/test2.png" /></p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code> shows that we passed both of our tests.</p>
+<p><img alt="" src="../../../_images/result2.png" /></p>
+</div>
+</div>
+<div class="section" id="test-plots">
+<h2>Test plots<a class="headerlink" href="#test-plots" title="Permalink to this headline">¶</a></h2>
+<p>Data scientists often produce visualization reports or dashboards and they may not want the visualization images to change by accident. <code class="docutils literal notranslate"><span class="pre">pytest-mpl</span></code> allows us to test if our matplotlib images change or not. First, we need to install <code class="docutils literal notranslate"><span class="pre">pytest-mpl</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">mpl</span> <span class="o">-</span><span class="n">c</span> <span class="n">defaults</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+</pre></div>
+</div>
+<p>Next, in our main file <code class="docutils literal notranslate"><span class="pre">stock_example.py</span></code> (see image below, left panel), we added a function <code class="docutils literal notranslate"><span class="pre">stock_plot</span></code>, which produces line plots for multiple stocks. In the testing file <code class="docutils literal notranslate"><span class="pre">test_stock_example.py</span></code> (see image below, right panel), we added a testing function <code class="docutils literal notranslate"><span class="pre">test_stock_plot</span></code> which calls and tests the <code class="docutils literal notranslate"><span class="pre">stock_plot</span></code> function. Again, we pass in the fixture <code class="docutils literal notranslate"><span class="pre">load_data</span></code> in our test function <code class="docutils literal notranslate"><span class="pre">test_stock_plot</span></code> to get this dataframe. Note that we also added a decorator <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.mpl_image_compare(remove_text=True)</span></code> to indicate where we want to compare images.</p>
+<p><img alt="" src="../../../_images/test3.png" /></p>
+<p>Before we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, we need to run the following to generate a baseline image for future images to compare with. Images will be saved under the tests/baseline directory. Don’t forget to take a look at the generated baseline image to verify that it is correct.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">k</span> <span class="n">test_stock_example</span> <span class="o">--</span><span class="n">mpl</span><span class="o">-</span><span class="n">generate</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">tests</span><span class="o">/</span><span class="n">baseline</span>
+</pre></div>
+</div>
+<p>Then we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and compare new images with the baseline image. The <code class="docutils literal notranslate"><span class="pre">--mpl</span></code> flag enables comparison of matplotlib figures to reference files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">mpl</span>
+</pre></div>
+</div>
+<p><img alt="" src="../../../_images/result3.png" /></p>
+</div>
+<div class="section" id="test-data-processing">
+<h2>Test data processing<a class="headerlink" href="#test-data-processing" title="Permalink to this headline">¶</a></h2>
+<p>Data processing sometimes takes the most amount of time and is often the most error-prone. Here in the example, I calculated daily returns and simplified sharpe ratio in two functions: <code class="docutils literal notranslate"><span class="pre">calculate_daily_returns</span></code> and <code class="docutils literal notranslate"><span class="pre">neg_sharpe_ratio</span></code> (see image below, left panel). Ideally, you should test all your functions. For simplicity and since <code class="docutils literal notranslate"><span class="pre">neg_sharpe_ratio</span></code> uses <code class="docutils literal notranslate"><span class="pre">calculate_daily_returns</span></code>, I only tested <code class="docutils literal notranslate"><span class="pre">neg_sharpe_ratio</span></code>.</p>
+<div class="section" id="parametrize">
+<h3>parametrize<a class="headerlink" href="#parametrize" title="Permalink to this headline">¶</a></h3>
+<p>In our test script, I tested three cases using the <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parameterize</span></code> decorator. When we test multiple cases/inputs, we could write the test out multiple times as multiple tests and test each input in a separate test, but that would be a lot of repetition. A better way to test multiple cases is to write your cases in a list and use <code class="docutils literal notranslate"><span class="pre">parameterize</span></code> to loop through and test your cases.</p>
+<p><img alt="" src="../../../_images/test4.png" /></p>
+<p>Although we only wrote one test function, since we have three testing cases, we actually passed three more tests.</p>
+<p><img alt="" src="../../../_images/result4.png" /></p>
+<p>There are a lot of tests you can do in the data processing step. For example, if you are running statistical models and care about statistical properties, you might test for distributions, normality, outliers, and others.</p>
+</div>
+</div>
+<div class="section" id="test-model">
+<h2>Test model<a class="headerlink" href="#test-model" title="Permalink to this headline">¶</a></h2>
+<p>In our model, we show a very simple example of optimizing a stock portfolio using the sharpe ratio. I wrote a function <code class="docutils literal notranslate"><span class="pre">optimize_sharpe_ratio</span></code> to calculate the best allocations of stocks in your portfolio given the historical price data. The most straightforward testing for models is to test model accuracy. Since our model is very simple, we assume 100% accuracy rate and test whether our model outputs the correct stock allocations. Again, we use <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parameterize</span></code> to test two examples in our test function <code class="docutils literal notranslate"><span class="pre">test_optimization</span></code>, given tickers and time periods, we expect to see a certain number of stock allocations.</p>
+<p><img alt="" src="../../../_images/test5.png" />
+Great, now we have passed two more tests.</p>
+<p><img alt="" src="../../../_images/result5.png" /></p>
+<div class="section" id="hypothesis">
+<h3>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Hypothesis</span></code> is a package in Python that does property-based testing. I know this name is super confusing for data scientists. This Hypothesis testing has nothing to do with the hypothesis testing we are familiar with in statistics. All the tests we have done so far all require user defined input. What if there are corner cases we haven’t thought of? What if we want to test many different data in a given space? <code class="docutils literal notranslate"><span class="pre">Hypothesis</span></code> is the tool to use. It generates arbitrary data matching your strategy, run the test function over a wide range of data/test cases, and then checks if your results have certain properties that you defined.</p>
+<p>For example, here we want to generate a Pandas dataframe with four columns with column names ‘StockA’, ‘StockB’, ‘StockC’, and ‘StockD’. We want the values of ‘StockA’ to be between 1e2 and 1e3, ‘StockB’ to be between 1e2 and 1e4, ‘StockC’ to be between 1e3 and 1e5, and ‘StockD’ to be between 1e5 and 1e6. And we want to have at least 8 rows. Here is an example of the generated data based on our strategy:</p>
+<p><img alt="" src="../../../_images/example.png" /></p>
+<p>Now in the testing script (see right panel below), we would like to test the <code class="docutils literal notranslate"><span class="pre">optimize_sharpe_ratio</span></code> function over the randomly generated data frames. Here we need to use the <code class="docutils literal notranslate"><span class="pre">&#64;given</span></code> decorator to define the strategy and insert the generated data through the parameter <code class="docutils literal notranslate"><span class="pre">df</span></code> in our testing function <code class="docutils literal notranslate"><span class="pre">test_optimization_allocation</span></code>. We can then check if the results follow a certain property or rule. Here we check if the resulting allocation values sum up to 1.</p>
+<p><img alt="" src="../../../_images/test6.png" />
+Great! We have passed all the tests we have defined in this simple example.
+<img alt="" src="../../../_images/result6.png" /></p>
+<p>Now we have walked through an example of how data scientists can use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code> to test their data science workflow. We learned how to use <code class="docutils literal notranslate"><span class="pre">fixture</span></code>, <code class="docutils literal notranslate"><span class="pre">mpl_image_compare</span></code>, <code class="docutils literal notranslate"><span class="pre">parameterize</span></code> in <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, and <code class="docutils literal notranslate"><span class="pre">given</span></code> in <code class="docutils literal notranslate"><span class="pre">hypothesis</span></code>. There are many other useful features provided by the two libraries and many other things to consider in your testing. Depending on your use cases, you might have different scenarios and different edge cases. You might also want to test coverage, i.e., how much code have my test covered. When you test models, you might want to compare your model against your benchmark or alternative models.</p>
+<p>The code mentioned in this article can be found here: <a class="reference external" href="https://github.com/sophiamyang/sophiamyang.github.io/blob/master/DS/basics/testing_for_data_scientists/stock_example.py">stock_example.py</a> and <a class="reference external" href="https://github.com/sophiamyang/sophiamyang.github.io/blob/master/DS/basics/testing_for_data_scientists/tests/test_stock_example.py">test_stock_example.py</a>. Hope you enjoy this article. See you next time!</p>
+<p>References:<br />
+https://docs.pytest.org/<br />
+https://hypothesis.readthedocs.io/</p>
+<p>By Sophia Yang on January 9, 2021</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/basics/testing_for_data_scientists"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../basics.html" title="previous page">Basics</a>
+    <a class='right-next' id="next-link" href="../jupyterworkflow.html" title="next page">Jupyter workflow for data scientists</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
