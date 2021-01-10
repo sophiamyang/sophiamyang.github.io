@@ -6,6 +6,7 @@
   chapters:
   - file: DS/basics/basics
     sections: 
+      - file: DS/basics/testing_for_data_scientists/testing_for_data_scientists
       - file: DS/basics/jupyterworkflow
       - file: DS/basics/git
       - file: DS/basics/conda
