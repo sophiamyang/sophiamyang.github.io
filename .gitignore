@@ -1,0 +1,6 @@
+DS/basics/testing_for_data_scientists/.hypothesis/
+__pycache__
+_build/*
+.DS_Store
+.ipynb_checkpoints
+DS/basics/testing_for_data_scientists/tests/baseline/
