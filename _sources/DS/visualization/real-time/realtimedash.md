@@ -96,12 +96,17 @@ For more information on panel deployment, please refer to the panel [docs](https
 Now you know how to make a real-time streaming dashboard and a refreshable dashboard in python using hvplot , paneland streamz. Hope you find this article helpful!
 
 ## References
-https://anaconda.cloud/tutorials/4038ae58-286a-4fdc-b8bf-b4b257e2edf3 
-https://openweathermap.org/api 
-https://panel.holoviz.org/gallery/param/action_button.html 
-https://streamz.readthedocs.io/en/latest/dataframes.html 
-https://hvplot.holoviz.org/user_guide/Streaming.html 
-https://panel.holoviz.org/user_guide/Deploy_and_Export.html 
+https://anaconda.cloud/tutorials/4038ae58-286a-4fdc-b8bf-b4b257e2edf3
+
+https://openweathermap.org/api
+
+https://panel.holoviz.org/gallery/param/action_button.html
+
+https://streamz.readthedocs.io/en/latest/dataframes.html
+
+https://hvplot.holoviz.org/user_guide/Streaming.html
+
+https://panel.holoviz.org/user_guide/Deploy_and_Export.html
 
 
 By Sophia Yang on [February 7, 2021](https://sophiamyang.medium.com/real-time-dashboard-in-python-970e3c32b3d7)
