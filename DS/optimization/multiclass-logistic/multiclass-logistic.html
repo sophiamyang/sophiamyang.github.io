@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiclass logistic regression from scratch &#8212; Ph.D. | Sr. Data Scientist</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PyPowerUp" href="../../../random/pypowerup.html" />
+    <link rel="prev" title="Descent method — Steepest descent and conjugate gradient in Python" href="../descentmethod2/descentmethod2.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/name.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Ph.D. | Sr. Data Scientist</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   WELCOME
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Data Science
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../basics/basics.html">
+   Basics
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/testing_for_data_scientists/testing_for_data_scientists.html">
+     Testing for data scientists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/jupyterworkflow.html">
+     Jupyter workflow for data scientists
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/git.html">
+     Git workflow for data scientist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/conda.html">
+     Conda environment 101
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/profiling.html">
+     How to assess your code performance in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/intro.html">
+     Python Landscape and Introduction
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../dataaccess/dataaccess.html">
+   Data Accessing
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/metabase.html">
+     Query Metabase data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/stripe.html">
+     Query and analyze Stripe data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/salesforce.html">
+     Query Salesforce Data in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/intercom.html">
+     Query Intercom data in Python — Intercom rest API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../dataaccess/marketo.html">
+     Getting Marketo data in Python — Marketo rest API and Python API
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../etl/etl.html">
+   ETL pipeline
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../etl/airflow_bigquery.html">
+     Airflow with Google BigQuery and Slack
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../visualization/visualization.html">
+   Visualization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/real-time/realtimedash.html">
+     Real-time dashboard in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/landscape.html">
+     Python Visualization Landscape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/multiline.html">
+     Python Visualization — Multiple Line Plotting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../text/text.html">
+   Text Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../text/text_basics.html">
+     Text analysis basics in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../text/text_classification.html">
+     An overview of text classification
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../timeseries/timeseries.html">
+   Time Series Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../timeseries/timeseries1.html">
+     Time series analysis using Prophet in Python — Part 1: Math explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../timeseries/timeseries2.html">
+     Time series analysis using Prophet in Python — Part 2: Hyperparameter Tuning and Cross Validation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../survival/survival.html">
+   Survival Analysis
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html">
+     Survival analysis using lifelines in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#kaplan-meiser-estimate">
+     Kaplan-Meiser Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#nelson-aalen-estimate">
+     Nelson Aalen Estimate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#exponential-model">
+     Exponential model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#weibull-model">
+     Weibull model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#survival-regression">
+     Survival regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../survival/survivalanalysis.html#id2">
+     Model selection
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machinelearning/machinelearning.html">
+   Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../deeplearning/deeplearning.html">
+   Deep Learning
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/input_normalization.html">
+     Deep learning basics — input normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/batch_normalization.html">
+     Deep learning basics — batch normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/weight_decay.html">
+     Deep learning basics — weight decay
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deeplearning/data_augmentation.html">
+     Deep learning basics — data augmentation
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../othermodels/othermodels.html">
+   Other Models
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../othermodels/price_sensitivity.html">
+     Pricing research — Van Westendorp’s Price Sensitivity Meter in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../othermodels/clv.html">
+     Customer lifetime value in a discrete-time contractual setting
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../optimization.html">
+   Optimization
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../descentmethod1/descentmethod1.html">
+     Descent method — Steepest descent and conjugate gradient
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../descentmethod2/descentmethod2.html">
+     Descent method — Steepest descent and conjugate gradient in Python
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Multiclass logistic regression from scratch
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  random
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../random/pypowerup.html">
+   PyPowerUp
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../markdown.html">
+   Markdown template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../notebooks.html">
+   Notebooks template
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../contact.html">
+   Contact me
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/DS/optimization/multiclass-logistic/multiclass-logistic.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DS/optimization/multiclass-logistic/multiclass-logistic.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-statement">
+   Problem statement
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiclass-logistic-regression-workflow">
+   Multiclass logistic regression workflow
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#likelihood">
+     Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loss-function-negative-log-likelihood">
+     Loss function / negative log-likelihood:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient">
+     Gradient:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent-implementation">
+     Gradient Descent Implementation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="multiclass-logistic-regression-from-scratch">
+<h1>Multiclass logistic regression from scratch<a class="headerlink" href="#multiclass-logistic-regression-from-scratch" title="Permalink to this headline">¶</a></h1>
+<p><em>Math and gradient decent implementation in Python</em></p>
+<p>Video: https://youtu.be/wY3PJGZEyY4</p>
+<p>Multiclass logistic regression is also called multinomial logistic regression and softmax regression. It is used when we want to predict more than 2 classes. A lot of people use multiclass logistic regression all the time, but don’t really know how it works. So, I am going to walk you through how the math works and implement it using gradient descent from scratch in Python.</p>
+<p>Disclaimer: there are various notations on this topic. I am using the notation that I think is easy to understand and visualize. You may find other notations in other places such as matrices and vectors being transposed.</p>
+<div class="section" id="problem-statement">
+<h2>Problem statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h2>
+<p>Let’s assume we have N people/observations, each person has M features, and they belong to C classes. We are given:</p>
+<ul class="simple">
+<li><p>A matrix <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(\mathbb{R}^{N\times M}\)</span>. <span class="math notranslate nohighlight">\(X_{ij}\)</span> represents person i with feature j.</p></li>
+<li><p>A vector <span class="math notranslate nohighlight">\(Y\)</span> is <span class="math notranslate nohighlight">\(\mathbb{R}^{N}\)</span>. <span class="math notranslate nohighlight">\(Y_{i}\)</span> represents person i belonging to class k.</p></li>
+</ul>
+<p>We do not know:</p>
+<ul class="simple">
+<li><p>The weight matrix <span class="math notranslate nohighlight">\(W\)</span> is <span class="math notranslate nohighlight">\(\mathbb{R}^{M\times C}\)</span>.<span class="math notranslate nohighlight">\(W_{jk}\)</span> represents the weights for feature j and class k.</p></li>
+</ul>
+<p>We want to figure out <span class="math notranslate nohighlight">\(W\)</span> and use <span class="math notranslate nohighlight">\(W\)</span> to predict the class membership of any given observation X.</p>
+</div>
+<div class="section" id="multiclass-logistic-regression-workflow">
+<h2>Multiclass logistic regression workflow<a class="headerlink" href="#multiclass-logistic-regression-workflow" title="Permalink to this headline">¶</a></h2>
+<p>If we know <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(W\)</span> (let’s say we give <span class="math notranslate nohighlight">\(W\)</span> initial values of all 0s for example), Figure 1 shows the workflow of multiclass logistic regression forward path.</p>
+<ul class="simple">
+<li><p>First, we calculate the product of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(W\)</span>, here we let <span class="math notranslate nohighlight">\(Z = -XW\)</span>.</p>
+<ul>
+<li><p>Sometimes people don’t include a negative sign here. It doesn’t matter if there is a negative sign here or not.</p></li>
+<li><p>Sometimes we would also add a bias term. For simplicity, let’s only look at the weights in this article.</p></li>
+</ul>
+</li>
+<li><p>Second, we take the softmax for each row <span class="math notranslate nohighlight">\(Z_{i}\)</span>: <span class="math notranslate nohighlight">\(P_{i} = \)</span>softmax<span class="math notranslate nohighlight">\((Z_{i}) = \frac{exp(Z_{i})}{\sum_{k=0}^{C} exp(Z_{ik})}\)</span>.Each row of <span class="math notranslate nohighlight">\(Z_{i}\)</span> should be the product of each row of <span class="math notranslate nohighlight">\(X\)</span> (i.e., <span class="math notranslate nohighlight">\(X_{i}\)</span>) and the entire matrix of <span class="math notranslate nohighlight">\(W\)</span>. Now each row of <span class="math notranslate nohighlight">\(P\)</span> should add up to 1.</p></li>
+<li><p>Third, we take the argmax for each row and find the class with the highest probability.</p></li>
+</ul>
+<p><img alt="" src="../../../_images/f1.png" />
+<em>Figure 1. Multiclass logistic regression forward path.</em></p>
+<!-- <figure>
+  <img src="f1.png" width="600">
+    <figcaption><i>Figure 1. Multiclass logistic regression forward path.</i></figcaption>
+</figure>
+ -->
+<p>Figure 2 shows another view of the multiclass logistic regression forward path when we only look at one observation at a time:</p>
+<ul class="simple">
+<li><p>First, we calculate the product of <span class="math notranslate nohighlight">\(X_i\)</span> and W, here we let <span class="math notranslate nohighlight">\(Z_i = -X_iW\)</span>.</p></li>
+<li><p>Second, we take the softmax for this row <span class="math notranslate nohighlight">\(Z_{i}\)</span>: <span class="math notranslate nohighlight">\(P_{i} = \)</span>softmax<span class="math notranslate nohighlight">\((Z_{i}) = \frac{exp(Z_{i})}{\sum_{k=0}^{C} exp(Z_{ik})}\)</span>.</p></li>
+<li><p>Third, we take the argmax for this row <span class="math notranslate nohighlight">\(P_{i}\)</span> and find the index with the highest probability as <span class="math notranslate nohighlight">\(Y_i\)</span>.</p></li>
+</ul>
+<p><img alt="" src="../../../_images/f2.png" />
+<em>Figure 2. Operation on one row.</em></p>
+<!-- <figure>
+  <img src="f2.png" width="600">
+    <figcaption><i>Figure 2. Operation on one row.</i></figcaption>
+</figure>
+ -->
+<div class="section" id="likelihood">
+<h3>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this headline">¶</a></h3>
+<p>Recall that in the problem statement that we said we are given <span class="math notranslate nohighlight">\(Y\)</span>. So for a given observation, we know the class of this observation, which is <span class="math notranslate nohighlight">\(Y_i\)</span>. The likelihood function of <span class="math notranslate nohighlight">\(Y_i\)</span> given <span class="math notranslate nohighlight">\(X_i\)</span> and <span class="math notranslate nohighlight">\(W\)</span> is the probability of observation i and class <span class="math notranslate nohighlight">\(k=Y_i\)</span>, which is the softmax of <span class="math notranslate nohighlight">\(Z_{i, k=Y_i}\)</span>. And the likelihood function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(W\)</span> is the product of all the observations. Figure 3 helps us understand this process from <span class="math notranslate nohighlight">\(Y_i\)</span> trace backward to <span class="math notranslate nohighlight">\(W_{k=Y_i}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p(Y_i|X_i, W) = P_{i, k=Y_i} = \)</span> softmax<span class="math notranslate nohighlight">\((Z_{i, k=Y_i}) = \frac{exp(Z_{i,k=Y_i})}{\sum_{k=0}^{C} exp(Z_{ik})} = \frac{\exp(-X_{i}W_{k=Y_i})}{\sum_{k=0}^{C} \exp(-X_{i}W_{k})}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p(Y|X, W) = \prod_{i=1}^{N}\frac{\exp(-X_{i}W_{k=Y_i})}{\sum_{k=0}^{C} \exp(-X_{i}W_{k})} \)</span></p></li>
+</ul>
+<p><img alt="" src="../../../_images/f3.png" />
+<em>Figure 3. Calculate likihood.</em></p>
+<!-- <figure>
+  <img src="f3.png" width="600">
+    <figcaption><i>Figure 3. Calculate likihood.</i></figcaption>
+</figure>
+ -->
+</div>
+<div class="section" id="loss-function-negative-log-likelihood">
+<h3>Loss function / negative log-likelihood:<a class="headerlink" href="#loss-function-negative-log-likelihood" title="Permalink to this headline">¶</a></h3>
+<p>Next, we calculate the loss function. We use the negative log-likelihood function and normalized it by the sample size. One thing to note here is that <span class="math notranslate nohighlight">\(W_{k=Y_i} = WY^T_{i(onehot\_encoded)}\)</span> and <span class="math notranslate nohighlight">\(\sum_{i=1}^{N}X_iW_{k=Y_i} = Tr(XWY^T_{onehot\_encoded})\)</span>. <span class="math notranslate nohighlight">\(Tr\)</span> means the sum of elements on the main diagonal.</p>
+<p><img alt="" src="../../../_images/f5.png" />
+<em>Figure 4. Matrix calculations.</em></p>
+<!-- <figure>
+  <img src="f5.png" width="800">
+    <figcaption><i>Figure 4. Matrix calculations.</i></figcaption>
+</figure>
+
+ -->
+<p><span class="math notranslate nohighlight">\(l(W) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= -\frac{1}{N}\log p(Y|X, W) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(\sum_{i=1}^{N}(X_iW_{k=Y_i} + \log {\sum_{k=0}^{C} \exp(-X_{i}W_{k})})) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(\sum_{i=1}^{N}(X_iW_{k=Y_i} + \sum_{i=1}^{N}\log {\sum_{k=0}^{C} \exp(-X_{i}W_{k})}) \)</span></p>
+<p>To write loss in matrix form:</p>
+<p><span class="math notranslate nohighlight">\(l(W) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(\sum_{i=1}^{N}(X_iWY^T_{i(onehot\_encoded)}) + \sum_{i=1}^{N}\log {\sum_{k=0}^{C} \exp(-X_{i}W_{k})}) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(Tr(XWY^T_{onehot\_encoded}) + \sum_{i=1}^{N}\log {\sum_{k=0}^{C} \exp(-X_{i}W_{k})}) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(Tr(XWY^T_{onehot\_encoded}) + \sum_{i=1}^{N}\log {\sum_{k=0}^{C} \exp((-XW)_{ik})} \)</span></p>
+<p>We often add an <span class="math notranslate nohighlight">\(l^2\)</span> regularization term to the loss function and try to minimize the combined function. In fact, the default of scikit-learn uses <span class="math notranslate nohighlight">\(l^2\)</span> penalities. <span class="math notranslate nohighlight">\(l^1\)</span> regularization is also very commonly used. Here we use the <span class="math notranslate nohighlight">\(l^2\)</span>  regularization.</p>
+<p><span class="math notranslate nohighlight">\(f(W) \)</span></p>
+<p><span class="math notranslate nohighlight">\(=\)</span> loss + regularization</p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}\sum_{i=1}^{N}(X_iW_{k=Y_i} + \log {\sum_{k=0}^{C} \exp(-X_{i}W_{k})}) + \mu ||W||^2 \)</span></p>
+</div>
+<div class="section" id="gradient">
+<h3>Gradient:<a class="headerlink" href="#gradient" title="Permalink to this headline">¶</a></h3>
+<p>The gradient calculation is as follows. One thing to note that the gradient of <span class="math notranslate nohighlight">\(W_{k=Y_i}\)</span> with respect to <span class="math notranslate nohighlight">\(W_k\)</span> is the identity matrix <span class="math notranslate nohighlight">\(I_{[Y_i=k]}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\nabla_{W_{k}} f(W) \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}\sum_{i=1}^{N}(X_i^TI_{[Y_i=k]} - X_i^T\frac{\exp(-X_iW_k)}{\sum_{k=0}^{C}\exp(-X_iW_k)}) + 2\mu W \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}\sum_{i=1}^{N}(X_i^TI_{[Y_i=k]} - X_i^TP_i) + 2\mu W \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(\sum_{i=1}^{N}X_i^TI_{[Y_i=k]} - \sum_{i=1}^{N}X_i^TP_i) + 2\mu W \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(X^TY_{onehot\_encoded} - X^TP) + 2\mu W \)</span></p>
+<p><span class="math notranslate nohighlight">\(= \frac{1}{N}(X^T(Y_{onehot\_encoded} - P)) + 2\mu W \)</span></p>
+</div>
+<div class="section" id="gradient-descent-implementation">
+<h3>Gradient Descent Implementation<a class="headerlink" href="#gradient-descent-implementation" title="Permalink to this headline">¶</a></h3>
+<p>Now we have calculated the loss function and the gradient function. We can implement the loss and gradient functions in Python, and implement a very basic gradient descent algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="n">onehot_encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">W</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Y: onehot encoded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="o">-</span> <span class="n">X</span> <span class="o">@</span> <span class="n">W</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">N</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">W</span> <span class="o">@</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">Z</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">mu</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Y: onehot encoded </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="o">-</span> <span class="n">X</span> <span class="o">@</span> <span class="n">W</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">gd</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">N</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">P</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">*</span> <span class="n">W</span>
+    <span class="k">return</span> <span class="n">gd</span>
+
+<span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Very basic gradient descent algorithm with fixed eta and mu</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Y_onehot</span> <span class="o">=</span> <span class="n">onehot_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Y_onehot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">step_lst</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">loss_lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">W_lst</span> <span class="o">=</span> <span class="p">[]</span>
+ 
+    <span class="k">while</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="p">:</span>
+        <span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">W</span> <span class="o">-=</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">gradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y_onehot</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+        <span class="n">step_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+        <span class="n">W_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">loss_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y_onehot</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="n">step_lst</span><span class="p">,</span> 
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss_lst</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">W</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Multiclass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_steps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">loss_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_steps</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> 
+            <span class="n">y</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span>
+            <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">):</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="o">-</span> <span class="n">H</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we try our model on the iris dataset. We fit the model and then plot the loss against the steps, we see that our loss function goes down over time. When we look at the prediction of our data, we see that the algorithm predicts most of the classes correctly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Multiclass</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">loss_plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;step&#39;, ylabel=&#39;loss&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../../_images/multiclass-logistic_6_1.png" src="../../../_images/multiclass-logistic_6_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">Y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True, False,  True,
+       False,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True, False, False,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True,  True,  True,  True,
+        True,  True,  True,  True,  True,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a basic overview of the math and gradient descent of multiclass logistic regression. Hope you find this article helpful.</p>
+<p>By Sophia Yang on April 18, 2021</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DS/optimization/multiclass-logistic"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../descentmethod2/descentmethod2.html" title="previous page">Descent method — Steepest descent and conjugate gradient in Python</a>
+    <a class='right-next' id="next-link" href="../../../random/pypowerup.html" title="next page">PyPowerUp</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Sophia Yang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
