@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real-time dashboard in Python &#8212; Ph.D. | Sr. Data Scientist</title>
+    <title>Descent method — Steepest descent and conjugate gradient &#8212; Ph.D. | Sr. Data Scientist</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Python Visualization Landscape" href="../landscape.html" />
-    <link rel="prev" title="Visualization" href="../visualization.html" />
+    <link rel="next" title="Descent method — Steepest descent and conjugate gradient in Python" href="descentmethod2.html" />
+    <link rel="prev" title="Optimization" href="../optimization.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -192,23 +192,23 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="reference internal" href="../visualization.html">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../visualization/visualization.html">
    Visualization
   </a>
-  <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../visualization/real-time/realtimedash.html">
      Real-time dashboard in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../landscape.html">
+    <a class="reference internal" href="../../visualization/landscape.html">
      Python Visualization Landscape
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../multiline.html">
+    <a class="reference internal" href="../../visualization/multiline.html">
      Python Visualization — Multiple Line Plotting
     </a>
    </li>
@@ -351,23 +351,23 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../../optimization/optimization.html">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../optimization.html">
    Optimization
   </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../optimization/descentmethod/descentmethod1.html">
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Descent method — Steepest descent and conjugate gradient
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../optimization/descentmethod/descentmethod2.html">
+    <a class="reference internal" href="descentmethod2.html">
      Descent method — Steepest descent and conjugate gradient in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../optimization/multiclass-logistic/multiclass-logistic.html">
+    <a class="reference internal" href="../multiclass-logistic/multiclass-logistic.html">
      Multiclass logistic regression from scratch
     </a>
    </li>
@@ -442,7 +442,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/DS/visualization/real-time/realtimedash.md"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/DS/optimization/descentmethod/descentmethod1.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -473,38 +473,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-source">
-   Data source
+  <a class="reference internal nav-link" href="#method-of-steepest-descent">
+   Method of Steepest Descent
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#set-up">
-   Set up
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-packages">
-   Import packages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#streaming-data-and-dashboard">
-   Streaming data and dashboard
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#refresh-dashboard">
-   Refresh dashboard
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deployment">
-   Deployment
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
+  <a class="reference internal nav-link" href="#conjugate-gradient-method">
+   Conjugate gradient method
   </a>
  </li>
 </ul>
@@ -518,87 +493,49 @@
         
               <div>
                 
-  <div class="section" id="real-time-dashboard-in-python">
-<h1>Real-time dashboard in Python<a class="headerlink" href="#real-time-dashboard-in-python" title="Permalink to this headline">¶</a></h1>
-<p><em>Streaming and Refreshing</em></p>
-<p>Data scientists use data visualization to communicate data and generate insights. It’s essential for data scientists to know how to create meaningful visualization dashboards, especially real-time dashboards. This article talks about two ways to get your real-time dashboard in Python:</p>
-<ul class="simple">
-<li><p>First, we use streaming data and create an auto-updated streaming dashboard.</p></li>
-<li><p>Second, we use a “Refresh” button to refresh the dashboard whenever we need the dashboard to be refreshed.</p></li>
-</ul>
-<p>For demonstration purposes, the plots and dashboards are very basic, but you will get the idea of how we do a real-time dashboard.</p>
-<p>The code for this article can be found here: <a class="reference external" href="https://github.com/sophiamyang/sophiamyang.github.io/blob/master/DS/visualization/real-time/realtime_dashboard.ipynb">realtime_dashboard.ipynb</a> and <a class="reference external" href="https://github.com/sophiamyang/sophiamyang.github.io/blob/master/DS/visualization/real-time/realtime_dashboard.py">realtime_dashboard.py</a>. The content of these two files is completely the same, just in different formats.</p>
-<div class="section" id="data-source">
-<h2>Data source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h2>
-<p>To show how we create this dashboard with a real-world API, we use weather data from the OpenWeather API as an example in this article.</p>
-<p>If you would like to try out the code mentioned in this article, you will need to get access to the OpenWeather weather API. You can sign up at the <a class="reference external" href="https://openweathermap.org/api">Open Weather website</a> and then get the <a class="reference external" href="http://home.openweathermap.org/api_keys">API keys</a>.</p>
+  <div class="section" id="descent-method-steepest-descent-and-conjugate-gradient">
+<h1>Descent method — Steepest descent and conjugate gradient<a class="headerlink" href="#descent-method-steepest-descent-and-conjugate-gradient" title="Permalink to this headline">¶</a></h1>
+<p>Let’s start with this equation and we want to solve for x:</p>
+<p><span class="math notranslate nohighlight">\(Ax = b \)</span></p>
+<p>The solution x the minimize the function below when A is <strong>symmetric positive definite</strong> (otherwise, x could be the maximum). It is because the gradient of f(x), ∇f(x) = Ax- b. And when Ax=b, ∇f(x)=0 and thus x is the minimum of the function.</p>
+<p><span class="math notranslate nohighlight">\(f(x) = \frac{1}{2}x^TAx-x^Tb\)</span></p>
+<p>In this article, I am going to show you two ways to find the solution x — method of Steepest Descent and method of Conjugate Gradient.</p>
+<div class="section" id="method-of-steepest-descent">
+<h2>Method of Steepest Descent<a class="headerlink" href="#method-of-steepest-descent" title="Permalink to this headline">¶</a></h2>
+<p>The main idea of the descent method is that we start with a starting point of x, try to find the next point that’s closer to the solution, iterate over the process until we find the final solution.</p>
+<p>For example, at step k, we are at the point 𝑥(𝑘). How do we decide where to go next? Which direction should we go? How much should we go?</p>
+<p><img alt="" src="../../../_images/descentmethod0.png" /></p>
+<p>Let’s assume the direction we decide to go is p(k) and how far we are going down the direction is 𝛼. Then the next data point can be written as:</p>
+<p><img alt="" src="../../../_images/descentmethod1.png" /></p>
+<p>For each step, the steepest descent method wants to go down towards the steepest slope, where it is the most effective (r here means residual):</p>
+<p><img alt="" src="../../../_images/descentmethod2.png" /></p>
+<p>Once we decided the direction to go, we want to make sure we minimize the function in this direction:</p>
+<p><img alt="" src="../../../_images/descentmethod3.png" /></p>
+<p><img alt="" src="../../../_images/descentmethod4.png" /></p>
+<p>Now we can get calculate the x and the residual for the next data point:</p>
+<p><img alt="" src="../../../_images/descentmethod5.png" /></p>
+<p>This is basically the math behind the steepest descent method. Normally we would give a stopping criterion to the residual, and we iterate the process until we reach the stopping point.</p>
 </div>
-<div class="section" id="set-up">
-<h2>Set up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
-<p>Before going into the code, let’s install the needed packages. I have created an <a class="reference external" href="https://github.com/sophiamyang/sophiamyang.github.io/blob/master/DS/visualization/real-time/environment.yml">enviornment.yml</a> file. Please download this file and run the following to create and activate the environment.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">realtime_dashboard</span>
-</pre></div>
-</div>
-<p>Alternatively, if you want to install all the packages on your own, please <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">datashader</span> <span class="pre">holoviews</span> <span class="pre">hvplot</span> <span class="pre">notebook</span> <span class="pre">numpy</span> <span class="pre">pandas</span> <span class="pre">panel</span> <span class="pre">param</span> <span class="pre">requests</span> <span class="pre">streamz</span></code>. If you see any issues, the Python version and package versions I am using are noted in the environment.yml.</p>
-</div>
-<div class="section" id="import-packages">
-<h2>Import packages<a class="headerlink" href="#import-packages" title="Permalink to this headline">¶</a></h2>
-<p>Here we import the packages used for this article:</p>
-<script src="https://gist.github.com/sophiamyang/90152a2877aa3de359190ca1ca40d7a1.js"></script>
-</div>
-<div class="section" id="streaming-data-and-dashboard">
-<h2>Streaming data and dashboard<a class="headerlink" href="#streaming-data-and-dashboard" title="Permalink to this headline">¶</a></h2>
-<p>First, we make a function weather_data to get weather data for a list of cities using the OpenWeather API. The output is a pandas dataframe with each row representing each city.</p>
-<script src="https://gist.github.com/sophiamyang/2e1282742829d255022f7485fad77aa2.js"></script>
-<p>Second, we use <code class="docutils literal notranslate"><span class="pre">streamz</span></code> to create a streaming dataframe based on San Francisco’s weather data. The function <code class="docutils literal notranslate"><span class="pre">streaming_weather_data</span></code> is used as a callback function by the <code class="docutils literal notranslate"><span class="pre">PeriodicDataFrame</span></code> function to create a <code class="docutils literal notranslate"><span class="pre">streamz</span></code> streaming dataframe <code class="docutils literal notranslate"><span class="pre">df</span></code>. <code class="docutils literal notranslate"><span class="pre">streamz</span></code> docs documented how PeriodicDataFrame works:</p>
-<p><em>“streamz provides a high-level convenience class for this purpose, called a PeriodicDataFrame. A PeriodicDataFrame uses Python’s asyncio event loop (used as part of Tornado in Jupyter and other interactive frameworks) to call a user-provided function at a regular interval, collecting the results and making them available for later processing.
-https://streamz.readthedocs.io/en/latest/dataframes.html#streaming-dataframes”</em></p>
-<script src="https://gist.github.com/sophiamyang/b06c672f924e70849fe824937c007290.js"></script>
-<p>The <code class="docutils literal notranslate"><span class="pre">streamz</span></code> streaming dataframe df looks like this, with values updated every 30s (since we set interval=’30’).</p>
-<p><img alt="" src="../../../_images/df.gif" /></p>
-<p>Third, we make some very basic plots using hvPlot to plot the streamzdataframe, and then we use panel to organize the plots and put everything in a dashboard. If you would like to know more about how to usehvPlot to plot streamzdataframe, please see <a class="reference external" href="https://hvplot.holoviz.org/user_guide/Streaming.html">hvPlot docs</a>.</p>
-<script src="https://gist.github.com/sophiamyang/f56c1e81bc163d8b81dd812fdf0a8c28.js"></script>
-<p>Here is what the dashboard looks like. Since the streaming dataframe updates every 30s, this dashboard will automatically update every 30s as well. Here we see that Temperature changed, while humidity and wind speed did not.</p>
-<p><img alt="" src="../../../_images/streaming.gif" /></p>
-<p>Great, now you know how to make a streaming dataframe and a streaming dashboard.</p>
-<p>If you would like to learn more, here is a great video <a class="reference external" href="https://anaconda.cloud/tutorials/4038ae58-286a-4fdc-b8bf-b4b257e2edf3">tutorial</a> on the streaming dashboard by my friend Dr. Jim Bednar. Please check it out!</p>
-</div>
-<div class="section" id="refresh-dashboard">
-<h2>Refresh dashboard<a class="headerlink" href="#refresh-dashboard" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes, we don’t really need a streaming dashboard. Instead, we might just like to refresh the dashboard whenever we see it. In this section, I am going to show you how to make a “Refresh” button in your dashboard and refresh the dashboard with new data whenever you click “Refresh”.</p>
-<p>First, let’s make a simple function <code class="docutils literal notranslate"><span class="pre">weather_plot</span></code> to plot weather data on a map given city names and return both the plot and the data.</p>
-<script src="https://gist.github.com/sophiamyang/8b986a02ebe6795641fbd04ba50b6d14.js"></script>
-<p><img alt="" src="../../../_images/plots.png" /></p>
-<p>With the plotting function ready, we can start making the refreshable dashboard. I use the <code class="docutils literal notranslate"><span class="pre">param.Action</span></code> function to trigger an update whenever we click on the button <code class="docutils literal notranslate"><span class="pre">Refresh</span></code>. In addition, I use the <code class="docutils literal notranslate"><span class="pre">param.ObjectSelector</span></code> function to create a dropdown menu of the dataframe columns we are interested in plotting and <code class="docutils literal notranslate"><span class="pre">param.ObjectSelector</span></code> trigger an update whenever we select a different option in the dropdown menu. Then the <code class="docutils literal notranslate"><span class="pre">&#64;param.depends('action',</span> <span class="pre">'select_column')</span></code> decorator tells the <code class="docutils literal notranslate"><span class="pre">get_plot</span></code> function to rerun whenever we click the <code class="docutils literal notranslate"><span class="pre">Refresh</span></code> button or select another column.</p>
-<script src="https://gist.github.com/sophiamyang/a9a7c9853b301537e92f2973ab534a60.js"></script>
-<p>Here is what the refresh dashboard looks like:</p>
-<p><img alt="" src="../../../_images/refresh.gif" /></p>
-<p>Finally, we can use <code class="docutils literal notranslate"><span class="pre">panel</span></code> to combine the two dashboards we created.</p>
-<script src="https://gist.github.com/sophiamyang/2b35c4237cff494dbdd239e7c2a69883.js"></script>
-</div>
-<div class="section" id="deployment">
-<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
-<p>Our final dashboard pane is a <code class="docutils literal notranslate"><span class="pre">panel</span></code> object, which can be served by running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">panel</span> <span class="n">serve</span> <span class="n">realtime_dashboard</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<p>or</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">panel</span> <span class="n">serve</span> <span class="n">realtime_dashboard</span><span class="o">.</span><span class="n">ipynb</span>
-</pre></div>
-</div>
-<p>For more information on panel deployment, please refer to the panel <a class="reference external" href="https://panel.holoviz.org/user_guide/Deploy_and_Export.html">docs</a>.</p>
-<p>Now you know how to make a real-time streaming dashboard and a refreshable dashboard in python using hvplot , paneland streamz. Hope you find this article helpful!</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>https://anaconda.cloud/tutorials/4038ae58-286a-4fdc-b8bf-b4b257e2edf3</p>
-<p>https://openweathermap.org/api</p>
-<p>https://panel.holoviz.org/gallery/param/action_button.html</p>
-<p>https://streamz.readthedocs.io/en/latest/dataframes.html</p>
-<p>https://hvplot.holoviz.org/user_guide/Streaming.html</p>
-<p>https://panel.holoviz.org/user_guide/Deploy_and_Export.html</p>
-<p>By Sophia Yang on <a class="reference external" href="https://sophiamyang.medium.com/real-time-dashboard-in-python-970e3c32b3d7">February 7, 2021</a></p>
+<div class="section" id="conjugate-gradient-method">
+<h2>Conjugate gradient method<a class="headerlink" href="#conjugate-gradient-method" title="Permalink to this headline">¶</a></h2>
+<p>The steepest descent method is great that we minimize the function in the direction of each step. But it doesn’t guarantee that the direction we are going to minimize the function from all the previous directions. Here we introduce a very important term A conjugate directions. Directions p are A conjugate directions if they have the following property (note A is symmetric positive definite):</p>
+<p><img alt="" src="../../../_images/descentmethod6.png" /></p>
+<p>Only when the current direction p is A conjugate to all the previous directions, will the next data point minimize the function in the span of all previous directions.</p>
+<p>The issue is how do we calculate the search direction p when p has to be A conjugate?</p>
+<p>Remember that the steepest descent chose the steepest slope, which is also the residual (r) at each step. And we know that this is a good choice. How about we find an A-conjugate direction that’s the closest to the direction of the steepest descent, i.e., we minimize the 2-norm of the vector (r-p).</p>
+<p>Through calculations, we know that the current direction is a combination of the current residual and the last direction.</p>
+<p><img alt="" src="../../../_images/descentmethod7.png" /></p>
+<p>Because of the property of A-conjugate directions:</p>
+<p><img alt="" src="../../../_images/descentmethod8.png" /></p>
+<p>We can then calculate 𝛾_𝑘:</p>
+<p><img alt="" src="../../../_images/descentmethod9.png" /></p>
+<p>In summary, the conjugate gradient method is as follows:</p>
+<p><img alt="" src="../../../_images/descentmethod10.png" /></p>
+<p><img alt="" src="../../../_images/descentmethod11.png" /></p>
+<p>Now you know how to solve the system of linear equations using the steepest descent and the conjugate gradient method! Enjoy!</p>
+<p>Reference:<br />
+https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observations.html</p>
+<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/descent-method-steepest-descent-and-conjugate-gradient-math-explained-78601d8df3ce">September 16, 2020</a></p>
 </div>
 </div>
 
@@ -615,7 +552,7 @@ https://streamz.readthedocs.io/en/latest/dataframes.html#streaming-dataframes”
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./DS/visualization/real-time"
+            path: "./DS/optimization/descentmethod"
         },
         predefinedOutput: true
     }
@@ -630,8 +567,8 @@ https://streamz.readthedocs.io/en/latest/dataframes.html#streaming-dataframes”
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../visualization.html" title="previous page">Visualization</a>
-    <a class='right-next' id="next-link" href="../landscape.html" title="next page">Python Visualization Landscape</a>
+    <a class='left-prev' id="prev-link" href="../optimization.html" title="previous page">Optimization</a>
+    <a class='right-next' id="next-link" href="descentmethod2.html" title="next page">Descent method — Steepest descent and conjugate gradient in Python</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
