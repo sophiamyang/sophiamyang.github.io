@@ -15,7 +15,7 @@ gcloud auth login
 ```
 
 To authenticate through a credential file, you can create a service account and get the credential from the service account: 
-Go to the google cloud [service account page](https://console.cloud.google.com/iam-admin/serviceaccounts), click on a project, click "+CREATE SERVICE ACCOUNT" and then it will generate a credential JSON file. In the following examples below, I renamed this credential file to “BIGQUERY_CREDENTAIL”. 
+Go to the google cloud [service account page](https://console.cloud.google.com/iam-admin/serviceaccounts), click on a project, click "+CREATE SERVICE ACCOUNT" and then it will generate a credential JSON file. In the following examples below, I renamed this credential file to “BIGQUERY_CREDENTIAL”. 
 
 ## SQLAlchemy for BigQuery
 The [pybigquery](https://github.com/googleapis/python-bigquery-sqlalchemy) project implements a SQLAlchemy tool for BigQuery. 
@@ -30,10 +30,10 @@ In the `pd.read_sql` function, all we need is the specified query and the connec
 
 ![](1.png)
 
-It is often useful to parameterize our queries. SQLAlchemy provides a built in function `text()` that accepts query as input and supports [paramerizations](https://docs.sqlalchemy.org/en/14/core/tutorial.html#specifying-bound-parameter-behaviors). Alternatively, you can write the parameters as f-strings in the query.
+It is often useful to parameterize our queries. SQLAlchemy provides a built-in function `text()` that accepts query as input and supports [parameterizations](https://docs.sqlalchemy.org/en/14/core/tutorial.html#specifying-bound-parameter-behaviors). Alternatively, you can write the parameters as f-strings in the query.
 
 ## Python Client for Google BigQuery
-The second approach is to use the official [Python Client for BigQuery](https://googleapis.dev/python/bigquery/latest/index.html). If you are running it locally and you are authenticated, you don’t need to define the credentials, and `client = bigquery.Client()` will just work. 
+The second approach is to use the official [Python Client for BigQuery](https://googleapis.dev/python/bigquery/latest/index.html). If you are running it locally and authenticated, you don’t need to define the credentials, and `client = bigquery.Client()` will just work. 
 
 ![](2.png)
 
@@ -42,7 +42,7 @@ The third approach is to use subprocess to run the bq command-line tool. The que
 
 ![](3.png)
 
-bq command line tool supports query parameters. In the example below, we pass in the `--parameter` flag to define the name, type, and value information of the parameter. In the query itself we use `@parameter` name to specify a parameter. Another thing to note is that if the output has too many rows, we can increase the `--max_rows` flag to be a large number. 
+bq command line tool supports query parameters. In the example below, we pass in the `--parameter` flag to define the name, type, and value information of the parameter. In the query itself we use `@parameter_name` to specify a parameter. Another thing to note is that if the output has too many rows, we can increase the `--max_rows` flag to be a large number. 
 
 ![](4.png)
 
@@ -51,7 +51,7 @@ In all, I quickly went through three ways to query BigQuery in Python.
 
 The first approach, SQLAlchemy has many nice built-in functionalities and supports many different types of databases. For users who have used SQLAlchemy on other databases and liked its features, you might like the SQLAlchemy approach to query BigQuery.
 
-The second approach is the official Python Client for Google BigQuery, which I personally find not quite as easy to use and the documentation could be better. I haven't use it as much, so my impression could be wrong.
+The second approach is the official Python Client for Google BigQuery, which I personally find not quite as easy to use and the documentation could be better. I haven't used it as much, so my impression could be wrong.
 
 Finally, the bq command line tool is very powerful.  It offers a broad set of functionality, not just querying data. I know a lot of people have concerns and prefer not to use subprocess. So it’s really up to your preferences on which one to use. 
 

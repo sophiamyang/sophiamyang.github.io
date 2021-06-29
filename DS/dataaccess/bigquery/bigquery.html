@@ -536,7 +536,7 @@
 </pre></div>
 </div>
 <p>To authenticate through a credential file, you can create a service account and get the credential from the service account:
-Go to the google cloud <a class="reference external" href="https://console.cloud.google.com/iam-admin/serviceaccounts">service account page</a>, click on a project, click “+CREATE SERVICE ACCOUNT” and then it will generate a credential JSON file. In the following examples below, I renamed this credential file to “BIGQUERY_CREDENTAIL”.</p>
+Go to the google cloud <a class="reference external" href="https://console.cloud.google.com/iam-admin/serviceaccounts">service account page</a>, click on a project, click “+CREATE SERVICE ACCOUNT” and then it will generate a credential JSON file. In the following examples below, I renamed this credential file to “BIGQUERY_CREDENTIAL”.</p>
 </div>
 </div>
 <div class="section" id="sqlalchemy-for-bigquery">
@@ -548,25 +548,25 @@ SQLAlchemy is a powerful tool to read SQL data in Python. Here is a description 
 <p>After we establish the connection to BigQuery, there are multiple ways to query the data. My go-to method is to use <code class="docutils literal notranslate"><span class="pre">pd.read_sql</span></code> from Pandas so that I can get a Pandas dataframe directly.
 In the <code class="docutils literal notranslate"><span class="pre">pd.read_sql</span></code> function, all we need is the specified query and the connection.</p>
 <p><img alt="" src="../../../_images/1.png" /></p>
-<p>It is often useful to parameterize our queries. SQLAlchemy provides a built in function <code class="docutils literal notranslate"><span class="pre">text()</span></code> that accepts query as input and supports <a class="reference external" href="https://docs.sqlalchemy.org/en/14/core/tutorial.html#specifying-bound-parameter-behaviors">paramerizations</a>. Alternatively, you can write the parameters as f-strings in the query.</p>
+<p>It is often useful to parameterize our queries. SQLAlchemy provides a built-in function <code class="docutils literal notranslate"><span class="pre">text()</span></code> that accepts query as input and supports <a class="reference external" href="https://docs.sqlalchemy.org/en/14/core/tutorial.html#specifying-bound-parameter-behaviors">parameterizations</a>. Alternatively, you can write the parameters as f-strings in the query.</p>
 </div>
 <div class="section" id="python-client-for-google-bigquery">
 <h2>Python Client for Google BigQuery<a class="headerlink" href="#python-client-for-google-bigquery" title="Permalink to this headline">¶</a></h2>
-<p>The second approach is to use the official <a class="reference external" href="https://googleapis.dev/python/bigquery/latest/index.html">Python Client for BigQuery</a>. If you are running it locally and you are authenticated, you don’t need to define the credentials, and <code class="docutils literal notranslate"><span class="pre">client</span> <span class="pre">=</span> <span class="pre">bigquery.Client()</span></code> will just work.</p>
+<p>The second approach is to use the official <a class="reference external" href="https://googleapis.dev/python/bigquery/latest/index.html">Python Client for BigQuery</a>. If you are running it locally and authenticated, you don’t need to define the credentials, and <code class="docutils literal notranslate"><span class="pre">client</span> <span class="pre">=</span> <span class="pre">bigquery.Client()</span></code> will just work.</p>
 <p><img alt="" src="../../../_images/2.png" /></p>
 </div>
 <div class="section" id="bq-command-line-tool">
 <h2>bq command-line tool<a class="headerlink" href="#bq-command-line-tool" title="Permalink to this headline">¶</a></h2>
 <p>The third approach is to use subprocess to run the bq command-line tool. The query command is <code class="docutils literal notranslate"><span class="pre">bq</span> <span class="pre">query</span></code>.  We can pass in flags to the query to define the output format to be csv and specify the queries we want to run. Then we can use subprocess to run the command line code in Python.</p>
 <p><img alt="" src="../../../_images/3.png" /></p>
-<p>bq command line tool supports query parameters. In the example below, we pass in the <code class="docutils literal notranslate"><span class="pre">--parameter</span></code> flag to define the name, type, and value information of the parameter. In the query itself we use <code class="docutils literal notranslate"><span class="pre">&#64;parameter</span></code> name to specify a parameter. Another thing to note is that if the output has too many rows, we can increase the <code class="docutils literal notranslate"><span class="pre">--max_rows</span></code> flag to be a large number.</p>
+<p>bq command line tool supports query parameters. In the example below, we pass in the <code class="docutils literal notranslate"><span class="pre">--parameter</span></code> flag to define the name, type, and value information of the parameter. In the query itself we use <code class="docutils literal notranslate"><span class="pre">&#64;parameter_name</span></code> to specify a parameter. Another thing to note is that if the output has too many rows, we can increase the <code class="docutils literal notranslate"><span class="pre">--max_rows</span></code> flag to be a large number.</p>
 <p><img alt="" src="../../../_images/4.png" /></p>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In all, I quickly went through three ways to query BigQuery in Python.</p>
 <p>The first approach, SQLAlchemy has many nice built-in functionalities and supports many different types of databases. For users who have used SQLAlchemy on other databases and liked its features, you might like the SQLAlchemy approach to query BigQuery.</p>
-<p>The second approach is the official Python Client for Google BigQuery, which I personally find not quite as easy to use and the documentation could be better. I haven’t use it as much, so my impression could be wrong.</p>
+<p>The second approach is the official Python Client for Google BigQuery, which I personally find not quite as easy to use and the documentation could be better. I haven’t used it as much, so my impression could be wrong.</p>
 <p>Finally, the bq command line tool is very powerful.  It offers a broad set of functionality, not just querying data. I know a lot of people have concerns and prefer not to use subprocess. So it’s really up to your preferences on which one to use.</p>
 <p>Happy BigQuerying!</p>
 </div>
