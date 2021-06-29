@@ -19,6 +19,7 @@
       - file: DS/dataaccess/salesforce
       - file: DS/dataaccess/intercom 
       - file: DS/dataaccess/marketo 
+      - file: DS/dataaccess/bigquery/bigquery 
   - file: DS/etl/etl  
     sections: 
       - file: DS/etl/airflow_bigquery 
@@ -51,8 +52,8 @@
     - file: DS/othermodels/clv
   - file: DS/optimization/optimization
     sections: 
-    - file: DS/optimization/descentmethod1/descentmethod1
-    - file: DS/optimization/descentmethod2/descentmethod2
+    - file: DS/optimization/descentmethod/descentmethod1
+    - file: DS/optimization/descentmethod/descentmethod2
     - file: DS/optimization/multiclass-logistic/multiclass-logistic
 
 
