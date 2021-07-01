@@ -17,6 +17,7 @@
       - file: DS/dataaccess/metabase
       - file: DS/dataaccess/stripe
       - file: DS/dataaccess/salesforce
+      - file: DS/dataaccess/intake-salesforce/intake-salesforce
       - file: DS/dataaccess/intercom 
       - file: DS/dataaccess/marketo 
       - file: DS/dataaccess/bigquery/bigquery 
