@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Descent method — Steepest descent and conjugate gradient &#8212; Ph.D. | Sr. Data Scientist</title>
+    <title>Query Salesforce Data in Python using intake-salesforce &#8212; Ph.D. | Sr. Data Scientist</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Descent method — Steepest descent and conjugate gradient in Python" href="descentmethod2.html" />
-    <link rel="prev" title="Optimization" href="../optimization.html" />
+    <link rel="next" title="Query Intercom data in Python — Intercom rest API" href="../intercom.html" />
+    <link rel="prev" title="Query Salesforce Data in Python" href="../salesforce.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -139,43 +139,43 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../../dataaccess/dataaccess.html">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../dataaccess.html">
    Data Accessing
   </a>
-  <ul class="collapse-ul">
+  <ul class="current collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/metabase.html">
+    <a class="reference internal" href="../metabase.html">
      Query Metabase data in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/stripe.html">
+    <a class="reference internal" href="../stripe.html">
      Query and analyze Stripe data in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/salesforce.html">
+    <a class="reference internal" href="../salesforce.html">
      Query Salesforce Data in Python
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/intake-salesforce/intake-salesforce.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Query Salesforce Data in Python using intake-salesforce
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/intercom.html">
+    <a class="reference internal" href="../intercom.html">
      Query Intercom data in Python — Intercom rest API
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/marketo.html">
+    <a class="reference internal" href="../marketo.html">
      Getting Marketo data in Python — Marketo rest API and Python API
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../dataaccess/bigquery/bigquery.html">
+    <a class="reference internal" href="../bigquery/bigquery.html">
      3 ways to query BigQuery in Python
     </a>
    </li>
@@ -356,23 +356,23 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="reference internal" href="../optimization.html">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../optimization/optimization.html">
    Optimization
   </a>
-  <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../optimization/descentmethod/descentmethod1.html">
      Descent method — Steepest descent and conjugate gradient
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="descentmethod2.html">
+    <a class="reference internal" href="../../optimization/descentmethod/descentmethod2.html">
      Descent method — Steepest descent and conjugate gradient in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../multiclass-logistic/multiclass-logistic.html">
+    <a class="reference internal" href="../../optimization/multiclass-logistic/multiclass-logistic.html">
      Multiclass logistic regression from scratch
     </a>
    </li>
@@ -447,7 +447,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/DS/optimization/descentmethod/descentmethod1.md"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/DS/dataaccess/intake-salesforce/intake-salesforce.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -478,13 +478,23 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#method-of-steepest-descent">
-   Method of Steepest Descent
+  <a class="reference internal nav-link" href="#what-is-intake">
+   What is Intake?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#conjugate-gradient-method">
-   Conjugate gradient method
+  <a class="reference internal nav-link" href="#how-to-use-intake-salesforce">
+   How to use intake-salesforce?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-everything-together">
+   Putting everything together
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References:
   </a>
  </li>
 </ul>
@@ -498,49 +508,99 @@
         
               <div>
                 
-  <div class="section" id="descent-method-steepest-descent-and-conjugate-gradient">
-<h1>Descent method — Steepest descent and conjugate gradient<a class="headerlink" href="#descent-method-steepest-descent-and-conjugate-gradient" title="Permalink to this headline">¶</a></h1>
-<p>Let’s start with this equation and we want to solve for x:</p>
-<p><span class="math notranslate nohighlight">\(Ax = b \)</span></p>
-<p>The solution x the minimize the function below when A is <strong>symmetric positive definite</strong> (otherwise, x could be the maximum). It is because the gradient of f(x), ∇f(x) = Ax- b. And when Ax=b, ∇f(x)=0 and thus x is the minimum of the function.</p>
-<p><span class="math notranslate nohighlight">\(f(x) = \frac{1}{2}x^TAx-x^Tb\)</span></p>
-<p>In this article, I am going to show you two ways to find the solution x — method of Steepest Descent and method of Conjugate Gradient.</p>
-<div class="section" id="method-of-steepest-descent">
-<h2>Method of Steepest Descent<a class="headerlink" href="#method-of-steepest-descent" title="Permalink to this headline">¶</a></h2>
-<p>The main idea of the descent method is that we start with a starting point of x, try to find the next point that’s closer to the solution, iterate over the process until we find the final solution.</p>
-<p>For example, at step k, we are at the point 𝑥(𝑘). How do we decide where to go next? Which direction should we go? How much should we go?</p>
-<p><img alt="" src="../../../_images/descentmethod0.png" /></p>
-<p>Let’s assume the direction we decide to go is p(k) and how far we are going down the direction is 𝛼. Then the next data point can be written as:</p>
-<p><img alt="" src="../../../_images/descentmethod1.png" /></p>
-<p>For each step, the steepest descent method wants to go down towards the steepest slope, where it is the most effective (r here means residual):</p>
-<p><img alt="" src="../../../_images/descentmethod2.png" /></p>
-<p>Once we decided the direction to go, we want to make sure we minimize the function in this direction:</p>
-<p><img alt="" src="../../../_images/descentmethod3.png" /></p>
-<p><img alt="" src="../../../_images/descentmethod4.png" /></p>
-<p>Now we can get calculate the x and the residual for the next data point:</p>
-<p><img alt="" src="../../../_images/descentmethod5.png" /></p>
-<p>This is basically the math behind the steepest descent method. Normally we would give a stopping criterion to the residual, and we iterate the process until we reach the stopping point.</p>
+  <div class="section" id="query-salesforce-data-in-python-using-intake-salesforce">
+<h1>Query Salesforce Data in Python using intake-salesforce<a class="headerlink" href="#query-salesforce-data-in-python-using-intake-salesforce" title="Permalink to this headline">¶</a></h1>
+<p><em>Intake driver for salesforce</em></p>
+<p>A Salesforce database can be a hot mess. The figure below illustrates the relationship among some of the data tables in Salesforce. As you can see, the relationship among data tables (i.e., objects) can be complicated and hard to work with. I wrote a <a class="reference external" href="https://medium.com/swlh/query-salesforce-data-in-python-e290a00e3cba">blog post</a> previously on how to understand and query Salesforce data using the <a class="reference external" href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm">Salesforce Object Query Language (SOQL)</a> through a Python API simple-salesforce.  Salesforce Object Query Language (SOQL) is a SQL-like language that is designed specifically for the relational data in Salesforce and it is not the easiest to understand and write for people who are not familiar with the Salesforce database. Thus, I wrote an intake driver to load salesforce data to help people query Salesforce data easily.</p>
+<p><img alt="" src="../../../_images/11.png" /></p>
+<div class="section" id="what-is-intake">
+<h2>What is Intake?<a class="headerlink" href="#what-is-intake" title="Permalink to this headline">¶</a></h2>
+<p>Intake was developed by Anaconda in 2018. It is a lightweight data catalog and data access library. It helps users to access data and share data more productively. Specifically, Intake has the following key features that make it desirable to data scientists:</p>
+<ul class="simple">
+<li><p>Intake loads data from various data sources and provides descriptions of your data in Intake catalogs.</p></li>
+<li><p>Caching helps to load data faster.</p></li>
+<li><p>Intake allows users to create a data package easily.</p></li>
+<li><p>Graphic Interface helps with easy data exploration.</p></li>
+<li><p>Intake loads data from various data formats and allows users to create plugins/drivers for new file formats.</p></li>
+<li><p>The intake ecosystem currently includes more than 30 <a class="reference external" href="https://intake.readthedocs.io/en/latest/plugin-directory.html">intake drivers</a> that help users to load data from different sources with a uniform API.</p></li>
+</ul>
+<p>More information on how to use intake can be found in the <a class="reference external" href="https://intake.readthedocs.io/en/latest/">intake documentation</a>.</p>
 </div>
-<div class="section" id="conjugate-gradient-method">
-<h2>Conjugate gradient method<a class="headerlink" href="#conjugate-gradient-method" title="Permalink to this headline">¶</a></h2>
-<p>The steepest descent method is great that we minimize the function in the direction of each step. But it doesn’t guarantee that the direction we are going to minimize the function from all the previous directions. Here we introduce a very important term A conjugate directions. Directions p are A conjugate directions if they have the following property (note A is symmetric positive definite):</p>
-<p><img alt="" src="../../../_images/descentmethod6.png" /></p>
-<p>Only when the current direction p is A conjugate to all the previous directions, will the next data point minimize the function in the span of all previous directions.</p>
-<p>The issue is how do we calculate the search direction p when p has to be A conjugate?</p>
-<p>Remember that the steepest descent chose the steepest slope, which is also the residual (r) at each step. And we know that this is a good choice. How about we find an A-conjugate direction that’s the closest to the direction of the steepest descent, i.e., we minimize the 2-norm of the vector (r-p).</p>
-<p>Through calculations, we know that the current direction is a combination of the current residual and the last direction.</p>
-<p><img alt="" src="../../../_images/descentmethod7.png" /></p>
-<p>Because of the property of A-conjugate directions:</p>
-<p><img alt="" src="../../../_images/descentmethod8.png" /></p>
-<p>We can then calculate 𝛾_𝑘:</p>
-<p><img alt="" src="../../../_images/descentmethod9.png" /></p>
-<p>In summary, the conjugate gradient method is as follows:</p>
-<p><img alt="" src="../../../_images/descentmethod10.png" /></p>
-<p><img alt="" src="../../../_images/descentmethod11.png" /></p>
-<p>Now you know how to solve the system of linear equations using the steepest descent and the conjugate gradient method! Enjoy!</p>
-<p>Reference:<br />
-https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observations.html</p>
-<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/descent-method-steepest-descent-and-conjugate-gradient-math-explained-78601d8df3ce">September 16, 2020</a></p>
+<div class="section" id="how-to-use-intake-salesforce">
+<h2>How to use intake-salesforce?<a class="headerlink" href="#how-to-use-intake-salesforce" title="Permalink to this headline">¶</a></h2>
+<p>Before we get started on intake-salesforce, we need to get some Salesforce credential information:</p>
+<ul class="simple">
+<li><p>Username</p></li>
+<li><p>Password</p></li>
+<li><p>Security token: can be found under Settings - Personal - Reset My Security Token</p></li>
+<li><p>Instance: YOUR_COMPANY_NAME.lightning.force.com</p></li>
+</ul>
+<p>To install intake-salesforce, run the following</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">intake</span> <span class="n">pandas</span> 
+<span class="n">pip</span> <span class="n">install</span> <span class="n">intake</span><span class="o">-</span><span class="n">salesforce</span> 
+</pre></div>
+</div>
+<p>To get a catalog of tables in Salesforce, we use the <code class="docutils literal notranslate"><span class="pre">intake.open_salesforce_catalog</span></code> method:</p>
+<p><img alt="" src="../../../_images/21.png" /></p>
+<p>Now we have a list of 1003 tables, which we can read using <code class="docutils literal notranslate"><span class="pre">catalog.TABLE_NAME.read()</span></code> and return Pandas dataframes in memory. For example, let’s read in the “Account” table (not real data):</p>
+<p><img alt="" src="../../../_images/31.png" /></p>
+<p>There are 48 columns in the Account table. Note that the column names ending with __c are all custom objects in Salesforce, which means in this case, our Salesforce admin creates a variable object called “ARR__c” in the Account table object.</p>
+<p>Similarly, we can read in other tables (e.g., Opportunity) and merge the Account table with the Opportunity table (again, not real data shown below). To be clear which variables belong to which table, I added “acc_” in front of the Account variables and “opp_” in front of the Opportunity variables. Here we see the merged table has 90 columns.</p>
+<p><img alt="" src="../../../_images/41.png" /></p>
+</div>
+<div class="section" id="putting-everything-together">
+<h2>Putting everything together<a class="headerlink" href="#putting-everything-together" title="Permalink to this headline">¶</a></h2>
+<p>How do we load data from various sources in a consistent manner? We are going to show an example to load a local .csv file, a group of parquet files that’s stored on AWS, and Salesforce data.</p>
+<p>The key feature and concept of Intake is the catalog files, which is “a YAML specification file which contains a list of named entries describing how to load data sources” (https://intake.readthedocs.io/en/latest/catalog.html). In the “load_data.yaml” example below, we defined three data sources: example_csv_data, example_s3_data, and salesforce_catalog. Under each data source, we listed its intake driver, arguments, and other information. Note that we are loading all data as Pandas dataframes, other data types and partitioned/parallel access are also possible with Intake.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sources</span><span class="p">:</span>
+  <span class="n">example_csv_data</span><span class="p">:</span>
+    <span class="n">args</span><span class="p">:</span>
+      <span class="n">urlpath</span><span class="p">:</span> <span class="s2">&quot;example.csv&quot;</span>
+    <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Example data&quot;</span>
+    <span class="n">driver</span><span class="p">:</span> <span class="n">csv</span>
+  <span class="n">example_s3_data</span><span class="p">:</span>
+    <span class="n">driver</span><span class="p">:</span> <span class="n">parquet</span>
+    <span class="n">cache</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">argkey</span><span class="p">:</span> <span class="n">urlpath</span>
+        <span class="n">regex</span><span class="p">:</span> <span class="s1">&#39;anaconda-package-data&#39;</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="n">file</span>
+    <span class="n">parameters</span><span class="p">:</span>
+      <span class="n">year</span><span class="p">:</span>
+        <span class="n">description</span><span class="p">:</span> <span class="n">year</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="nb">int</span>
+      <span class="n">month</span><span class="p">:</span>
+        <span class="n">description</span><span class="p">:</span> <span class="n">month</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">args</span><span class="p">:</span>
+        <span class="n">urlpath</span><span class="p">:</span> <span class="s1">&#39;s3://anaconda-package-data/conda/hourly/{{ &quot;</span><span class="si">%04d</span><span class="s1">&quot; | format(year) }}/{{ &quot;</span><span class="si">%02d</span><span class="s1">&quot; | format(month) }}/{{ &quot;</span><span class="si">%04d</span><span class="s1">&quot; | format(year) }}-{{ &quot;</span><span class="si">%02d</span><span class="s1">&quot; | format(month) }}-*.parquet&#39;</span>
+        <span class="n">storage_options</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;anon&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+  <span class="n">salesforce_catalog</span><span class="p">:</span>
+    <span class="n">driver</span><span class="p">:</span> <span class="n">salesforce_catalog</span>
+    <span class="n">args</span><span class="p">:</span> 
+      <span class="n">username</span><span class="p">:</span> <span class="s2">&quot;{{env(username)}}&quot;</span>
+      <span class="n">password</span><span class="p">:</span> <span class="s2">&quot;{{env(password)}}&quot;</span>
+      <span class="n">security_token</span><span class="p">:</span> <span class="s2">&quot;{{env(security_token)}}&quot;</span>
+      <span class="n">instance</span><span class="p">:</span> <span class="s2">&quot;{{env(instance)}}&quot;</span>
+</pre></div>
+</div>
+<p>To load data from these three data sources, we can simply open this yaml file as the catalog <code class="docutils literal notranslate"><span class="pre">cat</span></code> and read in data as follows:</p>
+<ul class="simple">
+<li><p>Read .csv file: <code class="docutils literal notranslate"><span class="pre">cat.example_csv_data.read()</span></code></p></li>
+<li><p>Read .parquet file: <code class="docutils literal notranslate"><span class="pre">cat.example_s3_data(year=xxx,</span> <span class="pre">month=xxx).read()</span></code>. Note that we need to <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">intake-parquet</span> <span class="pre">s3fs</span> <span class="pre">python-snappy</span></code> first, and also note we are able to pass in arguments as parameters.</p></li>
+<li><p>Read Salesforce data: <code class="docutils literal notranslate"><span class="pre">cat.salesforce_catalog</span></code> shows a list of Salesforce tables and <code class="docutils literal notranslate"><span class="pre">cat.salesforce_catalog.TABLE_NAME.read()</span></code> reads in the specified table.</p></li>
+</ul>
+<p><img alt="" src="../../../_images/5.png" /></p>
+<p>In summary, intake-salesforce provides an easy way for users to see a catalog of tables in Salesforce and read in specific data tables as Pandas dataframes. Intake catalog allows users to load data from various sources consistently. Hope you enjoy using Intake and Intake-Salesforce. Thanks!</p>
+<p>Credit: Special thanks to Martin Durant, Albert DeFusco, and Stan Seibert for the guidance and feedback in developing intake-Salesforce and writing this article.</p>
+</div>
+<div class="section" id="references">
+<h2>References:<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>https://intake.readthedocs.io/
+https://www.anaconda.com/intake-taking-the-pain-out-of-data-access/
+https://martindurant.github.io/blog/flurry-of-drivers/
+https://medium.com/swlh/query-salesforce-data-in-python-e290a00e3cba
+https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm</p>
+<p>By Sophia Yang on July 1, 2021</p>
 </div>
 </div>
 
@@ -557,7 +617,7 @@ https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observation
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./DS/optimization/descentmethod"
+            path: "./DS/dataaccess/intake-salesforce"
         },
         predefinedOutput: true
     }
@@ -572,8 +632,8 @@ https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observation
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../optimization.html" title="previous page">Optimization</a>
-    <a class='right-next' id="next-link" href="descentmethod2.html" title="next page">Descent method — Steepest descent and conjugate gradient in Python</a>
+    <a class='left-prev' id="prev-link" href="../salesforce.html" title="previous page">Query Salesforce Data in Python</a>
+    <a class='right-next' id="next-link" href="../intercom.html" title="next page">Query Intercom data in Python — Intercom rest API</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
