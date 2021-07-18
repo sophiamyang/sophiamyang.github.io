@@ -1,7 +1,7 @@
 # How to host Jupyter Notebook slides on Github
 *Minimal effort to make slides and host an html file on Github*
 
-Checkout the slideshow of this article here: https://sophiamyang.github.io/slides_github_pages/.
+Check out the slideshow of this article here: [https://sophiamyang.github.io/slides_github_pages/](https://sophiamyang.github.io/slides_github_pages/).
 
 There are two parts to this article:
 
@@ -9,7 +9,7 @@ There are two parts to this article:
 2. How to host an html file on Github.
 
 ## Jupyter Notebook slides
-First, let's create a new enviornment slideshow, install a Jupyter notebook extension RISE, and launch Jupyter Notebook:
+First, let's create a new environment slideshow, install a Jupyter notebook extension RISE, and launch Jupyter Notebook:
 
 ```
 conda create -n slideshow -c conda-forge python=3.9 rise
@@ -20,7 +20,7 @@ jupyter notebook
 Then create a Jupyter Notebook file as usual:
 - Click View-Toolbar-Slideshow to define the slide type for each cell.
 - RISE creates a button “Enter/Exit Live Reveal Slideshow” in the top right of the toolbar.
-- Click this tool bar, you will be able to view your notebook as a slideshow.
+- Click this toolbar, you will be able to view your notebook as a slideshow.
 
 ## Slides to html
 If you have code cells and would like to show all the code cells, use:
@@ -59,7 +59,7 @@ git push -u origin gh-pages
 
 Now you can see this slideshow hosted on a Github page: https://YOUR_USER_NAME.github.io/YOUR_REPO_NAME
 
-Check mine out: https://sophiamyang.github.io/slides_github_pages/.
+Check mine out: [https://sophiamyang.github.io/slides_github_pages/](https://sophiamyang.github.io/slides_github_pages/).
 
 ## Reference:  
 https://rise.readthedocs.io/en/stable/
