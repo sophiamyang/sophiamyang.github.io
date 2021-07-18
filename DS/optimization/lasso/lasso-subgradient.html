@@ -104,6 +104,11 @@
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
+    <a class="reference internal" href="../../basics/slides_github_pages.html">
+     How to host Jupyter Notebook slides on Github
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../basics/testing_for_data_scientists/testing_for_data_scientists.html">
      Testing for data scientists
     </a>
@@ -508,6 +513,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#frank-wolf">
+   Frank-Wolf
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#benefit-of-l1-regularization">
    Benefit of L1 regularization
   </a>
@@ -550,7 +560,7 @@
       [-1,1] &amp; \text{if \)</span>z<span class="math notranslate nohighlight">\( = 0}
     \end{cases}       
 \end{equation}\)</span></p>
-<p>We can see that <span class="math notranslate nohighlight">\( sign(z) \in \partial f(z) \)</span>, sign(z) is one of the subgradient of f at z.</p>
+<p>We can see that <span class="math notranslate nohighlight">\( sign(z) \in \partial f(z) \)</span>, sign(z) is one of the subgradient of f at z. Alternatively, for <span class="math notranslate nohighlight">\(z \neq 0\)</span>, we use sign(z) as the subgradient; whereas for for <span class="math notranslate nohighlight">\(z = 0\)</span>, we use a random number selected between -1 and 1 as the subgradient. To simplify the illustrations, we simply use sign(z) as one of the subgradient of f at z for all <span class="math notranslate nohighlight">\(z\)</span>.</p>
 <p>Then for the L1 norm of vector w:</p>
 <p><span class="math notranslate nohighlight">\(
 sign(w) =
@@ -563,7 +573,7 @@ sign(w_2)\\
 \partial |w_2|\\
 ...
 \end{pmatrix} \)</span></p>
-<p>Therefore, for the Lasso loss function: loss = <span class="math notranslate nohighlight">\(\|{Xw-y}\|_2^2 + \alpha \|{w}\|_1\)</span>, the subgradient can be written as: <span class="math notranslate nohighlight">\(X^T(Xw-y) + \alpha * sign(w)\)</span></p>
+<p>Therefore, for the Lasso loss function: loss = <span class="math notranslate nohighlight">\(\frac{1}{2}\|{Xw-y}\|_2^2 + \alpha \|{w}\|_1\)</span> (I added <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> here for easy calculations), the subgradient can be written as: <span class="math notranslate nohighlight">\(X^T(Xw-y) + \alpha * sign(w)\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
@@ -572,7 +582,7 @@ sign(w_2)\\
 <span class="k">def</span> <span class="nf">loss_subgradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">w</span> <span class="o">-</span> <span class="n">y</span>
     <span class="c1"># calculate loss </span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1"># calculate subgradient</span>
     <span class="n">subgradient</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">z</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">subgradient</span>
@@ -627,102 +637,10 @@ sign(w_2)\\
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span>
-</pre></div>
+<p>In addition to the subgradient method, there are many other ways to optimize the loss function of Lasso. For example, proximal gradient, accelerated proximal gradient, and Frank-Wolf. I am not going to go through all the optimization methods here. I will talk a little bit about the Frank-Wolfe algorithm next.</p>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([[0, 0],
-        [1, 1],
-        [2, 2]]),
- array([0, 1, 2]))
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LassoSubgradient</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">loss_plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;step&#39;, ylabel=&#39;loss&#39;&gt;
-</pre></div>
-</div>
-<img alt="../../../_images/lasso-subgradient_6_1.png" src="../../../_images/lasso-subgradient_6_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">w</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.49, 0.49])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.98
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.85, 0.  ])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span><span class="o">.</span><span class="n">intercept_</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15000000000000002
-</pre></div>
-</div>
-</div>
-</div>
+<div class="section" id="frank-wolf">
+<h2>Frank-Wolf<a class="headerlink" href="#frank-wolf" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="benefit-of-l1-regularization">
 <h2>Benefit of L1 regularization<a class="headerlink" href="#benefit-of-l1-regularization" title="Permalink to this headline">¶</a></h2>

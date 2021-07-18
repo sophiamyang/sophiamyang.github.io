@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>An overview of text classification &#8212; Ph.D. | Sr. Data Scientist</title>
+    <title>How to host Jupyter Notebook slides on Github &#8212; Ph.D. | Sr. Data Scientist</title>
     
   <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Time Series Analysis" href="../timeseries/timeseries.html" />
-    <link rel="prev" title="Text analysis basics in Python" href="text_basics.html" />
+    <link rel="next" title="Testing for data scientists" href="testing_for_data_scientists/testing_for_data_scientists.html" />
+    <link rel="prev" title="Basics" href="basics.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -100,43 +100,43 @@
  </span>
 </p>
 <ul class="current nav sidenav_l1">
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../basics/basics.html">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="basics.html">
    Basics
   </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../basics/slides_github_pages.html">
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      How to host Jupyter Notebook slides on Github
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/testing_for_data_scientists/testing_for_data_scientists.html">
+    <a class="reference internal" href="testing_for_data_scientists/testing_for_data_scientists.html">
      Testing for data scientists
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/jupyterworkflow.html">
+    <a class="reference internal" href="jupyterworkflow.html">
      Jupyter workflow for data scientists
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/git.html">
+    <a class="reference internal" href="git.html">
      Git workflow for data scientist
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/conda.html">
+    <a class="reference internal" href="conda.html">
      Conda environment 101
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/profiling.html">
+    <a class="reference internal" href="profiling.html">
      How to assess your code performance in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../basics/intro.html">
+    <a class="reference internal" href="intro.html">
      Python Landscape and Introduction
     </a>
    </li>
@@ -226,18 +226,18 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="reference internal" href="text.html">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../text/text.html">
    Text Analysis
   </a>
-  <ul class="current collapse-ul">
+  <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="text_basics.html">
+    <a class="reference internal" href="../text/text_basics.html">
      Text analysis basics in Python
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../text/text_classification.html">
      An overview of text classification
     </a>
    </li>
@@ -452,7 +452,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/DS/text/text_classification.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/DS/basics/slides_github_pages.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -483,65 +483,24 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-preparation-and-data-exploration">
-   Data Preparation and Data Exploration
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#word-embedding">
-     Word Embedding
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#bag-of-words">
-       Bag of words
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#word2vec-embedding">
-       Word2vec Embedding
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#character-embedding">
-       Character Embedding
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#n-gram-analysis">
-     N-gram analysis
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#topic-modeling">
-     Topic modeling
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#labeling">
-   Labeling
+  <a class="reference internal nav-link" href="#jupyter-notebook-slides">
+   Jupyter Notebook slides
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modeling">
-   Modeling
+  <a class="reference internal nav-link" href="#slides-to-html">
+   Slides to html
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#machine-learning-model">
-     Machine learning model
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#deep-learning-model">
-     Deep learning model
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#host-html-file-on-github">
+   Host html file on Github
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference:
+  </a>
  </li>
 </ul>
 
@@ -554,82 +513,69 @@
         
               <div>
                 
-  <div class="section" id="an-overview-of-text-classification">
-<h1>An overview of text classification<a class="headerlink" href="#an-overview-of-text-classification" title="Permalink to this headline">¶</a></h1>
-<p><em>How to approach a text classification problem</em></p>
-<p><img alt="" src="../../_images/text_classification0.png" />
-<em><a class="reference external" href="https://unsplash.com/photos/8EzNkvLQosk">source</a></em></p>
-<p>Imagine we have a large number of text files and we need to classify these text files into different topics. What should we do? This article will walk you through an overview of text classification and how I would approach this problem on a high-level basis. I would like to address this problem in three steps — data preparation and exploration, labeling, and modeling.</p>
-<div class="section" id="data-preparation-and-data-exploration">
-<h2>Data Preparation and Data Exploration<a class="headerlink" href="#data-preparation-and-data-exploration" title="Permalink to this headline">¶</a></h2>
-<p>The first step is data preparation and exploration. I will transform our text data into a matrix representation through different word embedding methods. Then, I will perform an N-gram analysis and topic modeling to explore the data in more detail.</p>
-<div class="section" id="word-embedding">
-<h3>Word Embedding<a class="headerlink" href="#word-embedding" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="bag-of-words">
-<h4>Bag of words<a class="headerlink" href="#bag-of-words" title="Permalink to this headline">¶</a></h4>
-<p>Most text analysis and machine learning models use the bag of words embedding, which tokenizes our text into tokens, normalize tokens, count occurrences, apply weights (optional), filter out stopwords, and create a document-term matrix. Bag of words assumes the independence of the words and does not take into account the sequence of the words. I will use the bag of words approach for my data exploration and machine learning models.</p>
+  <div class="section" id="how-to-host-jupyter-notebook-slides-on-github">
+<h1>How to host Jupyter Notebook slides on Github<a class="headerlink" href="#how-to-host-jupyter-notebook-slides-on-github" title="Permalink to this headline">¶</a></h1>
+<p><em>Minimal effort to make slides and host an html file on Github</em></p>
+<p>Checkout the slideshow of this article here: https://sophiamyang.github.io/slides_github_pages/.</p>
+<p>There are two parts to this article:</p>
+<ol class="simple">
+<li><p>How to turn your Jupyter Notebooks into a slideshow and output to an html file.</p></li>
+<li><p>How to host an html file on Github.</p></li>
+</ol>
+<div class="section" id="jupyter-notebook-slides">
+<h2>Jupyter Notebook slides<a class="headerlink" href="#jupyter-notebook-slides" title="Permalink to this headline">¶</a></h2>
+<p>First, let’s create a new enviornment slideshow, install a Jupyter notebook extension RISE, and launch Jupyter Notebook:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">slideshow</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> <span class="n">rise</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">slideshow</span>
+<span class="n">jupyter</span> <span class="n">notebook</span>
+</pre></div>
 </div>
-<div class="section" id="word2vec-embedding">
-<h4>Word2vec Embedding<a class="headerlink" href="#word2vec-embedding" title="Permalink to this headline">¶</a></h4>
-<p>Deep learning models often use the pre-trained word2vec embeddings, which incorporate the information of word similarities. The advantage of word2vec is that it has much fewer dimensions than the bag of words approach, and our document-term matrix will be a dense matrix, and not sparse. I plan to use a word2vec embedding (e.g., word2vec-google-news-300) for my deep learning models.</p>
-</div>
-<div class="section" id="character-embedding">
-<h4>Character Embedding<a class="headerlink" href="#character-embedding" title="Permalink to this headline">¶</a></h4>
-<p>Some deep learning models use character embedding and build models at the character-level directly [1][2]. Characters can include English characters, digits, special characters, and others. The advantage of character embedding is that it can model with uncommon words and unknown words. I might try character embedding with my deep learning models to compare with the word2vec embedding.</p>
-</div>
-</div>
-<div class="section" id="n-gram-analysis">
-<h3>N-gram analysis<a class="headerlink" href="#n-gram-analysis" title="Permalink to this headline">¶</a></h3>
-<p>With the bag of words approach, we can investigate the single word (unigram), and combinations of two words and three words (Bigram/Trigram). With N-gram analysis, we can have a descriptive view of which words or word combinations are being used the most.</p>
-</div>
-<div class="section" id="topic-modeling">
-<h3>Topic modeling<a class="headerlink" href="#topic-modeling" title="Permalink to this headline">¶</a></h3>
-<p>Next is topic modeling. There are two ways to do topic modeling: NMF models and LDA models. Non-Negative Matrix Factorization (NMF) is a matrix decomposition method, which decomposes a matrix into the product of W and H of non-negative elements. The default method optimizes the distance between the original matrix and WH, i.e., the Frobenius norm [3]. Latent Dirichlet Allocation (LDA) is a generative probabilistic model optimizing the posterior distribution of the topic assignment [4].
-Both NMF and LDA require users to define the number of topics. How do we know how many topics we should put in the model? We can use a grid search and find the optimal parameters (topics, learning rate, etc.) that can optimize the log-likelihood value [5].</p>
-<p>The output is a list of topics and their associated words, which can then be used to predict the topic of each file. However, since it is unsupervised, we cannot validate and iterate the model, and the performance of this prediction is often less than ideal. So instead of using the model to predict file topics, my goal for this step is to come up with a list of topics, so that we can use this list of topics to facilitate labeling.
-For the implementations of N-gram analysis and topic modeling, check out <a class="reference external" href="https://sophiamyang.github.io/DS/text/text_basics.html">this article</a>.</p>
-</div>
-</div>
-<div class="section" id="labeling">
-<h2>Labeling<a class="headerlink" href="#labeling" title="Permalink to this headline">¶</a></h2>
-<p>Now, we should have a list of topics produced from the topic modeling. We can then label our files to this list of topics.
-If we have resources, we can hire third parties to do the labels. Otherwise, we can label the topics ourselves. We can even construct our labeling task as a survey, with dropdown choices from prepopulated topics. We will also include the “Other, please specify” option if none of the topics match with the file.
-Topic modeling also predicts the topic for each file. Although it might not be the most accurate, we can still use this information to try choosing a balanced sample of topics to label.</p>
-</div>
-<div class="section" id="modeling">
-<h2>Modeling<a class="headerlink" href="#modeling" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="machine-learning-model">
-<h3>Machine learning model<a class="headerlink" href="#machine-learning-model" title="Permalink to this headline">¶</a></h3>
-<p>We randomly sample our labeled data into training (70%), validation(20%), and testing (10%) datasets (the percentages depend on the sample size). The input of my machine learning model is the bag of words matrix for the text files. For any additional information of text (e.g., file source), we can dummy code this information and concatenate the dummies to our document-term matrix. The output is the labels.</p>
-<p>I would like to test four machine learning models and compare their performances on model accuracy and confusion matrix through k-folds cross-validations.</p>
+<p>Then create a Jupyter Notebook file as usual:</p>
 <ul class="simple">
-<li><p>Multinomial logistic regression</p></li>
-<li><p>Multinomial Naive Bayes</p></li>
-<li><p>Support vector machine</p></li>
-<li><p>XGBoost</p></li>
+<li><p>Click View-Toolbar-Slideshow to define the slide type for each cell.</p></li>
+<li><p>RISE creates a button “Enter/Exit Live Reveal Slideshow” in the top right of the toolbar.</p></li>
+<li><p>Click this tool bar, you will be able to view your notebook as a slideshow.</p></li>
 </ul>
-<p>Multinomial logistic regression is the most basic and easiest to interpret. However, I suspect multinomial logistic regression would perform the worst. Multinomial Naive Bayes is another popular model for text classification that can give us a benchmark result. Support vector machine and XGBoost should provide us better results. We will need to do some hyperparameter tuning to find the best performing model. From my experience, with various hyperparameters and methods to avoid overfitting, XGBoost usually works the best. For implementation details, check out <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and <code class="docutils literal notranslate"><span class="pre">xgboost</span></code> documentations.</p>
 </div>
-<div class="section" id="deep-learning-model">
-<h3>Deep learning model<a class="headerlink" href="#deep-learning-model" title="Permalink to this headline">¶</a></h3>
-<p>Three types of deep learning models are suited for NLP tasks — recurrent networks (LSTMs and GRUs), convolutional neural networks, and transformers. The recurrent network takes a long time and is harder to train, and not great for text classification tasks. The convolutional neural network is easy and fast to train, can take many layers, and outperform the recurrent network [6][7]. The transformers model is the state of the art method, however, I do not have much experience with transformers. Thus, I will only talk about the convolutional neural network.</p>
-<p>The input of the deep learning model is the matrix of the word2vec embedding for each text file. Again, we randomly sample our labeled data into training (70%), validation (20%), and testing (10%) datasets. We can increase the percentage of our training set if our sample size is small.</p>
-<p>We will randomly separate training data into different batches. The sample size for each input needs to be the sample for each batch. Thus, we need to find the longest input text and pad all the other input text to match the length of the longest text.</p>
-<p>For constructing the deep learning model, we can add multiple layers of convolutional blocks and then feed the results into a softmax layer to get the classification result (see figure 1). Note that with text analysis, we need to make sure that our receptive field is as large as possible so that the network is looking at the entire length of the input text for each document. Thus, we use many layers and dilated convolutions to increase the receptive field. The code below shows an example code of a convolutional block (note that for text generation, we will need to use a causal convolutional block. But for text classification, many-layered dilated convolution will be fine). For each layer, we can increase the number of dilations by a factor of 2. Then we can tune and train the model and apply various techniques to prevent overfitting until we are satisfied with the model performance. And the final step is to predict all file labels with our trained deep learning model.</p>
-<p>Now you have a high-level view of text classification. Enjoy!</p>
-<script src="https://gist.github.com/sophiamyang/555a87b4ac68e41b7abc17579cb7ea60.js"></script>
-<p><img alt="" src="../../_images/text_classification.png" />
-<em>Figure 1. Illustration of a convolutional network for classification [7].</em></p>
-<p>References:</p>
-<p>[1] http://proceedings.mlr.press/v32/santos14.html</p>
-<p>[2] https://arxiv.org/pdf/1508.06615.pdf</p>
-<p>[3] https://scikit-learn.org/stable/modules/decomposition.html#nmf</p>
-<p>[4] https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation</p>
-<p>[5] https://www.machinelearningplus.com/nlp/topic-modeling-python-sklearn-examples/</p>
-<p>[6] http://web.stanford.edu/class/cs224n/slides/cs224n-2020-lecture11-convnets.pdf</p>
-<p>[7] http://www.philkr.net/dl_class/lectures/sequence_modeling/04.pdf</p>
-<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/an-overview-of-text-classification-b1ec14db358c">November 18, 2020</a></p>
+<div class="section" id="slides-to-html">
+<h2>Slides to html<a class="headerlink" href="#slides-to-html" title="Permalink to this headline">¶</a></h2>
+<p>If you have code cells and would like to show all the code cells, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="n">github_page_example</span><span class="o">.</span><span class="n">ipynb</span> <span class="o">--</span><span class="n">to</span> <span class="n">slides</span> <span class="o">--</span><span class="n">stdout</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
 </div>
+<p>If you would like to hide all the code cells:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="n">github_page_example</span><span class="o">.</span><span class="n">ipynb</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="nb">input</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">prompt</span> <span class="o">--</span><span class="n">to</span> <span class="n">slides</span> <span class="o">--</span><span class="n">stdout</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>If you would like to hide code for certain cells, we can add a tag for those code cells via View - Cell Toolbar - Tags. Here I use the tag “remove_input”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="n">github_page_example</span><span class="o">.</span><span class="n">ipynb</span> <span class="o">--</span><span class="n">TagRemovePreprocessor</span><span class="o">.</span><span class="n">remove_input_tags</span> <span class="s2">&quot;remove_input&quot;</span> <span class="o">--</span><span class="n">to</span> <span class="n">slides</span> <span class="o">--</span><span class="n">stdout</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="host-html-file-on-github">
+<h2>Host html file on Github<a class="headerlink" href="#host-html-file-on-github" title="Permalink to this headline">¶</a></h2>
+<p>To publish an html file on Github Pages, we need to push to gh-pages branch.</p>
+<p>Create new git repo locally with gh-pages branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">init</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">index</span><span class="o">.</span><span class="n">html</span>
+<span class="n">git</span> <span class="n">commit</span>
+</pre></div>
+</div>
+<p>Go to Github and create a new empty repo, and then push our files to the gh-pages branch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">YOUR_USER_NAME</span><span class="o">/</span><span class="n">YOUR_REPO_NAME</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+</pre></div>
+</div>
+<p>Now you can see this slideshow hosted on a Github page: https://YOUR_USER_NAME.github.io/YOUR_REPO_NAME</p>
+<p>Check mine out: https://sophiamyang.github.io/slides_github_pages/.</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference:<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>https://rise.readthedocs.io/en/stable/</p>
+<p>https://pages.github.com/</p>
+<p>By Sophia Yang on July 18, 2021</p>
 </div>
 </div>
 
@@ -646,7 +592,7 @@ Topic modeling also predicts the topic for each file. Although it might not be t
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./DS/text"
+            path: "./DS/basics"
         },
         predefinedOutput: true
     }
@@ -661,8 +607,8 @@ Topic modeling also predicts the topic for each file. Although it might not be t
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="text_basics.html" title="previous page">Text analysis basics in Python</a>
-    <a class='right-next' id="next-link" href="../timeseries/timeseries.html" title="next page">Time Series Analysis</a>
+    <a class='left-prev' id="prev-link" href="basics.html" title="previous page">Basics</a>
+    <a class='right-next' id="next-link" href="testing_for_data_scientists/testing_for_data_scientists.html" title="next page">Testing for data scientists</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
