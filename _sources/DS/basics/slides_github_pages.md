@@ -18,7 +18,7 @@ jupyter notebook
 ```
 
 Then create a Jupyter Notebook file as usual:
-- Click View-Toolbar-Slideshow to define the slide type for each cell.
+- Click View→Toolbar→Slideshow to define the slide type for each cell.
 - RISE creates a button “Enter/Exit Live Reveal Slideshow” in the top right of the toolbar.
 - Click this toolbar, you will be able to view your notebook as a slideshow.
 
@@ -34,13 +34,13 @@ If you would like to hide all the code cells:
 jupyter nbconvert github_page_example.ipynb --no-input --no-prompt --to slides --stdout > index.html
 ```
 
-If you would like to hide code for certain cells, we can add a tag for those code cells via View - Cell Toolbar - Tags. Here I use the tag "remove_input".
+If you would like to hide code for certain cells, we can add a tag for those code cells via View→Cell Toolbar→Tags. Here I use the tag "remove_input".
 ```
 jupyter nbconvert github_page_example.ipynb --TagRemovePreprocessor.remove_input_tags "remove_input" --to slides --stdout > index.html
 ```
 
 ## Host html file on Github
-To publish an html file on Github Pages, we need to push to gh-pages branch.
+To publish an html file on Github Pages, we need to push to `gh-pages` branch.
 
 Create new git repo locally with gh-pages branch:
 ```
@@ -50,7 +50,7 @@ git add index.html
 git commit
 ```
 
-Go to Github and create a new empty repo, and then push our files to the gh-pages branch.
+Go to Github and create a new empty repo, and then push our files to the `gh-pages` branch.
 ```
 git remote add origin git@github.com:YOUR_USER_NAME/YOUR_REPO_NAME.git
 git branch -M gh-pages

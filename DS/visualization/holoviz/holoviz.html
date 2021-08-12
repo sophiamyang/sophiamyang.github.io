@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Descent method — Steepest descent and conjugate gradient &#8212; Ph.D. | Sr. Data Scientist</title>
+    <title>Visualization and Interactive Dashboard in Python &#8212; Ph.D. | Sr. Data Scientist</title>
     
   <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Descent method — Steepest descent and conjugate gradient in Python" href="descentmethod2.html" />
-    <link rel="prev" title="Optimization" href="../optimization.html" />
+    <link rel="next" title="Real-time dashboard in Python" href="../real-time/realtimedash.html" />
+    <link rel="prev" title="Visualization" href="../visualization.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -202,28 +202,28 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../../visualization/visualization.html">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../visualization.html">
    Visualization
   </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../visualization/holoviz/holoviz.html">
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Visualization and Interactive Dashboard in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../visualization/real-time/realtimedash.html">
+    <a class="reference internal" href="../real-time/realtimedash.html">
      Real-time dashboard in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../visualization/landscape.html">
+    <a class="reference internal" href="../landscape.html">
      Python Visualization Landscape
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../visualization/multiline.html">
+    <a class="reference internal" href="../multiline.html">
      Python Visualization — Multiple Line Plotting
     </a>
    </li>
@@ -366,23 +366,23 @@
   <i class="fas fa-chevron-down">
   </i>
  </li>
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="reference internal" href="../optimization.html">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../optimization/optimization.html">
    Optimization
   </a>
-  <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../optimization/descentmethod/descentmethod1.html">
      Descent method — Steepest descent and conjugate gradient
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="descentmethod2.html">
+    <a class="reference internal" href="../../optimization/descentmethod/descentmethod2.html">
      Descent method — Steepest descent and conjugate gradient in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../multiclass-logistic/multiclass-logistic.html">
+    <a class="reference internal" href="../../optimization/multiclass-logistic/multiclass-logistic.html">
      Multiclass logistic regression from scratch
     </a>
    </li>
@@ -457,7 +457,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/DS/optimization/descentmethod/descentmethod1.md"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/DS/visualization/holoviz/holoviz.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -488,13 +488,38 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#method-of-steepest-descent">
-   Method of Steepest Descent
+  <a class="reference internal nav-link" href="#why-do-i-love-holoviz">
+   Why do I love Holoviz?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#conjugate-gradient-method">
-   Conjugate gradient method
+  <a class="reference internal nav-link" href="#what-are-the-seven-packages">
+   What are the seven packages?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-my-holoviz-workflow">
+   What is my HoloViz workflow?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-very-simple-example">
+   A very simple example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-the-things-i-wish-holoviz-could-do-better">
+   What are the things I wish HoloViz could do better?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#where-can-i-find-support">
+   Where can I find support?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recommended-learning-resources">
+   Recommended learning resources
   </a>
  </li>
 </ul>
@@ -508,49 +533,68 @@
         
               <div>
                 
-  <div class="section" id="descent-method-steepest-descent-and-conjugate-gradient">
-<h1>Descent method — Steepest descent and conjugate gradient<a class="headerlink" href="#descent-method-steepest-descent-and-conjugate-gradient" title="Permalink to this headline">¶</a></h1>
-<p>Let’s start with this equation and we want to solve for x:</p>
-<p><span class="math notranslate nohighlight">\(Ax = b \)</span></p>
-<p>The solution x the minimize the function below when A is <strong>symmetric positive definite</strong> (otherwise, x could be the maximum). It is because the gradient of f(x), ∇f(x) = Ax- b. And when Ax=b, ∇f(x)=0 and thus x is the minimum of the function.</p>
-<p><span class="math notranslate nohighlight">\(f(x) = \frac{1}{2}x^TAx-x^Tb\)</span></p>
-<p>In this article, I am going to show you two ways to find the solution x — method of Steepest Descent and method of Conjugate Gradient.</p>
-<div class="section" id="method-of-steepest-descent">
-<h2>Method of Steepest Descent<a class="headerlink" href="#method-of-steepest-descent" title="Permalink to this headline">¶</a></h2>
-<p>The main idea of the descent method is that we start with a starting point of x, try to find the next point that’s closer to the solution, iterate over the process until we find the final solution.</p>
-<p>For example, at step k, we are at the point 𝑥(𝑘). How do we decide where to go next? Which direction should we go? How much should we go?</p>
-<p><img alt="" src="../../../_images/descentmethod0.png" /></p>
-<p>Let’s assume the direction we decide to go is p(k) and how far we are going down the direction is 𝛼. Then the next data point can be written as:</p>
-<p><img alt="" src="../../../_images/descentmethod1.png" /></p>
-<p>For each step, the steepest descent method wants to go down towards the steepest slope, where it is the most effective (r here means residual):</p>
-<p><img alt="" src="../../../_images/descentmethod2.png" /></p>
-<p>Once we decided the direction to go, we want to make sure we minimize the function in this direction:</p>
-<p><img alt="" src="../../../_images/descentmethod3.png" /></p>
-<p><img alt="" src="../../../_images/descentmethod4.png" /></p>
-<p>Now we can get calculate the x and the residual for the next data point:</p>
-<p><img alt="" src="../../../_images/descentmethod5.png" /></p>
-<p>This is basically the math behind the steepest descent method. Normally we would give a stopping criterion to the residual, and we iterate the process until we reach the stopping point.</p>
+  <div class="section" id="visualization-and-interactive-dashboard-in-python">
+<h1>Visualization and Interactive Dashboard in Python<a class="headerlink" href="#visualization-and-interactive-dashboard-in-python" title="Permalink to this headline">¶</a></h1>
+<p><em>My favorite Python Viz tools - HoloViz</em></p>
+<p>It is surprising to me that many data scientists do not know <a class="reference external" href="https://holoviz.org/">HoloViz</a>. HoloViz is my favorite Python viz ecosystem, which comprises seven Python libraries – Panel, hvPlot, HoloViews, GeoViews, Datashader, Param, and Colorcet.</p>
+<div class="section" id="why-do-i-love-holoviz">
+<h2>Why do I love Holoviz?<a class="headerlink" href="#why-do-i-love-holoviz" title="Permalink to this headline">¶</a></h2>
+<p>HoloViz allows users to build Python visualization and interactive dashboard with super easy and flexible Python code. It provides the flexibility to choose among several API backends, including bokeh, matplotlib, and plotly, so you can choose different backends based on your preferences.</p>
+<p>Unlike the other python viz and dashboarding options, HoloViz is very serious about supporting every reasonable context in which you might want to use a Python viz or app tool:</p>
+<ul class="simple">
+<li><p>a Jupyter notebook,</p></li>
+<li><p>a Python file,</p></li>
+<li><p>a batch job generating PDFs or SVGs or PNGs or GIFs,</p></li>
+<li><p>as part of an automated report,</p></li>
+<li><p>as a standalone server,</p></li>
+<li><p>as a standalone .html file on a website.</p></li>
+</ul>
+<p>Each of the alternative technologies supports a few of those cases well but lets all the rest slide. HoloViz minimizes the friction and cost of switching between all of these contexts, because that’s the reality of any scientist or analyst – as soon as you publish it, people want changes! Once you have your Dash app; that’s all you have, but once you have a Panel app, you can go back to Jupyter the next day and start right where you left off.</p>
 </div>
-<div class="section" id="conjugate-gradient-method">
-<h2>Conjugate gradient method<a class="headerlink" href="#conjugate-gradient-method" title="Permalink to this headline">¶</a></h2>
-<p>The steepest descent method is great that we minimize the function in the direction of each step. But it doesn’t guarantee that the direction we are going to minimize the function from all the previous directions. Here we introduce a very important term A conjugate directions. Directions p are A conjugate directions if they have the following property (note A is symmetric positive definite):</p>
-<p><img alt="" src="../../../_images/descentmethod6.png" /></p>
-<p>Only when the current direction p is A conjugate to all the previous directions, will the next data point minimize the function in the span of all previous directions.</p>
-<p>The issue is how do we calculate the search direction p when p has to be A conjugate?</p>
-<p>Remember that the steepest descent chose the steepest slope, which is also the residual (r) at each step. And we know that this is a good choice. How about we find an A-conjugate direction that’s the closest to the direction of the steepest descent, i.e., we minimize the 2-norm of the vector (r-p).</p>
-<p>Through calculations, we know that the current direction is a combination of the current residual and the last direction.</p>
-<p><img alt="" src="../../../_images/descentmethod7.png" /></p>
-<p>Because of the property of A-conjugate directions:</p>
-<p><img alt="" src="../../../_images/descentmethod8.png" /></p>
-<p>We can then calculate 𝛾_𝑘:</p>
-<p><img alt="" src="../../../_images/descentmethod9.png" /></p>
-<p>In summary, the conjugate gradient method is as follows:</p>
-<p><img alt="" src="../../../_images/descentmethod10.png" /></p>
-<p><img alt="" src="../../../_images/descentmethod11.png" /></p>
-<p>Now you know how to solve the system of linear equations using the steepest descent and the conjugate gradient method! Enjoy!</p>
-<p>Reference:<br />
-https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observations.html</p>
-<p>By Sophia Yang on <a class="reference external" href="https://towardsdatascience.com/descent-method-steepest-descent-and-conjugate-gradient-math-explained-78601d8df3ce">September 16, 2020</a></p>
+<div class="section" id="what-are-the-seven-packages">
+<h2>What are the seven packages?<a class="headerlink" href="#what-are-the-seven-packages" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Panel</strong> builds interactive dashboards and apps. It’s like R Shiny, but more powerful. I can’t say enough how much I love Panel.</p></li>
+<li><p><strong>hvPlot</strong> is easier than any other plotting libraries in my experience, especially if you like to plot Pandas DataFrames. With one line of code, hvPlot will provide you an interactive plot with all the nice built-in functionalities you want.</p></li>
+<li><p><strong>HoloViews</strong> is a great tool for data exploration and data mining through visualization.</p></li>
+<li><p><strong>GeoViews</strong> plots geographic data.</p></li>
+<li><p><strong>Datashader</strong> handles big data visualization. Using Numba (Python compiler) and Dask (distributed computing), Datashader creates meaningful visualizations of large datasets very quickly. I absolutely love Datashader and love the <a class="reference external" href="https://datashader.org/">beautiful plots</a> it generates.</p></li>
+<li><p><strong>Param</strong> creates declarative user-configurable objects.</p></li>
+<li><p><strong>Colorcet</strong> creates colormaps.</p></li>
+</ul>
+</div>
+<div class="section" id="what-is-my-holoviz-workflow">
+<h2>What is my HoloViz workflow?<a class="headerlink" href="#what-is-my-holoviz-workflow" title="Permalink to this headline">¶</a></h2>
+<p>I usually start with a Pandas dataframe or a Dask dataframe. For geographic data, I use GeoViews. Most of the time, I only use hvPlot. Then, if I need to plot big data (millions/billions of data points), I use Datashader; if I need different customizations, I use Holoviews. I can then build my dashboard/app in Panel.</p>
+<p><img alt="" src="../../../_images/workflow.png" /></p>
+</div>
+<div class="section" id="a-very-simple-example">
+<h2>A very simple example<a class="headerlink" href="#a-very-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>As you can see below, with a few lines of code, you can get an interactive dashboard with a dropdown menu and a slider for your plot.</p>
+<p><img alt="" src="../../../_images/exp.png" /></p>
+<p><img alt="" src="../../../_images/exp.gif" /></p>
+<p>For deployment, I either output the dashboard directly as an embedded HTML file
+<code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">nbconvert</span> <span class="pre">YOUR_NOTEBOOK.ipynb</span> <span class="pre">--to</span> <span class="pre">html</span> <span class="pre">--no-input</span> <span class="pre">--no-prompt</span> <span class="pre">--stdout</span> <span class="pre">&gt;</span> <span class="pre">output.html</span></code></p>
+<p>Or I run <code class="docutils literal notranslate"><span class="pre">panel</span> <span class="pre">serve</span> <span class="pre">YOUR_NOTEBOOK.ipynb</span></code> or  <code class="docutils literal notranslate"><span class="pre">panel</span> <span class="pre">serve</span> <span class="pre">YOUR_PYTHON_FILE.py</span></code> to deploy the app somewhere on a server.</p>
+</div>
+<div class="section" id="what-are-the-things-i-wish-holoviz-could-do-better">
+<h2>What are the things I wish HoloViz could do better?<a class="headerlink" href="#what-are-the-things-i-wish-holoviz-could-do-better" title="Permalink to this headline">¶</a></h2>
+<p>The only thing I wish HoloViz could do better is the graphical designs. To be honest, the out-of-box design is not as pretty as Plotly and R shiny. However, there are some templates and <a class="reference external" href="https://panel.holoviz.org/user_guide/Templates.html">themes</a> that help with the design and you can always create your own theme.</p>
+</div>
+<div class="section" id="where-can-i-find-support">
+<h2>Where can I find support?<a class="headerlink" href="#where-can-i-find-support" title="Permalink to this headline">¶</a></h2>
+<p>HoloViz team very actively responds to issues and feature requests on their Github page (https://github.com/holoviz). I have submitted many issues and feature requests on their Github. They also provide consulting services (e.g., https://assets-cdn.anaconda.com/assets/resources/datasheets/dashboards-kickstart.pdf). Most of the HoloViz work actually is funded by a few key companies and agencies that they have established long-standing partnerships with.</p>
+</div>
+<div class="section" id="recommended-learning-resources">
+<h2>Recommended learning resources<a class="headerlink" href="#recommended-learning-resources" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pyviz.org/">Pyviz.org</a> has a good summary of all the Python visualization tools and landscape.</p>
+<p>If you are interested in learning more about HoloViz, here are some of the tutorials and talks I like:</p>
+<ul class="simple">
+<li><p>https://holoviz.org/tutorial/index.html</p></li>
+<li><p>https://www.youtube.com/watch?v=v0QiTptWt3w</p></li>
+<li><p>https://www.youtube.com/watch?v=t5oFw9NUhlQ</p></li>
+</ul>
+<p>Hope you enjoy using HoloViz!</p>
 </div>
 </div>
 
@@ -567,7 +611,7 @@ https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observation
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./DS/optimization/descentmethod"
+            path: "./DS/visualization/holoviz"
         },
         predefinedOutput: true
     }
@@ -582,8 +626,8 @@ https://www.cs.utexas.edu/users/flame/laff/alaff/chapter08-important-observation
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../optimization.html" title="previous page">Optimization</a>
-    <a class='right-next' id="next-link" href="descentmethod2.html" title="next page">Descent method — Steepest descent and conjugate gradient in Python</a>
+    <a class='left-prev' id="prev-link" href="../visualization.html" title="previous page">Visualization</a>
+    <a class='right-next' id="next-link" href="../real-time/realtimedash.html" title="next page">Real-time dashboard in Python</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

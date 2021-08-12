@@ -208,6 +208,11 @@
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
+    <a class="reference internal" href="../visualization/holoviz/holoviz.html">
+     Visualization and Interactive Dashboard in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../visualization/real-time/realtimedash.html">
      Real-time dashboard in Python
     </a>
@@ -988,6 +993,10 @@ Topic #1: hard assignments, great content, course hard assignments
 Topic #2: hard understand, textbook great, course love professor
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/sophia/miniconda3/envs/jupyterbook/lib/python3.8/site-packages/sklearn/decomposition/_nmf.py:1076: ConvergenceWarning: Maximum number of iterations 200 reached. Increase it to improve convergence.
+  warnings.warn(&quot;Maximum number of iterations %d reached. Increase it to&quot;
+</pre></div>
+</div>
 </div>
 </div>
 <p>Here is the result. Looks like topic 0 is about the professor and courses; topic 1 is about the assignment, and topic 3 is about the textbook. Note that we do not know what is the best number of topics here. We used 3 just because our sample size is very small. In practice, you might need to do a grid search to find the optimal number of topics.</p>
@@ -1016,9 +1025,9 @@ Topic #2: hard understand, textbook great, course love professor
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Topic #0: love professor, hard understand, great course love
-Topic #1: hard assignments, textbook great, great content textbook
-Topic #2: hard assignments, hard understand, love professor
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Topic #0: hard assignments, hard understand, great content
+Topic #1: assignments great, course hard assignments, assignments great content
+Topic #2: love professor, course love professor, great course love
 </pre></div>
 </div>
 </div>
