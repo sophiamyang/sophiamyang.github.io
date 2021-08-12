@@ -27,6 +27,7 @@
       - file: DS/etl/airflow_bigquery 
   - file: DS/visualization/visualization
     sections: 
+      - file: DS/visualization/holoviz/holoviz
       - file: DS/visualization/real-time/realtimedash
       - file: DS/visualization/landscape 
       - file: DS/visualization/multiline
